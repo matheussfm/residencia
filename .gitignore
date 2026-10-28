@@ -1,0 +1,6 @@
+﻿data/
+*.wav
+*.flac
+*.pth
+*.pt
+*.ckpt

@@ -1,0 +1,6 @@
+[submodule "third_party/BRSpeech-DF-Dataset"]
+	path = third_party/BRSpeech-DF-Dataset
+	url = https://github.com/AKCIT-Speech/BRSpeech-DF-Dataset.git
+[submodule "third_party/SSL_Anti-spoofing"]
+	path = third_party/SSL_Anti-spoofing
+	url = https://github.com/TakHemlata/SSL_Anti-spoofing.git

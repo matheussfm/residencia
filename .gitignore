@@ -4,3 +4,15 @@
 *.pth
 *.pt
 *.ckpt
+*.pkl
+
+# Notas pessoais de contexto (não versionadas)
+contexto.md
+
+# Experimentos: listas geradas (reproduzíveis), execuções interrompidas e caminhos do servidor
+experimentos/*/listas/
+*.partial
+*.tmp
+experimentos/*/config/servidor.env
+
+__pycache__/

@@ -1,0 +1,10 @@
+# Dependências além do PyTorch (vem da imagem base) e do fairseq (instalado do submódulo).
+# librosa na versão do Tak (SSL_Anti-spoofing/requirements.txt); numpy < 1.24 por compatibilidade
+# com o fairseq antigo (np.float etc.).
+librosa==0.9.1
+numpy==1.22.4
+numba==0.56.4
+llvmlite==0.39.1
+soundfile==0.12.1
+pandas==1.5.3
+tqdm==4.66.5

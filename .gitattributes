@@ -1,0 +1,5 @@
+# Os scripts são escritos no Windows e rodam no Linux: forçar LF.
+*.sh text eol=lf
+*.py text eol=lf
+*.env.example text eol=lf
+Dockerfile text eol=lf

@@ -1,0 +1,19 @@
+{
+  "pontuacoes": "../resultados/asvspoof21df/pontuacoes_repeat.txt",
+  "rotulos": "../listas/asvspoof21df/rotulos.tsv",
+  "n_bonafide": 14869,
+  "n_spoof": 519059,
+  "n_extras_ignorados": 77901,
+  "eer": 0.02858272519037352,
+  "limiar_eer": -3.532778024673462,
+  "media_bonafide": 2.169290821422817,
+  "media_spoof": -3.6403170568171928,
+  "limiares": [
+    {
+      "limiar": -3.5327,
+      "acuracia": 0.9714661901979293,
+      "falsos_aceitos": 0.028530475340953532,
+      "genuinos_rejeitados": 0.028650211850158046
+    }
+  ]
+}

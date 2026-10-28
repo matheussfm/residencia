@@ -1,0 +1,43 @@
+{
+  "nossas": "../resultados/asvspoof21df/pontuacoes_repeat.txt",
+  "referencia": [
+    "../../../third_party/SSL_Anti-spoofing/Scores/DF/Scores_DF.txt"
+  ],
+  "n_comuns": 611829,
+  "so_nossas": 0,
+  "n_referencia": 611829,
+  "pearson": 0.9999996362879667,
+  "dif_abs_max": 0.0763850212097168,
+  "dif_abs_media": 0.00026872581777291296,
+  "tolerancia": 0.001,
+  "frac_acima_tolerancia": 0.024477427516511968,
+  "limiar": -3.5327,
+  "frac_decisao_igual": 0.9997907912178076,
+  "piores": [
+    {
+      "id": "DF_E_3966319",
+      "nossa": -2.4337453842163086,
+      "referencia": -2.5101304054260254
+    },
+    {
+      "id": "DF_E_2429735",
+      "nossa": -3.217672109603882,
+      "referencia": -3.1505565643310547
+    },
+    {
+      "id": "DF_E_3501681",
+      "nossa": -2.9476985931396484,
+      "referencia": -2.8830952644348145
+    },
+    {
+      "id": "DF_E_2935618",
+      "nossa": -3.670461654663086,
+      "referencia": -3.732234239578247
+    },
+    {
+      "id": "DF_E_3426579",
+      "nossa": -3.7600486278533936,
+      "referencia": -3.698777437210083
+    }
+  ]
+}

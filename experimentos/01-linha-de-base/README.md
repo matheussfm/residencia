@@ -5,7 +5,8 @@ cenários com resultados já publicados: ASVspoof 2021 DF, In-the-Wild e BRSpeec
 Não há treinamento. Este experimento é uma **avaliação do modelo publicado**, e não uma
 reprodução por treinamento.
 
-> Status: _em andamento_. Os campos marcados com _(a preencher)_ dependem das execuções.
+> Status: ASVspoof 2021 DF e In-the-Wild concluídos (2026-10-28). BRSpeech-DF pendente
+> (download do dataset bloqueado pelo Google Drive). Os campos _(a preencher)_ dependem dele.
 
 ---
 
@@ -64,9 +65,18 @@ consolidado, em três níveis de distância do treino:
 
 | Cenário | Nº de áudios (gen./falsos) | EER de referência | Nossa EER | Acurácia em −3,5327 |
 |---|---|---|---|---|
-| ASVspoof 2021 DF (eval) | 14.869 / 519.059 | 2,85% [1] | _(a preencher)_ | _(a preencher)_ |
-| In-the-Wild | _(a preencher)_ | ~10–11% [2][3], aproximada | _(a preencher)_ | _(a preencher)_ |
+| ASVspoof 2021 DF (eval) | 14.869 / 519.059 | 2,85% [1] | **2,86%** | 97,15% |
+| In-the-Wild | 19.963 / 11.816 | 10,46% [2], 11,2% [3] | **10,48%** | 88,97% |
 | BRSpeech-DF (test) | 1.320 / 6.587 | 35,38% e acurácia de 70,22% [4] | _(a preencher)_ | _(a preencher)_ |
+
+A EER do ASVspoof 2021 DF foi calculada com o script oficial `evaluate_2021_DF.py` e as
+chaves `DF-keys-stage-1`, e conferida com o `metricas.py` (2,858%, limiar −3,5328). As
+demais vêm do `metricas.py`, que usa a mesma função `compute_eer` do Tak.
+
+Do 2021 DF para o In-the-Wild, a EER quase quadruplica. As pontuações médias mostram
+de onde vem a perda: os falsos continuam com pontuação parecida (−3,64 no 2021 DF,
+−3,61 no In-the-Wild), mas os genuínos caem de +2,17 para −0,53. O modelo passa a
+desconfiar de fala real gravada fora das condições do treino.
 
 ### 4.3 Efeito do preenchimento de áudios curtos
 
@@ -75,8 +85,12 @@ com zeros.
 
 | Cenário | EER (repetição) | EER (zeros) |
 |---|---|---|
-| In-the-Wild | _(a preencher)_ | _(a preencher)_ |
+| In-the-Wild | 10,48% | 11,96% |
 | BRSpeech-DF (test) | _(a preencher)_ | _(a preencher)_ |
+
+No In-the-Wild, preencher com zeros piora a EER em 1,5 ponto e desloca as pontuações
+para cima (média dos genuínos de −0,53 para +0,47). A escolha do preenchimento é,
+portanto, uma fonte de variação entre resultados publicados com o mesmo modelo.
 
 ### 4.4 BRSpeech-DF por gerador (EER de todos os genuínos contra cada TTS)
 
@@ -109,17 +123,22 @@ Comparação arquivo a arquivo entre as nossas pontuações e as publicadas
 
 | Cenário | Correlação | Diferença máx. | Mesma decisão em −3,5327 |
 |---|---|---|---|
-| ASVspoof 2021 DF | _(a preencher)_ | _(a preencher)_ | _(a preencher)_ |
+| ASVspoof 2021 DF (611.829 arquivos) | 0,9999996 | 0,076 (média 2,7·10⁻⁴) | 99,98% |
 | BRSpeech-DF, repetição | _(a preencher)_ | _(a preencher)_ | _(a preencher)_ |
 | BRSpeech-DF, zeros | _(a preencher)_ | _(a preencher)_ | _(a preencher)_ |
 
+As diferenças no 2021 DF são numéricas, e não de método: com pré-processamento
+diferente, a correlação cairia e muitas decisões mudariam. Uma causa provável, ainda
+não verificada, é o TF32, que o PyTorch 1.8 usa por padrão nas multiplicações de
+matrizes em GPUs Ampere/Ada (como a RTX 4090).
+
 ### 5.3 O que o resultado confirma ou contraria
 
-_(a preencher após as execuções)_
-
-- Reprodução: a execução reproduz os números publicados?
-- Generalização: tamanho da perda do 2021 DF para o In-the-Wild e para o BRSpeech-DF.
-- Implicações para a hipótese: _(a preencher)_
+- **Reprodução:** confirmada no 2021 DF (2,86% contra 2,85% publicados) e coerente
+  com os números de terceiros no In-the-Wild (10,48% contra 10,46% e 11,2%).
+- **Generalização:** a EER sobe de 2,86% para 10,48% ao sair do domínio do treino,
+  e a perda se concentra nos áudios genuínos. BRSpeech-DF: _(a preencher)_
+- **Implicações para a hipótese:** _(a preencher após o BRSpeech-DF)_
 
 ---
 
@@ -131,19 +150,28 @@ _(a preencher após as execuções)_
   - `third_party/SSL_Anti-spoofing` @ `4acaa61dcef5f7610f43aa4d0b29c4559b970cd2`
   - `third_party/BRSpeech-DF-Dataset` @ `13c9ad4ba64bb54cd0b9f6e0c415dd577d346db6`
 - Checkpoints (SHA-256):
-  - `Best_LA_model_for_DF.pth`: _(a preencher)_
-  - `xlsr2_300m.pt`: _(a preencher)_
-- Ambiente: imagem de `docker/Dockerfile`, com base _(a preencher: pt181 ou pt1131)_,
-  PyTorch _(a preencher)_, CUDA _(a preencher)_, GPU NVIDIA RTX 4090. Os detalhes de
-  cada execução estão em `resultados/**/*.meta.json`.
+  - `Best_LA_model_for_DF.pth` (1.271.642.081 bytes):
+    `1cf904f1d84c867c278cd42161df5367939d61cc28bfefd239bc995af59c2804`
+  - `xlsr2_300m.pt` (3.808.868.242 bytes):
+    `b08927597f2c9eb2ebd7dcc3ac78ee4b5f6021cbac4b3a6c5a9deec445d80ed9`
+- Ambiente: imagem `residencia-exp01:pt181`, gerada por `docker/Dockerfile` com a base
+  padrão `pytorch/pytorch:1.8.1-cuda11.1-cudnn8-runtime`. Python 3.8.8, PyTorch 1.8.1,
+  CUDA 11.1, cuDNN 8.0.5, fairseq 1.0.0a0 (commit a540213), librosa 0.9.1, numpy 1.22.4.
+  GPU NVIDIA RTX 4090 (driver 580.173.02).
+- Tempo de inferência: 45,1 min no 2021 DF e 2,4 min em cada rodada do In-the-Wild
+  (~220 arquivos/s). Os detalhes de cada execução, incluindo o SHA-256 de cada arquivo de
+  pontuações, estão em `resultados/**/*.meta.json`.
 
 ### Dados
 
 | Dataset | Origem |
 |---|---|
-| ASVspoof 2021 DF eval | Zenodo, registro 4835108 (4 partes `.tar.gz`) |
-| In-the-Wild | Hugging Face `mueller91/In-The-Wild` (`release_in_the_wild.zip`) |
+| ASVspoof 2021 DF eval | Zenodo, registro 4835108 (4 partes `.tar.gz`, md5 conferido); 611.829 `.flac` a 16 kHz |
+| In-the-Wild | Hugging Face `mueller91/In-The-Wild` (`release_in_the_wild.zip`, 8.161.489.023 bytes); 31.779 `.wav` a 16 kHz |
 | BRSpeech-DF | Google Drive do AKCIT (link no README do submódulo) |
+
+O `meta.csv` do In-the-Wild tem 54 nomes de locutor distintos, e não os 58 citados no
+artigo. A diferença não afeta a EER, que não usa o locutor.
 
 ### Integridade dos submódulos
 
@@ -153,7 +181,41 @@ cenário.
 
 ### Comandos
 
-_(a preencher com os comandos exatos usados no servidor)_
+No servidor, a partir da raiz do repositório, com `config/servidor.env` apontando para
+as pastas de dados e checkpoints:
+
+```bash
+# Ambiente e checkpoints
+docker build -f experimentos/01-linha-de-base/docker/Dockerfile -t residencia-exp01:pt181 .
+bash experimentos/01-linha-de-base/scripts/baixar_checkpoints.sh ~/matheus/checkpoints
+
+S=experimentos/01-linha-de-base/scripts/em_docker.sh
+CK="--checkpoint /ckpt/Best_LA_model_for_DF.pth --xlsr /ckpt/xlsr2_300m.pt"
+
+# ASVspoof 2021 DF
+bash $S nenhuma python preparar_asvspoof21df.py --audio /dados/asvspoof2021_df/ASVspoof2021_DF_eval/flac --saida ../listas/asvspoof21df
+bash $S 0 python inferir.py --lista ../listas/asvspoof21df/lista.tsv --workers 8 $CK --saida ../resultados/asvspoof21df/pontuacoes_repeat.txt
+
+# In-the-Wild (dois preenchimentos)
+bash $S nenhuma python preparar_itw.py --raiz /dados/in_the_wild/release_in_the_wild --saida ../listas/in_the_wild
+bash $S 0 python inferir.py --lista ../listas/in_the_wild/lista.tsv --workers 8 $CK --padding repeat --saida ../resultados/in_the_wild/pontuacoes_repeat.txt
+bash $S 0 python inferir.py --lista ../listas/in_the_wild/lista.tsv --workers 8 $CK --padding zero --saida ../resultados/in_the_wild/pontuacoes_zero.txt
+
+# Métricas
+TP=../../../third_party/SSL_Anti-spoofing
+R=../resultados
+bash $S nenhuma python -B $TP/evaluate_2021_DF.py $R/asvspoof21df/pontuacoes_repeat.txt $TP/DF-keys-stage-1/keys eval
+bash $S nenhuma python metricas.py --pontuacoes $R/asvspoof21df/pontuacoes_repeat.txt --rotulos ../listas/asvspoof21df/rotulos.tsv --permitir-extras --saida $R/asvspoof21df/metricas_repeat.json
+bash $S nenhuma python comparar_pontuacoes.py --nossas $R/asvspoof21df/pontuacoes_repeat.txt --referencia $TP/Scores/DF/Scores_DF.txt --saida $R/asvspoof21df/comparacao_tak.json
+bash $S nenhuma python metricas.py --pontuacoes $R/in_the_wild/pontuacoes_repeat.txt --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/metricas_repeat.json
+bash $S nenhuma python metricas.py --pontuacoes $R/in_the_wild/pontuacoes_zero.txt --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/metricas_zero.json
+
+# Antes e depois de cada etapa
+bash experimentos/01-linha-de-base/scripts/verificar_submodulos.sh
+```
+
+Um teste rápido com 56 arquivos (`--limite 56`, em `resultados/teste_rapido/`) foi feito
+antes da execução completa, para validar a GPU e comparar com as pontuações do Tak.
 
 ---
 

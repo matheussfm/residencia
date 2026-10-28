@@ -1,0 +1,19 @@
+{
+  "pontuacoes": "../resultados/in_the_wild/pontuacoes_zero.txt",
+  "rotulos": "../listas/in_the_wild/rotulos.tsv",
+  "n_bonafide": 19963,
+  "n_spoof": 11816,
+  "n_extras_ignorados": 0,
+  "eer": 0.1196024574202966,
+  "limiar_eer": -3.4027082920074463,
+  "media_bonafide": 0.4674702535232203,
+  "media_spoof": -3.4480107002642533,
+  "limiares": [
+    {
+      "limiar": -3.5327,
+      "acuracia": 0.881619937694704,
+      "falsos_aceitos": 0.23425863236289776,
+      "genuinos_rejeitados": 0.049792115413515005
+    }
+  ]
+}

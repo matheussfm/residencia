@@ -6,6 +6,10 @@ Referências disponíveis nos submódulos (lidas, nunca alteradas):
                third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_sintetico_full_scores.pkl
   (--referencia pode ser repetido; os arquivos são unidos.)
 
+Com --mapa (TSV com colunas id e id_referencia), os nossos ids são traduzidos para os
+da referência e só os ids do mapa são comparados. Serve para a versão Hugging Face do
+BRSpeech-DF, em que os falsos não trazem o nome original (ver preparar_brspeech_hf.py).
+
 Mede quanto as pontuações diferem e se a decisão no limiar muda. Serve para
 confirmar que a nossa inferência reproduz a dos autores e, no BRSpeech-DF,
 para descobrir se o AKCIT preencheu os áudios com repetição ou com zeros.
@@ -22,7 +26,7 @@ sys.dont_write_bytecode = True
 
 import numpy as np
 
-from _comum import erro, garantir_fora_third_party, ler_pontuacoes, resumo
+from _comum import erro, garantir_fora_third_party, ler_pontuacoes, ler_tsv, resumo
 
 LIMIAR_AKCIT = -3.5327
 
@@ -34,12 +38,16 @@ def main():
     ap.add_argument('--tolerancia', type=float, default=1e-3,
                     help='diferença absoluta considerada "igual" (padrão 1e-3)')
     ap.add_argument('--limiar', type=float, default=LIMIAR_AKCIT)
+    ap.add_argument('--mapa', help='TSV com colunas id e id_referencia')
     ap.add_argument('--saida', help='JSON com o resultado')
     args = ap.parse_args()
     if args.saida:
         garantir_fora_third_party(args.saida)
 
     nossas = ler_pontuacoes(args.nossas)
+    if args.mapa:
+        mapa = {r['id']: r['id_referencia'] for r in ler_tsv(args.mapa)}
+        nossas = {mapa[k]: v for k, v in nossas.items() if k in mapa}
     ref = {}
     for caminho in args.referencia:
         r = ler_pontuacoes(caminho)
@@ -58,6 +66,7 @@ def main():
     res = {
         'nossas': args.nossas,
         'referencia': args.referencia,
+        'mapa': args.mapa,
         'n_comuns': len(comuns),
         'so_nossas': len(nossas) - len(comuns),
         'n_referencia': len(ref),

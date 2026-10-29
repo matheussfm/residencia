@@ -9,6 +9,11 @@ Saída: arquivo texto "id pontuacao" por linha, no formato do Tak (aceito pelo
 evaluate_2021_DF.py). Pontuação = logit da classe bonafide; maior => genuíno.
 Grava também <saida>.meta.json com versões, hashes e tempos.
 
+Com --sem-corte, os áudios mais longos que 64.600 amostras são usados inteiros (até
+--max-segundos), em vez de cortados. Os mais curtos continuam preenchidos até 64.600
+amostras, como no original, de modo que só o efeito do corte muda. Nesse modo os áudios
+são processados um por vez, porque têm durações diferentes.
+
 Exemplo:
     python inferir.py --lista listas/brspeech_test/lista.tsv \
         --saida resultados/brspeech_test/pontuacoes_repeat.txt \
@@ -61,9 +66,10 @@ PADDINGS = {'repeat': pad, 'zero': pad_zeros}
 
 
 class ListaAudios(Dataset):
-    def __init__(self, itens, padding):
+    def __init__(self, itens, padding, max_amostras=None):
         self.itens = itens
         self.pad = PADDINGS[padding]
+        self.max_amostras = max_amostras  # None = corte original de AMOSTRAS
 
     def __len__(self):
         return len(self.itens)
@@ -73,7 +79,9 @@ class ListaAudios(Dataset):
         x, _ = librosa.load(caminho, sr=16000)
         if x.shape[0] == 0:
             raise RuntimeError(f'áudio vazio: {caminho}')
-        return torch.Tensor(self.pad(x, AMOSTRAS)), id_
+        if self.max_amostras is None or x.shape[0] < AMOSTRAS:
+            return torch.Tensor(self.pad(x, AMOSTRAS)), id_
+        return torch.Tensor(x[:self.max_amostras]), id_
 
 
 def carregar_modelo(checkpoint, xlsr, dispositivo):
@@ -139,6 +147,10 @@ def main():
     ap.add_argument('--lote', type=int, default=14, help='tamanho do lote (14 = avaliação do Tak)')
     ap.add_argument('--workers', type=int, default=4, help='processos do DataLoader')
     ap.add_argument('--dispositivo', default='cuda')
+    ap.add_argument('--sem-corte', action='store_true',
+                    help='usa os áudios longos inteiros em vez de cortar em 64.600 amostras')
+    ap.add_argument('--max-segundos', type=float, default=60.0,
+                    help='com --sem-corte, limite de duração por áudio (memória); padrão 60 s')
     ap.add_argument('--limite', type=int, default=None, help='processa só os N primeiros (teste rápido)')
     ap.add_argument('--sobrescrever', action='store_true', help='permite substituir uma saída existente')
     args = ap.parse_args()
@@ -170,7 +182,9 @@ def main():
     with open(parcial, 'w', encoding='utf-8') as f:
         f.writelines(f'{k} {v}\n' for k, v in feitos.items())
 
-    carregador = DataLoader(ListaAudios(pendentes, args.padding), batch_size=args.lote,
+    max_amostras = int(args.max_segundos * 16000) if args.sem_corte else None
+    lote = 1 if args.sem_corte else args.lote
+    carregador = DataLoader(ListaAudios(pendentes, args.padding, max_amostras), batch_size=lote,
                             shuffle=False, drop_last=False, num_workers=args.workers)
     t1 = time.time()
     n = 0
@@ -185,7 +199,7 @@ def main():
                 f.write(f'{id_} {p}\n')
             f.flush()
             n += len(ids)
-            if i % 200 == 0:
+            if i % (200 * args.lote // lote) == 0:
                 dt = time.time() - t1
                 print(f'  {n}/{len(pendentes)}  ({n / max(dt, 1e-9):.0f} arquivos/s)', flush=True)
     t_inf = time.time() - t1
@@ -208,8 +222,10 @@ def main():
         'saida': args.saida,
         'n_arquivos': len(itens),
         'padding': args.padding,
-        'lote': args.lote,
+        'lote': lote,
         'amostras': AMOSTRAS,
+        'sem_corte': args.sem_corte,
+        'max_amostras': max_amostras,
         'checkpoint': args.checkpoint,
         'checkpoint_sha256': sha256(args.checkpoint),
         'xlsr_sha256': sha256(args.xlsr),
@@ -232,6 +248,7 @@ def main():
     resumo('inferir.py', [
         ('arquivos', len(itens)),
         ('padding', args.padding),
+        ('corte', f'sem corte (até {args.max_segundos:g} s)' if args.sem_corte else f'{AMOSTRAS} amostras'),
         ('gpu', meta['gpu']),
         ('torch / cuda', f"{meta['torch']} / {meta['cuda']}"),
         ('tempo de inferência', f'{t_inf / 60:.1f} min'),

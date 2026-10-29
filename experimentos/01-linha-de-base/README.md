@@ -178,8 +178,25 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
 - **Sensibilidade ao pré-processamento:** o preenchimento de áudios curtos muda a EER em
   até 3,9 pontos, em sentidos opostos conforme o dataset. Comparações entre trabalhos
   precisam declarar esse detalhe.
-- **Implicações para a hipótese:** _(a escrever: o que esta linha de base sugere para um
-  detector que combine evidências acústicas e semânticas)_
+- **Implicações para a hipótese** _(rascunho, a revisar)_:
+  - **Números a superar**, com o mesmo pré-processamento: 10,48% no In-the-Wild e 39,24%
+    no BRSpeech-DF. O 2021 DF (2,86%) serve para verificar que a combinação com evidência
+    semântica não piora o caso dentro do domínio.
+  - **Onde está a perda:** fora do domínio, o detector acústico rejeita fala genuína,
+    provavelmente porque confunde condição de gravação desconhecida com sinal de síntese.
+    A evidência semântica não depende do canal de gravação, o que motiva a hipótese. O teste
+    é se ela reduz a rejeição de genuínos sem aumentar a aceitação de falsos.
+  - **Cuidado com o BRSpeech-DF:** o dataset é paralelo. Todo falso do teste tem um genuíno
+    com o mesmo nome de arquivo, ou seja, refaz a mesma frase, provavelmente com o mesmo
+    texto. Nesse dataset, portanto, o conteúdo textual sozinho não separa as classes. A
+    evidência semântica teria de vir da relação entre o conteúdo e a forma de falar
+    (prosódia, ênfase e pausas coerentes com o sentido), e não do texto em si.
+  - **Janela de 4 s:** o detector só vê os primeiros ~4 s de cada áudio, o que é pouco
+    contexto para evidência semântica. Uma comparação justa precisa controlar esse fator,
+    por exemplo avaliando também a linha de base com o áudio inteiro.
+  - **Limiar:** o limiar calibrado no 2021 DF não transfere bem para outros domínios. Por
+    isso, a comparação deve se basear na EER, com a acurácia em limiar fixo como
+    complemento.
 
 ---
 

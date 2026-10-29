@@ -6,7 +6,8 @@ recebem preenchimento, e quantos são mais longos, e portanto são cortados.
 
 Exemplo (dentro do container):
     python duracoes.py --lista ../listas/in_the_wild/lista.tsv --rotulos ../listas/in_the_wild/rotulos.tsv \
-        --saida ../resultados/in_the_wild/duracoes.json
+        --saida ../resultados/in_the_wild/duracoes.json \
+        --por-arquivo ../resultados/in_the_wild/duracoes_por_arquivo.tsv
 """
 import argparse
 import json
@@ -17,7 +18,7 @@ sys.dont_write_bytecode = True
 import numpy as np
 import soundfile
 
-from _comum import erro, garantir_fora_third_party, ler_tsv
+from _comum import erro, escrever_tsv, garantir_fora_third_party, ler_tsv
 
 CORTE_S = 64600 / 16000
 
@@ -44,17 +45,20 @@ def main():
     ap.add_argument('--rotulos', required=True)
     ap.add_argument('--por-grupo', action='store_true', help='também por valor da coluna grupo')
     ap.add_argument('--saida', help='JSON com as estatísticas')
+    ap.add_argument('--por-arquivo', help='TSV com id, amostras a 16 kHz e duração em segundos de cada áudio')
     args = ap.parse_args()
-    if args.saida:
-        garantir_fora_third_party(args.saida)
+    for caminho in (args.saida, args.por_arquivo):
+        if caminho:
+            garantir_fora_third_party(caminho)
 
     rot = {r['id']: r for r in ler_tsv(args.rotulos)}
-    dur = {}
+    dur, amostras = {}, {}
     for n, r in enumerate(ler_tsv(args.lista), 1):
         if r['id'] not in rot:
             continue
         info = soundfile.info(r['caminho'])
         dur[r['id']] = info.frames / info.samplerate
+        amostras[r['id']] = round(info.frames * 16000 / info.samplerate)
         if n % 50000 == 0:
             print(f'  {n} arquivos lidos', flush=True)
     if not dur:
@@ -71,6 +75,9 @@ def main():
     if args.saida:
         with open(args.saida, 'w', encoding='utf-8') as f:
             json.dump({'lista': args.lista, 'corte_s': CORTE_S, 'estatisticas': res}, f, indent=2, ensure_ascii=False)
+    if args.por_arquivo:
+        escrever_tsv(args.por_arquivo, ['id', 'amostras_16k', 'segundos'],
+                     ((i, amostras[i], f'{dur[i]:.4f}') for i in dur))
 
     print(f'\n==== DURAÇÕES (s) — corte do modelo: {CORTE_S:.2f} s ====')
     print(f"{'conjunto':22s} {'n':>7s} {'min':>6s} {'p5':>6s} {'mediana':>7s} {'média':>6s} {'p95':>6s} {'max':>7s} {'<corte':>7s} {'>corte':>7s}")

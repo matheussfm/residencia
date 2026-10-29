@@ -9,8 +9,10 @@
 # Notas pessoais de contexto (não versionadas)
 contexto.md
 
-# Experimentos: listas geradas (reproduzíveis), execuções interrompidas e caminhos do servidor
-experimentos/*/listas/
+# Experimentos: lista.tsv só tem caminhos do servidor (os rótulos e mapas são versionados);
+# rótulos do 2021 DF ficam de fora por tamanho (saem das chaves do submódulo)
+experimentos/*/listas/**/lista.tsv
+experimentos/*/listas/asvspoof21df/
 *.partial
 *.tmp
 experimentos/*/config/servidor.env

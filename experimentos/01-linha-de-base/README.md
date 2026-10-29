@@ -153,6 +153,46 @@ preenchidos e os mais longos, cortados (`duracoes.py`, `resultados/*/duracoes.js
 - **Anomalias no BRSpeech-DF:** um áudio do Fish-Speech tem 376 s, provavelmente uma falha
   de geração do TTS, e um do ToucanTTS tem 0,02 s. São casos isolados.
 
+### 4.7 Avaliação sem o corte de 4 s
+
+Para medir o efeito do corte, o modelo foi rodado de novo com os áudios longos **inteiros**
+(`inferir.py --sem-corte`). Os curtos continuam preenchidos por repetição até 4,04 s, como no
+original, de modo que só o corte muda. Os áudios são processados um por vez. Há um limite de
+segurança de 60 s por áudio, por causa da memória, que só afeta o áudio anômalo de 376 s do
+Fish-Speech.
+
+| Cenário | EER com corte (4 s) | EER sem corte | Média dos genuínos | Média dos falsos |
+|---|---|---|---|---|
+| In-the-Wild | 10,48% | **12,18%** | −0,53 → −0,68 | −3,61 → −3,59 |
+| BRSpeech-DF (test) | 39,24% | **41,90%** | −2,15 → −2,89 | −3,49 → −3,49 |
+
+| TTS (BRSpeech-DF) | Com corte | Sem corte |
+|---|---|---|
+| ToucanTTS | 28,33% | 36,36% |
+| Fish-Speech | 33,93% | 37,80% |
+| YourTTS | 37,86% | 44,08% |
+| F5-TTS | 44,84% | 43,32% |
+| XTTS | 45,53% | 47,42% |
+
+- **Ouvir o áudio inteiro piora o detector** nos dois cenários. A piora vem de novo dos
+  genuínos: com mais áudio, a fala real recebe pontuação mais baixa, isto é, parece mais
+  falsa. A pontuação dos falsos praticamente não muda.
+- **Interpretação provável:** o modelo foi treinado com trechos de ~4 s. Áudios mais longos
+  ficam fora da distribuição de treino e alteram as estatísticas que o back-end agrega ao
+  longo do tempo. Para este modelo, mais áudio não significa mais informação útil.
+- **A acurácia no limiar fixo é instável:** no BRSpeech-DF, ela cai de 75,95% para 47,50%,
+  porque muitas pontuações se concentram perto de −3,5. É mais um motivo para usar a EER
+  como métrica principal.
+- **Controle:** com e sem corte, os áudios curtos deveriam ter a mesma pontuação. A
+  proporção de pontuações que mudam mais de 0,01 (37,0% no In-the-Wild e 72,8% no
+  BRSpeech-DF) acompanha a proporção de áudios longos (38,5% e 77,5%). As diferenças
+  menores que 0,01 nos áudios curtos são ruído numérico, por causa do tamanho de lote
+  diferente (1 contra 14).
+- **2021 DF não foi rodado sem corte.** Ali os áudios são curtos: mediana de 2,9 s; 77% têm
+  menos de 4,04 s e não mudariam; 95% têm até 5,1 s. Os poucos áudios longos ganhariam, em
+  geral, menos de 1 s. A diferença esperada é pequena demais para justificar a execução
+  completa (611.829 áudios, um por vez).
+
 ## 5. Validação
 
 ### 5.1 Validação da métrica (antes de usar GPU)
@@ -214,8 +254,11 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
     (prosódia, ênfase e pausas coerentes com o sentido), e não do texto em si.
   - **Janela de 4 s:** o detector só vê os primeiros ~4 s de cada áudio, o que é pouco
     contexto para evidência semântica. No BRSpeech-DF, isso é cerca de um terço da fala
-    disponível (seção 4.6). Uma comparação justa precisa controlar esse fator, por exemplo
-    avaliando também a linha de base com o áudio inteiro.
+    disponível (seção 4.6). Mas dar o áudio inteiro ao detector acústico **piora** a EER
+    (seção 4.7), provavelmente porque ele foi treinado com trechos de 4 s. Se o modelo com
+    evidência semântica usar o áudio inteiro, a comparação justa é contra a melhor
+    configuração da linha de base (com corte), ou contra um detector acústico retreinado
+    com trechos mais longos.
   - **Limiar:** o limiar calibrado no 2021 DF não transfere bem para outros domínios. Por
     isso, a comparação deve se basear na EER, com a acurácia em limiar fixo como
     complemento.
@@ -239,7 +282,8 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
   CUDA 11.1, cuDNN 8.0.5, fairseq 1.0.0a0 (commit a540213), librosa 0.9.1, numpy 1.22.4.
   GPU NVIDIA RTX 4090 (driver 580.173.02).
 - Tempo de inferência: 45,1 min no 2021 DF, 2,4 min em cada rodada do In-the-Wild
-  (~220 arquivos/s) e 1,3 min em cada rodada do BRSpeech-DF. Os detalhes de cada execução, incluindo o SHA-256 de cada arquivo de
+  (~220 arquivos/s) e 1,3 min em cada rodada do BRSpeech-DF. Sem corte, com um áudio por
+  vez: 5,8 min no In-the-Wild e 2,5 min no BRSpeech-DF. Os detalhes de cada execução, incluindo o SHA-256 de cada arquivo de
   pontuações, estão em `resultados/**/*.meta.json`.
 
 ### Dados
@@ -316,6 +360,14 @@ done
 bash $S nenhuma python duracoes.py --lista ../listas/asvspoof21df/lista.tsv --rotulos ../listas/asvspoof21df/rotulos.tsv --saida $R/asvspoof21df/duracoes.json
 bash $S nenhuma python duracoes.py --lista ../listas/in_the_wild/lista.tsv --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/duracoes.json
 bash $S nenhuma python duracoes.py --lista ../listas/brspeech_test_hf/lista.tsv --rotulos ../listas/brspeech_test_hf/rotulos.tsv --por-grupo --saida $R/brspeech_test_hf/duracoes.json
+
+# Sem o corte de 4 s (In-the-Wild e BRSpeech-DF)
+for c in brspeech_test_hf in_the_wild; do
+  G=""; [ $c = brspeech_test_hf ] && G="--por-grupo"
+  bash $S 0 python inferir.py --lista ../listas/$c/lista.tsv --workers 8 $CK --sem-corte --saida $R/$c/pontuacoes_repeat_semcorte.txt
+  bash $S nenhuma python metricas.py --pontuacoes $R/$c/pontuacoes_repeat_semcorte.txt --rotulos ../listas/$c/rotulos.tsv $G --saida $R/$c/metricas_repeat_semcorte.json
+  bash $S nenhuma python comparar_pontuacoes.py --nossas $R/$c/pontuacoes_repeat_semcorte.txt --referencia $R/$c/pontuacoes_repeat.txt --saida $R/$c/comparacao_semcorte_vs_corte.json
+done
 
 # Antes e depois de cada etapa
 bash experimentos/01-linha-de-base/scripts/verificar_submodulos.sh

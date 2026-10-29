@@ -1,0 +1,68 @@
+{
+  "pontuacoes": "../resultados/brspeech_test_hf/pontuacoes_repeat_semcorte.txt",
+  "rotulos": "../listas/brspeech_test_hf/rotulos.tsv",
+  "n_bonafide": 1320,
+  "n_spoof": 6587,
+  "n_extras_ignorados": 0,
+  "eer": 0.41897326460291395,
+  "limiar_eer": -3.5082919597625732,
+  "media_bonafide": -2.8847867829922698,
+  "media_spoof": -3.4892564689760617,
+  "limiares": [
+    {
+      "limiar": -3.5327,
+      "acuracia": 0.47502213228784623,
+      "falsos_aceitos": 0.5630787915591317,
+      "genuinos_rejeitados": 0.33484848484848484
+    }
+  ],
+  "grupos": {
+    "bonafide": {
+      "n_bonafide": 1320,
+      "n_spoof": 0,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.6651515151515152
+      }
+    },
+    "f5tts": {
+      "n_bonafide": 0,
+      "n_spoof": 1316,
+      "eer_vs_todos_genuinos": 0.4332320162107396,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.39361702127659576
+      }
+    },
+    "fish-speech": {
+      "n_bonafide": 0,
+      "n_spoof": 1315,
+      "eer_vs_todos_genuinos": 0.37798853554556977,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.538403041825095
+      }
+    },
+    "toucantts": {
+      "n_bonafide": 0,
+      "n_spoof": 1320,
+      "eer_vs_todos_genuinos": 0.36363636363636365,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.5848484848484848
+      }
+    },
+    "xtts": {
+      "n_bonafide": 0,
+      "n_spoof": 1320,
+      "eer_vs_todos_genuinos": 0.47424242424242424,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.3053030303030303
+      }
+    },
+    "yourtts": {
+      "n_bonafide": 0,
+      "n_spoof": 1316,
+      "eer_vs_todos_genuinos": 0.4408192870958828,
+      "acuracia_no_limiar": {
+        "-3.5327": 0.36246200607902734
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "nossas": "../resultados/in_the_wild/pontuacoes_repeat_semcorte.txt",
+  "referencia": [
+    "../resultados/in_the_wild/pontuacoes_repeat.txt"
+  ],
+  "mapa": null,
+  "n_comuns": 31779,
+  "so_nossas": 0,
+  "n_referencia": 31779,
+  "pearson": 0.9724884838450125,
+  "dif_abs_max": 7.577622413635254,
+  "dif_abs_media": 0.1742725983290665,
+  "tolerancia": 0.001,
+  "frac_acima_tolerancia": 0.6242801850278485,
+  "limiar": -3.5327,
+  "frac_decisao_igual": 0.9696340350545958,
+  "piores": [
+    {
+      "id": "29998.wav",
+      "nossa": -3.3835344314575195,
+      "referencia": 4.194087982177734
+    },
+    {
+      "id": "11433.wav",
+      "nossa": -3.3230526447296143,
+      "referencia": 4.172400951385498
+    },
+    {
+      "id": "7440.wav",
+      "nossa": -3.121751546859741,
+      "referencia": 4.291228771209717
+    },
+    {
+      "id": "29328.wav",
+      "nossa": -2.9387824535369873,
+      "referencia": 4.3529133796691895
+    },
+    {
+      "id": "30659.wav",
+      "nossa": -2.8735735416412354,
+      "referencia": 4.299997806549072
+    }
+  ]
+}

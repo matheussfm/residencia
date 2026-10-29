@@ -145,6 +145,8 @@ Antes de ir para o servidor, os scripts foram testados localmente, sem GPU:
 | 2021 DF completo | 45 min (~220 áudios/s); EER oficial de **2,86%** |
 | In-the-Wild, com repetição e com zeros | 2,4 min cada; **10,48%** e 11,96% |
 | BRSpeech-DF (versão Hugging Face), com repetição e com zeros | 1,3 min cada; **39,24%** e 35,38% |
+| Durações dos áudios nos três cenários | Medianas de 2,9 s, 3,3 s e 11,0 s |
+| In-the-Wild e BRSpeech-DF sem o corte de 4 s | 5,8 e 2,5 min; 12,18% e 41,90% (pioram) |
 
 Todos os arquivos de pontuação foram conferidos por SHA-256 depois de copiados para o PC. A EER
 do 2021 DF também foi recalculada de forma independente no PC.
@@ -230,6 +232,14 @@ do 2021 DF também foi recalculada de forma independente no PC.
    têm mediana de 11 s, então o modelo ouve só cerca de um terço de cada um (README,
    seção 4.6). No In-the-Wild, os genuínos são mais curtos que os falsos, então o
    preenchimento afeta mais os genuínos.
+8. **Ouvir o áudio inteiro piora o detector.** Sem o corte, a EER sobe de 10,48% para
+   12,18% no In-the-Wild e de 39,24% para 41,90% no BRSpeech-DF. De novo, são os genuínos
+   que passam a parecer mais falsos. A explicação provável é que o modelo foi treinado com
+   trechos de 4 s, e áudios longos ficam fora do que ele viu no treino (README, seção 4.7).
+   Isso pesa no desenho do teste da hipótese: a linha de base acústica não aproveita mais
+   contexto, e uma comparação justa com um modelo que use o áudio inteiro pede retreinar o
+   detector acústico com trechos longos. O 2021 DF não foi rodado sem corte: lá os áudios
+   são curtos, e a diferença esperada seria mínima.
 
 ---
 
@@ -237,8 +247,9 @@ do 2021 DF também foi recalculada de forma independente no PC.
 
 - Revisar o rascunho das "Implicações para a hipótese" (README, seção 5.3).
 - Opcional: verificar se a diferença de 0,01 ponto no 2021 DF vem do TF32.
-- Avaliar a linha de base com o áudio inteiro, sem o corte de 4 s, principalmente no
-  BRSpeech-DF, onde o corte descarta a maior parte da fala.
+- Possível Experimento 02: retreinar o detector acústico (3 sementes), para ter uma linha
+  de base em condições controladas, conhecer a variância entre execuções e, se for o
+  caso, treinar com trechos mais longos.
 - Próximo experimento: testar a hipótese (acústico + semântico) contra esta linha de base,
   usando o mesmo pré-processamento e os mesmos dados.
 
@@ -261,7 +272,9 @@ Commits no GitHub (`matheussfm/residencia`):
 - `9816bf2`: suporte à versão Hugging Face do BRSpeech-DF;
 - `cebeff4`: resultados do BRSpeech-DF;
 - `9901de6`: este registro e o rascunho das implicações;
-- `b06352a`: script de durações.
+- `b06352a`: script de durações;
+- `c66d364`: durações dos áudios;
+- `46ad5c7`: opção `--sem-corte` no `inferir.py`.
 
 ---
 

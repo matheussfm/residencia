@@ -132,6 +132,27 @@ ambos verificados:
   pontuações do AKCIT; a ordem do CSV do AKCIT, 0,11. Os genuínos trazem o nome e foram
   casados diretamente.
 
+### 4.6 Duração dos áudios e o corte de ~4 s
+
+O modelo só vê as primeiras 64.600 amostras (~4,04 s) de cada áudio. Os mais curtos são
+preenchidos e os mais longos, cortados (`duracoes.py`, `resultados/*/duracoes.json`):
+
+| Dataset | Mediana | Média | Mais curtos que 4,04 s | Mais longos que 4,04 s |
+|---|---|---|---|---|
+| ASVspoof 2021 DF (eval) | 2,9 s | 3,1 s | 77% | 23% |
+| In-the-Wild | 3,3 s | 4,3 s | 62% | 38% |
+| BRSpeech-DF (test) | 11,0 s | 10,7 s | 22% | 78% |
+
+- **No BRSpeech-DF, o modelo descarta a maior parte de cada áudio.** Em média, ouve ~4 dos
+  ~11 s. A EER de 39,24% foi obtida com cerca de um terço da fala.
+- **No In-the-Wild, a duração difere entre as classes:** os genuínos são mais curtos
+  (mediana de 3,0 s; 68% preenchidos) que os falsos (4,1 s; 50% preenchidos). O
+  preenchimento, portanto, afeta mais os genuínos, o que é coerente com a piora da EER
+  quando se preenche com zeros. No 2021 DF e no BRSpeech-DF, as classes têm durações
+  parecidas.
+- **Anomalias no BRSpeech-DF:** um áudio do Fish-Speech tem 376 s, provavelmente uma falha
+  de geração do TTS, e um do ToucanTTS tem 0,02 s. São casos isolados.
+
 ## 5. Validação
 
 ### 5.1 Validação da métrica (antes de usar GPU)
@@ -192,8 +213,9 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
     evidência semântica teria de vir da relação entre o conteúdo e a forma de falar
     (prosódia, ênfase e pausas coerentes com o sentido), e não do texto em si.
   - **Janela de 4 s:** o detector só vê os primeiros ~4 s de cada áudio, o que é pouco
-    contexto para evidência semântica. Uma comparação justa precisa controlar esse fator,
-    por exemplo avaliando também a linha de base com o áudio inteiro.
+    contexto para evidência semântica. No BRSpeech-DF, isso é cerca de um terço da fala
+    disponível (seção 4.6). Uma comparação justa precisa controlar esse fator, por exemplo
+    avaliando também a linha de base com o áudio inteiro.
   - **Limiar:** o limiar calibrado no 2021 DF não transfere bem para outros domínios. Por
     isso, a comparação deve se basear na EER, com a acurácia em limiar fixo como
     complemento.
@@ -289,6 +311,11 @@ for p in repeat zero; do
     bash $S nenhuma python comparar_pontuacoes.py --nossas $B/pontuacoes_$p.txt --referencia $P/ssl_sintetico_full_scores.pkl --mapa $L/mapa_falsos_$h.tsv --saida $B/comparacao_falsos_${h}_$p.json
   done
 done
+
+# Durações dos áudios
+bash $S nenhuma python duracoes.py --lista ../listas/asvspoof21df/lista.tsv --rotulos ../listas/asvspoof21df/rotulos.tsv --saida $R/asvspoof21df/duracoes.json
+bash $S nenhuma python duracoes.py --lista ../listas/in_the_wild/lista.tsv --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/duracoes.json
+bash $S nenhuma python duracoes.py --lista ../listas/brspeech_test_hf/lista.tsv --rotulos ../listas/brspeech_test_hf/rotulos.tsv --por-grupo --saida $R/brspeech_test_hf/duracoes.json
 
 # Antes e depois de cada etapa
 bash experimentos/01-linha-de-base/scripts/verificar_submodulos.sh

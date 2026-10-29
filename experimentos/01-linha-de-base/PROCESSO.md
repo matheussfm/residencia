@@ -81,6 +81,7 @@ Tudo fica em `experimentos/01-linha-de-base/`.
 | `preparar_asvspoof21df.py` | Monta a lista de áudios e os rótulos do 2021 DF a partir do protocolo e das chaves do submódulo. |
 | `preparar_itw.py` | Monta a lista e os rótulos do In-the-Wild a partir do `meta.csv`, conferindo o formato. |
 | `preparar_brspeech.py` | Monta a lista e os rótulos do BRSpeech-DF a partir dos metadados do AKCIT, para a versão original do dataset (Google Drive). Não chegou a ser usado, porque o download foi bloqueado. |
+| `duracoes.py` | Distribuição das durações dos áudios por classe e por grupo, e quantos são preenchidos ou cortados pela janela de ~4 s do modelo. |
 | `extrair_brspeech_hf.py` | Extrai os áudios do teste do BRSpeech-DF dos arquivos parquet do Hugging Face, sem recodificar. |
 | `preparar_brspeech_hf.py` | Monta a lista e os rótulos do BRSpeech-DF na versão Hugging Face, e os "mapas" de correspondência com os ids do AKCIT. |
 | `verificar_submodulos.sh` | Confere que os submódulos estão no commit registrado e sem nenhum arquivo alterado, novo ou ignorado. Foi rodado antes e depois de cada etapa. |
@@ -175,7 +176,13 @@ do 2021 DF também foi recalculada de forma independente no PC.
 5. **Detalhes dos dados registrados:**
    - o `meta.csv` do In-the-Wild tem 54 locutores, e não os 58 citados no artigo;
    - um arquivo de metadados citado num notebook do AKCIT (`brspeech_df_meta_fixed.csv`) não
-     existe no repositório. Os metadados disponíveis foram suficientes.
+     existe no repositório. Os metadados disponíveis foram suficientes;
+   - o teste do BRSpeech-DF tem um áudio do Fish-Speech com 376 s, provavelmente uma falha
+     de geração, e um do ToucanTTS com 0,02 s.
+6. **Sincronização do servidor:** depois que os resultados foram versionados, o `git pull`
+   no servidor recusou sobrescrever os arquivos de resultado gerados lá, que eram idênticos.
+   Desde então, o servidor é sincronizado com `git fetch && git reset --hard origin/main`:
+   ele só executa, e a fonte da verdade é o GitHub.
 
 ---
 
@@ -218,6 +225,11 @@ do 2021 DF também foi recalculada de forma independente no PC.
    (~42–45% de EER), e ToucanTTS o mais fácil (~25–28%).
 6. **O BRSpeech-DF é paralelo:** cada falso refaz a mesma frase de um genuíno. Isso é
    relevante para o desenho do teste da hipótese semântica (ver README, seção 5.3).
+7. **O corte de 4 s pesa muito no BRSpeech-DF.** Os áudios do 2021 DF e do In-the-Wild são
+   curtos (medianas de 2,9 s e 3,3 s; a maioria recebe preenchimento). Os do BRSpeech-DF
+   têm mediana de 11 s, então o modelo ouve só cerca de um terço de cada um (README,
+   seção 4.6). No In-the-Wild, os genuínos são mais curtos que os falsos, então o
+   preenchimento afeta mais os genuínos.
 
 ---
 
@@ -225,6 +237,8 @@ do 2021 DF também foi recalculada de forma independente no PC.
 
 - Revisar o rascunho das "Implicações para a hipótese" (README, seção 5.3).
 - Opcional: verificar se a diferença de 0,01 ponto no 2021 DF vem do TF32.
+- Avaliar a linha de base com o áudio inteiro, sem o corte de 4 s, principalmente no
+  BRSpeech-DF, onde o corte descarta a maior parte da fala.
 - Próximo experimento: testar a hipótese (acústico + semântico) contra esta linha de base,
   usando o mesmo pré-processamento e os mesmos dados.
 
@@ -245,7 +259,9 @@ Commits no GitHub (`matheussfm/residencia`):
 - `69c0767`: scripts, ambiente e esqueleto do README;
 - `6b903c2`: resultados do 2021 DF e do In-the-Wild;
 - `9816bf2`: suporte à versão Hugging Face do BRSpeech-DF;
-- `cebeff4`: resultados do BRSpeech-DF.
+- `cebeff4`: resultados do BRSpeech-DF;
+- `9901de6`: este registro e o rascunho das implicações;
+- `b06352a`: script de durações.
 
 ---
 

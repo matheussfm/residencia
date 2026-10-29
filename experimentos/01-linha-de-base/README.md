@@ -5,8 +5,7 @@ cenários com resultados já publicados: ASVspoof 2021 DF, In-the-Wild e BRSpeec
 Não há treinamento. Este experimento é uma **avaliação do modelo publicado**, e não uma
 reprodução por treinamento.
 
-> Status: ASVspoof 2021 DF e In-the-Wild concluídos (2026-10-28). BRSpeech-DF pendente
-> (download do dataset bloqueado pelo Google Drive). Os campos _(a preencher)_ dependem dele.
+> Status: concluído (2026-10-28) nos três cenários.
 
 ---
 
@@ -67,7 +66,11 @@ consolidado, em três níveis de distância do treino:
 |---|---|---|---|---|
 | ASVspoof 2021 DF (eval) | 14.869 / 519.059 | 2,85% [1] | **2,86%** | 97,15% |
 | In-the-Wild | 19.963 / 11.816 | 10,46% [2], 11,2% [3] | **10,48%** | 88,97% |
-| BRSpeech-DF (test) | 1.320 / 6.587 | 35,38% e acurácia de 70,22% [4] | _(a preencher)_ | _(a preencher)_ |
+| BRSpeech-DF (test) | 1.320 / 6.587 | 35,38% e acurácia de 70,22% [4] | **39,24%** | 75,95% |
+
+Todos os números desta tabela usam o pré-processamento original do Tak (preenchimento
+por repetição). Com o preenchimento por zeros, usado pelo AKCIT, o BRSpeech-DF dá
+**35,38%** e 70,17%, reproduzindo o artigo (seções 4.3 e 5.2).
 
 A EER do ASVspoof 2021 DF foi calculada com o script oficial `evaluate_2021_DF.py` e as
 chaves `DF-keys-stage-1`, e conferida com o `metricas.py` (2,858%, limiar −3,5328). As
@@ -78,6 +81,9 @@ de onde vem a perda: os falsos continuam com pontuação parecida (−3,64 no 20
 −3,61 no In-the-Wild), mas os genuínos caem de +2,17 para −0,53. O modelo passa a
 desconfiar de fala real gravada fora das condições do treino.
 
+No BRSpeech-DF a perda é ainda maior: a EER chega a 39,24%, perto do acaso (50%).
+Aqui as duas classes se aproximam: os genuínos caem para −2,15 e os falsos ficam em −3,49.
+
 ### 4.3 Efeito do preenchimento de áudios curtos
 
 O código do Tak preenche por repetição. O notebook de inferência do AKCIT preenche
@@ -86,21 +92,45 @@ com zeros.
 | Cenário | EER (repetição) | EER (zeros) |
 |---|---|---|
 | In-the-Wild | 10,48% | 11,96% |
-| BRSpeech-DF (test) | _(a preencher)_ | _(a preencher)_ |
+| BRSpeech-DF (test) | 39,24% | 35,38% |
 
-No In-the-Wild, preencher com zeros piora a EER em 1,5 ponto e desloca as pontuações
-para cima (média dos genuínos de −0,53 para +0,47). A escolha do preenchimento é,
-portanto, uma fonte de variação entre resultados publicados com o mesmo modelo.
+O efeito do preenchimento é grande e tem sentido oposto nos dois cenários. No
+In-the-Wild, preencher com zeros piora a EER em 1,5 ponto (e desloca a média dos genuínos
+de −0,53 para +0,47). No BRSpeech-DF, melhora em 3,9 pontos. O número publicado para o
+BRSpeech-DF (35,38%) corresponde ao preenchimento por zeros, e não ao pré-processamento
+original do Tak. A escolha do preenchimento é, portanto, uma fonte de variação relevante
+entre resultados publicados com o mesmo modelo.
 
 ### 4.4 BRSpeech-DF por gerador (EER de todos os genuínos contra cada TTS)
 
-| TTS | Referência (pontuações publicadas pelo AKCIT) | Nossa |
-|---|---|---|
-| ToucanTTS | 25,23% | _(a preencher)_ |
-| Fish-Speech | 31,80% | _(a preencher)_ |
-| YourTTS | 32,97% | _(a preencher)_ |
-| XTTS | 40,30% | _(a preencher)_ |
-| F5-TTS | 42,41% | _(a preencher)_ |
+| TTS | Referência (pontuações publicadas pelo AKCIT) | Nossa (zeros) | Nossa (repetição) |
+|---|---|---|---|
+| ToucanTTS | 25,23% | 25,23% | 28,33% |
+| Fish-Speech | 31,80% | 31,80% | 33,93% |
+| YourTTS | 32,97% | 32,81% | 37,86% |
+| XTTS | 40,30% | 40,23% | 45,53% |
+| F5-TTS | 42,41% | 42,41% | 44,84% |
+
+A ordem de dificuldade é a mesma nos dois preenchimentos: F5-TTS e XTTS são os mais
+difíceis de detectar, e ToucanTTS o mais fácil.
+
+### 4.5 Fonte dos áudios do BRSpeech-DF
+
+O pacote original (Google Drive, 73 GB) estava com o download bloqueado por excesso de
+acessos. Por isso, os áudios de teste vieram da versão publicada pelos próprios autores
+no Hugging Face (`AKCIT-Deepfake/BRSpeech-DF`, revisão `6a2c47e`), extraídos dos
+parquet sem recodificação (`extrair_brspeech_hf.py`). Essa versão difere em dois pontos,
+ambos verificados:
+
+- **Os áudios foram reamostrados para 24 kHz** pelos autores. Comparadas arquivo a arquivo
+  com as pontuações do AKCIT (feitas nos originais), as nossas pontuações com zeros têm
+  correlação de 1,0000 e diferença média de 0,001–0,003, uma escala de ruído numérico.
+  A reamostragem não afeta o resultado.
+- **Os falsos não trazem o nome original do arquivo.** A correspondência com os ids do
+  AKCIT foi inferida pela ordem: as linhas de cada TTS estão em ordem alfabética do nome
+  original. A hipótese foi testada: a ordem alfabética dá correlação de 1,0000 com as
+  pontuações do AKCIT; a ordem do CSV do AKCIT, 0,11. Os genuínos trazem o nome e foram
+  casados diretamente.
 
 ## 5. Validação
 
@@ -124,8 +154,13 @@ Comparação arquivo a arquivo entre as nossas pontuações e as publicadas
 | Cenário | Correlação | Diferença máx. | Mesma decisão em −3,5327 |
 |---|---|---|---|
 | ASVspoof 2021 DF (611.829 arquivos) | 0,9999996 | 0,076 (média 2,7·10⁻⁴) | 99,98% |
-| BRSpeech-DF, repetição | _(a preencher)_ | _(a preencher)_ | _(a preencher)_ |
-| BRSpeech-DF, zeros | _(a preencher)_ | _(a preencher)_ | _(a preencher)_ |
+| BRSpeech-DF, zeros, genuínos (1.320) | 1,0000 | 0,207 (média 0,003) | 99,92% |
+| BRSpeech-DF, zeros, falsos (6.587) | 1,0000 | 0,058 (média 0,001) | 99,68% |
+| BRSpeech-DF, repetição, genuínos | 0,9463 | 7,65 (média 0,19) | 91,36% |
+| BRSpeech-DF, repetição, falsos | 0,8185 | 7,59 (média 0,09) | 91,03% |
+
+No BRSpeech-DF, só o preenchimento por zeros reproduz as pontuações do AKCIT, o que
+confirma que foi esse o preenchimento usado por eles.
 
 As diferenças no 2021 DF são numéricas, e não de método: com pré-processamento
 diferente, a correlação cairia e muitas decisões mudariam. Uma causa provável, ainda
@@ -134,11 +169,17 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
 
 ### 5.3 O que o resultado confirma ou contraria
 
-- **Reprodução:** confirmada no 2021 DF (2,86% contra 2,85% publicados) e coerente
-  com os números de terceiros no In-the-Wild (10,48% contra 10,46% e 11,2%).
-- **Generalização:** a EER sobe de 2,86% para 10,48% ao sair do domínio do treino,
-  e a perda se concentra nos áudios genuínos. BRSpeech-DF: _(a preencher)_
-- **Implicações para a hipótese:** _(a preencher após o BRSpeech-DF)_
+- **Reprodução:** confirmada no 2021 DF (2,86% contra 2,85% publicados), coerente com
+  os números de terceiros no In-the-Wild (10,48% contra 10,46% e 11,2%) e exata no
+  BRSpeech-DF quando se usa o mesmo preenchimento do AKCIT (35,38%).
+- **Generalização:** a EER sobe de 2,86% (2021 DF) para 10,48% (In-the-Wild) e 39,24%
+  (BRSpeech-DF). A perda acompanha a distância do treino e, nos dois cenários fora do
+  domínio, vem principalmente de genuínos com pontuação baixa.
+- **Sensibilidade ao pré-processamento:** o preenchimento de áudios curtos muda a EER em
+  até 3,9 pontos, em sentidos opostos conforme o dataset. Comparações entre trabalhos
+  precisam declarar esse detalhe.
+- **Implicações para a hipótese:** _(a escrever: o que esta linha de base sugere para um
+  detector que combine evidências acústicas e semânticas)_
 
 ---
 
@@ -158,8 +199,8 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
   padrão `pytorch/pytorch:1.8.1-cuda11.1-cudnn8-runtime`. Python 3.8.8, PyTorch 1.8.1,
   CUDA 11.1, cuDNN 8.0.5, fairseq 1.0.0a0 (commit a540213), librosa 0.9.1, numpy 1.22.4.
   GPU NVIDIA RTX 4090 (driver 580.173.02).
-- Tempo de inferência: 45,1 min no 2021 DF e 2,4 min em cada rodada do In-the-Wild
-  (~220 arquivos/s). Os detalhes de cada execução, incluindo o SHA-256 de cada arquivo de
+- Tempo de inferência: 45,1 min no 2021 DF, 2,4 min em cada rodada do In-the-Wild
+  (~220 arquivos/s) e 1,3 min em cada rodada do BRSpeech-DF. Os detalhes de cada execução, incluindo o SHA-256 de cada arquivo de
   pontuações, estão em `resultados/**/*.meta.json`.
 
 ### Dados
@@ -168,7 +209,7 @@ matrizes em GPUs Ampere/Ada (como a RTX 4090).
 |---|---|
 | ASVspoof 2021 DF eval | Zenodo, registro 4835108 (4 partes `.tar.gz`, md5 conferido); 611.829 `.flac` a 16 kHz |
 | In-the-Wild | Hugging Face `mueller91/In-The-Wild` (`release_in_the_wild.zip`, 8.161.489.023 bytes); 31.779 `.wav` a 16 kHz |
-| BRSpeech-DF | Google Drive do AKCIT (link no README do submódulo) |
+| BRSpeech-DF (test) | Hugging Face `AKCIT-Deepfake/BRSpeech-DF`, revisão `6a2c47eb228511f7a6b3d67c9c0797d5be8a58e8`, arquivos `bonafide/test-*` e `spoof/test-*` (9 parquet, 3,5 GB); 1.320 `.flac` e 6.587 `.wav` a 24 kHz (ver seção 4.5) |
 
 O `meta.csv` do In-the-Wild tem 54 nomes de locutor distintos, e não os 58 citados no
 artigo. A diferença não afeta a EER, que não usa o locutor.
@@ -209,6 +250,28 @@ bash $S nenhuma python metricas.py --pontuacoes $R/asvspoof21df/pontuacoes_repea
 bash $S nenhuma python comparar_pontuacoes.py --nossas $R/asvspoof21df/pontuacoes_repeat.txt --referencia $TP/Scores/DF/Scores_DF.txt --saida $R/asvspoof21df/comparacao_tak.json
 bash $S nenhuma python metricas.py --pontuacoes $R/in_the_wild/pontuacoes_repeat.txt --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/metricas_repeat.json
 bash $S nenhuma python metricas.py --pontuacoes $R/in_the_wild/pontuacoes_zero.txt --rotulos ../listas/in_the_wild/rotulos.tsv --saida $R/in_the_wild/metricas_zero.json
+
+# BRSpeech-DF (test), versão Hugging Face
+HF=https://huggingface.co/datasets/AKCIT-Deepfake/BRSpeech-DF/resolve/6a2c47eb228511f7a6b3d67c9c0797d5be8a58e8
+cd ~/matheus/dados/brspeech_df/hf
+for i in 0 1; do wget -c "$HF/bonafide/test-0000$i-of-00002.parquet" -O bonafide-test-$i.parquet; done
+for i in 0 1 2 3 4 5 6; do wget -c "$HF/spoof/test-0000$i-of-00007.parquet" -O spoof-test-$i.parquet; done
+cd ~/matheus/residencia/experimentos/01-linha-de-base/scripts
+python3 -B extrair_brspeech_hf.py --parquets ~/matheus/dados/brspeech_df/hf --saida ~/matheus/dados/brspeech_df/hf_test
+cd ~/matheus/residencia
+L=../listas/brspeech_test_hf
+B=$R/brspeech_test_hf
+P=../../../third_party/BRSpeech-DF-Dataset/data/scores/ssl
+bash $S nenhuma python preparar_brspeech_hf.py --raiz /dados/brspeech_df/hf_test --saida $L
+bash $S 0 python inferir.py --lista $L/lista.tsv --workers 8 $CK --padding repeat --saida $B/pontuacoes_repeat.txt
+bash $S 0 python inferir.py --lista $L/lista.tsv --workers 8 $CK --padding zero --saida $B/pontuacoes_zero.txt
+for p in repeat zero; do
+  bash $S nenhuma python metricas.py --pontuacoes $B/pontuacoes_$p.txt --rotulos $L/rotulos.tsv --por-grupo --saida $B/metricas_$p.json
+  bash $S nenhuma python comparar_pontuacoes.py --nossas $B/pontuacoes_$p.txt --referencia $P/ssl_brspeech_full_scores.pkl --saida $B/comparacao_genuinos_$p.json
+  for h in ordenado csv; do
+    bash $S nenhuma python comparar_pontuacoes.py --nossas $B/pontuacoes_$p.txt --referencia $P/ssl_sintetico_full_scores.pkl --mapa $L/mapa_falsos_$h.tsv --saida $B/comparacao_falsos_${h}_$p.json
+  done
+done
 
 # Antes e depois de cada etapa
 bash experimentos/01-linha-de-base/scripts/verificar_submodulos.sh

@@ -1,0 +1,44 @@
+{
+  "nossas": "../resultados/brspeech_test_hf/pontuacoes_repeat.txt",
+  "referencia": [
+    "../../../third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_brspeech_full_scores.pkl"
+  ],
+  "mapa": null,
+  "n_comuns": 1320,
+  "so_nossas": 6587,
+  "n_referencia": 76644,
+  "pearson": 0.9462863991306882,
+  "dif_abs_max": 7.650000810623169,
+  "dif_abs_media": 0.1879010412390485,
+  "tolerancia": 0.001,
+  "frac_acima_tolerancia": 0.5893939393939394,
+  "limiar": -3.5327,
+  "frac_decisao_igual": 0.9136363636363637,
+  "piores": [
+    {
+      "id": "test/audio/3050/2941/3050_2941_000026-0003.flac",
+      "nossa": -3.198453664779663,
+      "referencia": 4.451547145843506
+    },
+    {
+      "id": "test/audio/4405/3648/4405_3648_000014-0002.flac",
+      "nossa": -3.357473611831665,
+      "referencia": 3.9288735389709473
+    },
+    {
+      "id": "test/audio/3050/2941/3050_2941_000070-0004.flac",
+      "nossa": -2.9922029972076416,
+      "referencia": 4.180047512054443
+    },
+    {
+      "id": "test/audio/3050/2941/3050_2941_000019-0003.flac",
+      "nossa": -3.3341176509857178,
+      "referencia": 3.7915072441101074
+    },
+    {
+      "id": "test/audio/12670/13396/12670_13396_000004-0002.flac",
+      "nossa": -3.4487483501434326,
+      "referencia": 3.5360944271087646
+    }
+  ]
+}

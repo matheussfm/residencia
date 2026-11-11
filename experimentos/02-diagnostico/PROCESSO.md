@@ -50,6 +50,9 @@ imagem e o `inferir.py` do Experimento 01.
 | `f1_duracao.py` | Faixas de duração, atalho de duração, preenchimento e corte: pendência da Semana 8 (README 4.7). |
 | `f2_perturbar.py` | Fase 2: gera os áudios perturbados, um fator por vez (não executado com dados reais). |
 | `f2_analisar.py` | Fase 2: análise pareada das pontuações dos áudios perturbados (não executado com dados reais). |
+| `f3_selecionar.py` | Fase 3: sorteia os 10.640 áudios. Roda no servidor, porque as listas com caminhos só existem lá. |
+| `f3_extrair.py` | Fase 3: features das 24 camadas do XLS-R, da saída final e do embedding do AASIST, por *hooks* (modelo intacto, mesmo pré-processamento e carregamento do `inferir.py`). Testado com um modelo de mentira de mesma estrutura. |
+| `f3_probing.py` | Fase 3: probe linear por camada, com transferência a partir do 2021 DF e validação cruzada por locutor no próprio domínio. Testado com features sintéticas. |
 
 ## 4. Decisões metodológicas
 
@@ -70,6 +73,9 @@ imagem e o `inferir.py` do Experimento 01.
 | Fase 2: genuínos e falsos do 2021 DF de origem VCTK e sem codec | O ponto de partida é o caso mais "dentro do domínio" (EER de 1,27% e 0% de rejeição), de modo que qualquer deslocamento vem da perturbação. |
 | Fase 2: RMS normalizado após os filtros de banda | Um fator por vez: o filtro de telefone também baixa o volume, e o volume é outro fator. |
 | Fase 2: wav float32 nas saídas | Evita uma quantização extra, que seria mais um fator não controlado. |
+| Fase 2: só 386 genuínos VCTK sem codec no eval | O script usa todos e sorteia 400 falsos. O padrão inicial (1.000 por classe) travaria. |
+| Fase 3: probe linear (padronização + regressão logística, C = 0,1) | Mede se a informação é **linearmente** acessível. A transferência imita o detector, e a validação cruzada por locutor no próprio domínio mede se a informação existe. As duas juntas dizem se o gargalo está no front-end ou no que o back-end aprendeu. |
+| Fase 3: features em float16, fora do git (`*.npz`) | Cerca de 550 MB. Ficam no servidor e no PC, com o SHA-256 no `.meta.json`. |
 | Fase 2: roda fora do container | Grava áudio na pasta de dados, que o container monta somente leitura (o mesmo motivo do `extrair_brspeech_hf.py`). Os codecs precisam do ffmpeg, que não está na imagem. |
 
 ## 5. Problemas e observações
@@ -97,6 +103,17 @@ imagem e o `inferir.py` do Experimento 01.
    numpy, scipy e scikit-learn sobre arquivos de texto. Os scripts foram escritos para Python 3.8
    (sem sintaxe nova), mas **ainda não foram rodados na imagem `residencia-exp01:pt181`**, e o
    scikit-learn não está no `requirements.txt` dela. Para rodar lá, é preciso acrescentá-lo.
+
+7. **Ambiente do servidor para a Fase 2.** O Python do host não tem scipy nem ffmpeg, e a conta
+   é compartilhada. Para não alterar o Python dos outros usuários, criamos um ambiente isolado em
+   `~/matheus/venv_fase2` (numpy, scipy, soundfile e `imageio-ffmpeg`, que traz um ffmpeg com
+   libmp3lame e libopus). Nenhum `pip install --user`.
+8. **Leitura dos .flac do 2021 DF.** O soundfile 0.14 (libsndfile recente) recusou um `.flac` do
+   2021 DF ("unknown error in flac decoder"). A versão antiga da imagem Docker do Exp. 01 lê o
+   mesmo arquivo sem erro. O `f2_perturbar.py` agora recorre ao ffmpeg quando a libsndfile falha
+   e registra quantos arquivos foram lidos assim (`lidos_via_ffmpeg`). Num FLAC válido, os dois
+   decodificadores devolvem as mesmas amostras (conferido). A conferência final é a condição
+   "original", que deve reproduzir as pontuações do Exp. 01.
 
 ## 6. Pendências
 

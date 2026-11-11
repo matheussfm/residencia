@@ -156,6 +156,28 @@ def condicoes():
 
 # ---------------------------------------------------------------------------------------------
 
+def ler_audio(caminho):
+    """Lê o áudio com o soundfile; se a libsndfile recusar o arquivo, decodifica com o ffmpeg.
+
+    Versões recentes da libsndfile (as dos pacotes soundfile >= 0.13) recusam alguns .flac do
+    ASVspoof 2021 DF ("unknown error in flac decoder"), que a versão antiga da imagem Docker do
+    Exp. 01 lê sem erro. FLAC é sem perdas: um decodificador correto devolve as mesmas amostras.
+    A conferência é a condição "original", que deve reproduzir as pontuações do Exp. 01.
+    Devolve (x, sr, usou_ffmpeg).
+    """
+    try:
+        x, sr = sf.read(caminho, dtype='float32')
+        return x, sr, False
+    except Exception:
+        if shutil.which('ffmpeg') is None:
+            raise
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', caminho, '-f', 'f32le', '-acodec', 'pcm_f32le', '-ac', '1', '-'],
+                       capture_output=True, check=True)
+    sr = int(subprocess.run(['ffmpeg', '-hide_banner', '-i', caminho], capture_output=True, text=True).stderr
+             .split(' Hz')[0].rsplit(' ', 1)[-1])
+    return np.frombuffer(r.stdout, dtype=np.float32).copy(), sr, True
+
+
 def selecionar(chave, n, semente):
     gen, fal = [], []
     with open(chave, encoding='utf-8') as f:
@@ -190,9 +212,11 @@ def main():
     conds = [c for c in conds if not (c[3] and not tem_ffmpeg)]
 
     lista, rotulos = [], []
+    lidos_ffmpeg = 0
     for i, col in enumerate(sel):
         trial, rot = col[1], col[5]
-        x, sr = sf.read(os.path.join(args.audio, trial + '.flac'), dtype='float32')
+        x, sr, via_ffmpeg = ler_audio(os.path.join(args.audio, trial + '.flac'))
+        lidos_ffmpeg += via_ffmpeg
         if x.ndim != 1 or sr != SR:
             erro(f'{trial}: esperado mono a 16 kHz, veio {x.shape} a {sr} Hz')
         for k, (nome, fn, fator, _) in enumerate(conds):
@@ -220,13 +244,13 @@ def main():
     ffmpeg_v = subprocess.run(['ffmpeg', '-version'], capture_output=True, text=True).stdout.split('\n')[0] \
         if tem_ffmpeg else None
     meta = {'n_por_classe_max': args.n, 'n_genuinos': sum(c[5] == 'bonafide' for c in sel), 'n_falsos': sum(c[5] != 'bonafide' for c in sel), 'semente': args.semente, 'chave': args.chave, 'chave_sha256': sha256(args.chave),
-            'condicoes': [{'nome': c[0], 'fator': c[2]} for c in conds], 'puladas_sem_ffmpeg': puladas,
+            'condicoes': [{'nome': c[0], 'fator': c[2]} for c in conds], 'lidos_via_ffmpeg': lidos_ffmpeg, 'puladas_sem_ffmpeg': puladas,
             'ffmpeg': ffmpeg_v, 'numpy': np.__version__, 'soundfile': sf.__version__,
             'python': platform.python_version()}
     with open(os.path.join(args.saida, 'perturbacoes.meta.json'), 'w', encoding='utf-8') as f:
         json.dump(meta, f, indent=2, ensure_ascii=False)
     resumo('f2_perturbar.py', [('áudios sorteados', len(sel)), ('condições', len(conds)),
-                               ('arquivos', len(lista)), ('puladas (sem ffmpeg)', puladas or '-'),
+                               ('arquivos', len(lista)), ('lidos via ffmpeg', lidos_ffmpeg), ('puladas (sem ffmpeg)', puladas or '-'),
                                ('saída', args.saida)])
 
 

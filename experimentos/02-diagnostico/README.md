@@ -269,8 +269,16 @@ Aplicar a genuínos do domínio de treino um fator por vez e medir o deslocament
 
 ### Fase 3: dentro do modelo (GPU, servidor)
 
-Extrair as representações por camada do XLS-R (25 saídas: a convolucional e as 24 do
-transformer, média no tempo) e o embedding final do AASIST, com 2.000 a 4.000 áudios por cenário.
+Extrair as representações por camada do XLS-R (as 24 camadas do transformer e a saída final,
+média no tempo) e o embedding final do AASIST, com *hooks* do PyTorch, sem alterar o modelo. A
+amostra tem 10.640 áudios, balanceados por classe:
+- 2021 DF eval: 500 por classe de cada origem (VCTK, VCC 2018 e VCC 2020);
+- hidden track: 1.000 por classe;
+- In-the-Wild: 1.500 por classe;
+- BRSpeech-DF: os 1.320 genuínos do teste e 1.320 falsos, 264 por TTS.
+
+Scripts: `f3_selecionar.py`, `f3_extrair.py` e `f3_probing.py`, testados no PC com um modelo de
+mentira de mesma estrutura e com features sintéticas.
 - *Probing* linear por camada: treinar no 2021 DF e testar nos outros cenários; depois, ajustar
   só o classificador linear com k exemplos do alvo. Se a separação reaparecer, o gargalo está no
   back-end ou na calibração. Se não, está no front-end.

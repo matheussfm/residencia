@@ -1,0 +1,1308 @@
+{
+  "eer_global": 0.10475848244099248,
+  "limiar": -3.556159734725952,
+  "locutores": {
+    "2Pac": {
+      "n_bonafide": 59,
+      "n_spoof": 101,
+      "frr": 0.7288135593220338,
+      "frr_ic95": [
+        0.6101694915254238,
+        0.847457627118644
+      ],
+      "far": 0.019801980198019802,
+      "far_ic95": [
+        0.0,
+        0.04950495049504951
+      ],
+      "genuinos_rejeitados": 43,
+      "falsos_aceitos": 2,
+      "eer_proprio": 0.3561839234770935,
+      "media_bonafide": -3.5592707981497553,
+      "media_spoof": -3.6238265863739616,
+      "duracao_mediana_bonafide": 3.8181
+    },
+    "Adam Driver": {
+      "n_bonafide": 80,
+      "n_spoof": 137,
+      "frr": 0.0125,
+      "frr_ic95": [
+        0.0,
+        0.0375
+      ],
+      "far": 0.4744525547445255,
+      "far_ic95": [
+        0.38686131386861317,
+        0.5620437956204379
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 65,
+      "eer_proprio": 0.13809306569343066,
+      "media_bonafide": -1.4092953058425337,
+      "media_spoof": -3.3027960279562176,
+      "duracao_mediana_bonafide": 5.8716
+    },
+    "Alan Watts": {
+      "n_bonafide": 86,
+      "n_spoof": 292,
+      "frr": 0.011627906976744186,
+      "frr_ic95": [
+        0.0,
+        0.03488372093023256
+      ],
+      "far": 0.3150684931506849,
+      "far_ic95": [
+        0.2636986301369863,
+        0.3665239726027393
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 92,
+      "eer_proprio": 0.12902198152277794,
+      "media_bonafide": 0.03823187280186387,
+      "media_spoof": -3.478661357591005,
+      "duracao_mediana_bonafide": 2.2670000000000003
+    },
+    "Alec Guinness": {
+      "n_bonafide": 1907,
+      "n_spoof": 1718,
+      "frr": 0.21709491347666493,
+      "frr_ic95": [
+        0.19926586261143156,
+        0.23544834819087573
+      ],
+      "far": 0.06693830034924331,
+      "far_ic95": [
+        0.05529685681024447,
+        0.07857974388824214
+      ],
+      "genuinos_rejeitados": 414,
+      "falsos_aceitos": 115,
+      "eer_proprio": 0.14206681712433758,
+      "media_bonafide": -1.3595356495653421,
+      "media_spoof": -3.6488098690201713,
+      "duracao_mediana_bonafide": 2.323
+    },
+    "Alexandria Ocasio-Cortez": {
+      "n_bonafide": 290,
+      "n_spoof": 100,
+      "frr": 0.020689655172413793,
+      "frr_ic95": [
+        0.006896551724137931,
+        0.03793103448275862
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 6,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.01017241379310345,
+      "media_bonafide": 1.2403207499533893,
+      "media_spoof": -3.651488082408905,
+      "duracao_mediana_bonafide": 3.8215500000000002
+    },
+    "Arnold Schwarzenegger": {
+      "n_bonafide": 243,
+      "n_spoof": 108,
+      "frr": 0.06995884773662552,
+      "frr_ic95": [
+        0.0411522633744856,
+        0.102880658436214
+      ],
+      "far": 0.009259259259259259,
+      "far_ic95": [
+        0.0,
+        0.027777777777777776
+      ],
+      "genuinos_rejeitados": 17,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.037037037037037035,
+      "media_bonafide": -2.4322942260484144,
+      "media_spoof": -3.641621282807103,
+      "duracao_mediana_bonafide": 2.791
+    },
+    "Ayn Rand": {
+      "n_bonafide": 1389,
+      "n_spoof": 1104,
+      "frr": 0.08135349172066235,
+      "frr_ic95": [
+        0.06695464362850972,
+        0.09575233981281497
+      ],
+      "far": 0.018115942028985508,
+      "far_ic95": [
+        0.010869565217391304,
+        0.026268115942028984
+      ],
+      "genuinos_rejeitados": 113,
+      "falsos_aceitos": 20,
+      "eer_proprio": 0.03611450214417629,
+      "media_bonafide": -1.9106288062659333,
+      "media_spoof": -3.6554771625045417,
+      "duracao_mediana_bonafide": 3.383
+    },
+    "Barack Obama": {
+      "n_bonafide": 3302,
+      "n_spoof": 334,
+      "frr": 0.049061175045427015,
+      "frr_ic95": [
+        0.04149000605693519,
+        0.05602665051483949
+      ],
+      "far": 0.15868263473053892,
+      "far_ic95": [
+        0.12275449101796407,
+        0.19760479041916168
+      ],
+      "genuinos_rejeitados": 162,
+      "falsos_aceitos": 53,
+      "eer_proprio": 0.06834997479299426,
+      "media_bonafide": 0.4248954282068325,
+      "media_spoof": -3.545305529754319,
+      "duracao_mediana_bonafide": 3.4245
+    },
+    "Bernie Sanders": {
+      "n_bonafide": 1623,
+      "n_spoof": 1254,
+      "frr": 0.036352433764633395,
+      "frr_ic95": [
+        0.027726432532347505,
+        0.04559457794208256
+      ],
+      "far": 0.01594896331738437,
+      "far_ic95": [
+        0.009569377990430622,
+        0.023125996810207338
+      ],
+      "genuinos_rejeitados": 59,
+      "falsos_aceitos": 20,
+      "eer_proprio": 0.024683305474238443,
+      "media_bonafide": -0.447302958213633,
+      "media_spoof": -3.655625248069398,
+      "duracao_mediana_bonafide": 3.1381
+    },
+    "Bill Burr": {
+      "n_bonafide": 144,
+      "n_spoof": 57,
+      "frr": 0.013888888888888888,
+      "frr_ic95": [
+        0.0,
+        0.034722222222222224
+      ],
+      "far": 0.017543859649122806,
+      "far_ic95": [
+        0.0,
+        0.05263157894736842
+      ],
+      "genuinos_rejeitados": 2,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.015716374269005847,
+      "media_bonafide": 2.185599787057274,
+      "media_spoof": -3.641670490566053,
+      "duracao_mediana_bonafide": 4.18055
+    },
+    "Bill Clinton": {
+      "n_bonafide": 1129,
+      "n_spoof": 703,
+      "frr": 0.05757307351638618,
+      "frr_ic95": [
+        0.043401240035429584,
+        0.07174490699734277
+      ],
+      "far": 0.22759601706970128,
+      "far_ic95": [
+        0.19772403982930298,
+        0.25750355618776655
+      ],
+      "genuinos_rejeitados": 65,
+      "falsos_aceitos": 160,
+      "eer_proprio": 0.10373610755877316,
+      "media_bonafide": -0.7754602198570676,
+      "media_spoof": -3.5568793915148564,
+      "duracao_mediana_bonafide": 2.491
+    },
+    "Billie Eilish": {
+      "n_bonafide": 9,
+      "n_spoof": 5,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.2,
+      "far_ic95": [
+        0.0,
+        0.6
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.0,
+      "media_bonafide": 2.7668981651465097,
+      "media_spoof": -3.587694692611694,
+      "duracao_mediana_bonafide": 3.6991
+    },
+    "Bob Ross": {
+      "n_bonafide": 60,
+      "n_spoof": 48,
+      "frr": 0.05,
+      "frr_ic95": [
+        0.0,
+        0.11666666666666667
+      ],
+      "far": 0.875,
+      "far_ic95": [
+        0.7708333333333334,
+        0.9583333333333334
+      ],
+      "genuinos_rejeitados": 3,
+      "falsos_aceitos": 42,
+      "eer_proprio": 0.3979166666666667,
+      "media_bonafide": -2.2583624544243017,
+      "media_spoof": -3.1237931766857705,
+      "duracao_mediana_bonafide": 4.75005
+    },
+    "Boris Johnson": {
+      "n_bonafide": 209,
+      "n_spoof": 86,
+      "frr": 0.019138755980861243,
+      "frr_ic95": [
+        0.004784688995215311,
+        0.03827751196172249
+      ],
+      "far": 0.011627906976744186,
+      "far_ic95": [
+        0.0,
+        0.046511627906976744
+      ],
+      "genuinos_rejeitados": 4,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.012990986981195059,
+      "media_bonafide": 1.1814054048232485,
+      "media_spoof": -3.64249059488607,
+      "duracao_mediana_bonafide": 2.722
+    },
+    "Calvin Coolidge": {
+      "n_bonafide": 58,
+      "n_spoof": 15,
+      "frr": 0.7931034482758621,
+      "frr_ic95": [
+        0.6896551724137931,
+        0.896551724137931
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 46,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0764367816091954,
+      "media_bonafide": -3.482544857880165,
+      "media_spoof": -3.705941009521484,
+      "duracao_mediana_bonafide": 3.23705
+    },
+    "Christopher Hitchens": {
+      "n_bonafide": 798,
+      "n_spoof": 541,
+      "frr": 0.043859649122807015,
+      "frr_ic95": [
+        0.03007518796992481,
+        0.05764411027568922
+      ],
+      "far": 0.12939001848428835,
+      "far_ic95": [
+        0.10166358595194085,
+        0.15716266173752286
+      ],
+      "genuinos_rejeitados": 35,
+      "falsos_aceitos": 70,
+      "eer_proprio": 0.0761133425059877,
+      "media_bonafide": -0.1445950203689567,
+      "media_spoof": -3.612727085978839,
+      "duracao_mediana_bonafide": 3.29655
+    },
+    "Dave Chappelle": {
+      "n_bonafide": 13,
+      "n_spoof": 9,
+      "frr": 0.07692307692307693,
+      "frr_ic95": [
+        0.0,
+        0.23076923076923078
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0,
+      "media_bonafide": -2.7266229207699118,
+      "media_spoof": -3.6947119500901966,
+      "duracao_mediana_bonafide": 8.211
+    },
+    "Donald Trump": {
+      "n_bonafide": 3268,
+      "n_spoof": 155,
+      "frr": 0.013769889840881273,
+      "frr_ic95": [
+        0.009791921664626682,
+        0.017747858017135864
+      ],
+      "far": 0.45806451612903226,
+      "far_ic95": [
+        0.38064516129032255,
+        0.535483870967742
+      ],
+      "genuinos_rejeitados": 45,
+      "falsos_aceitos": 71,
+      "eer_proprio": 0.10317349074110632,
+      "media_bonafide": 0.8987002432884391,
+      "media_spoof": -3.346659683892804,
+      "duracao_mediana_bonafide": 2.9956
+    },
+    "Dwight Eisenhower": {
+      "n_bonafide": 205,
+      "n_spoof": 63,
+      "frr": 0.5951219512195122,
+      "frr_ic95": [
+        0.526829268292683,
+        0.6586585365853652
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 122,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.14216027874564457,
+      "media_bonafide": -3.346813842290785,
+      "media_spoof": -3.677178757531302,
+      "duracao_mediana_bonafide": 2.5781
+    },
+    "FDR": {
+      "n_bonafide": 308,
+      "n_spoof": 163,
+      "frr": 0.3181818181818182,
+      "frr_ic95": [
+        0.2694805194805195,
+        0.36688311688311687
+      ],
+      "far": 0.03680981595092025,
+      "far_ic95": [
+        0.012269938650306749,
+        0.06748466257668712
+      ],
+      "genuinos_rejeitados": 98,
+      "falsos_aceitos": 6,
+      "eer_proprio": 0.11672376703051549,
+      "media_bonafide": -2.950412488736019,
+      "media_spoof": -3.619599049076712,
+      "duracao_mediana_bonafide": 2.8209999999999997
+    },
+    "Frank Sinatra": {
+      "n_bonafide": 17,
+      "n_spoof": 38,
+      "frr": 0.8823529411764706,
+      "frr_ic95": [
+        0.7058823529411765,
+        1.0
+      ],
+      "far": 0.10526315789473684,
+      "far_ic95": [
+        0.02631578947368421,
+        0.21052631578947367
+      ],
+      "genuinos_rejeitados": 15,
+      "falsos_aceitos": 4,
+      "eer_proprio": 0.4589783281733746,
+      "media_bonafide": -3.6127319476183724,
+      "media_spoof": -3.614316726985731,
+      "duracao_mediana_bonafide": 3.765
+    },
+    "George Carlin": {
+      "n_bonafide": 164,
+      "n_spoof": 84,
+      "frr": 0.35365853658536583,
+      "frr_ic95": [
+        0.2865853658536585,
+        0.4268292682926829
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 58,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.09639953542392567,
+      "media_bonafide": -3.2126256389906858,
+      "media_spoof": -3.6601961567288352,
+      "duracao_mediana_bonafide": 4.0680499999999995
+    },
+    "George W. Bush": {
+      "n_bonafide": 55,
+      "n_spoof": 175,
+      "frr": 0.3090909090909091,
+      "frr_ic95": [
+        0.2,
+        0.43636363636363634
+      ],
+      "far": 0.06857142857142857,
+      "far_ic95": [
+        0.03428571428571429,
+        0.10857142857142857
+      ],
+      "genuinos_rejeitados": 17,
+      "falsos_aceitos": 12,
+      "eer_proprio": 0.17948051948051946,
+      "media_bonafide": -2.6502153158187864,
+      "media_spoof": -3.630985194614955,
+      "duracao_mediana_bonafide": 3.5141
+    },
+    "Gilbert Gottfried": {
+      "n_bonafide": 81,
+      "n_spoof": 127,
+      "frr": 0.2962962962962963,
+      "frr_ic95": [
+        0.2095679012345679,
+        0.3950617283950617
+      ],
+      "far": 0.007874015748031496,
+      "far_ic95": [
+        0.0,
+        0.023622047244094488
+      ],
+      "genuinos_rejeitados": 24,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.12472052104598036,
+      "media_bonafide": -3.335476611867363,
+      "media_spoof": -3.645847130948164,
+      "duracao_mediana_bonafide": 4.433
+    },
+    "Harry Truman": {
+      "n_bonafide": 47,
+      "n_spoof": 16,
+      "frr": 0.0425531914893617,
+      "frr_ic95": [
+        0.0,
+        0.10638297872340426
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 2,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0,
+      "media_bonafide": -1.6714964623146868,
+      "media_spoof": -3.6572136729955673,
+      "duracao_mediana_bonafide": 3.6361
+    },
+    "JFK": {
+      "n_bonafide": 396,
+      "n_spoof": 273,
+      "frr": 0.18181818181818182,
+      "frr_ic95": [
+        0.14393939393939395,
+        0.2196969696969697
+      ],
+      "far": 0.06593406593406594,
+      "far_ic95": [
+        0.040293040293040296,
+        0.09523809523809523
+      ],
+      "genuinos_rejeitados": 72,
+      "falsos_aceitos": 18,
+      "eer_proprio": 0.11359473859473859,
+      "media_bonafide": -2.4918390927328304,
+      "media_spoof": -3.640279933209821,
+      "duracao_mediana_bonafide": 2.5086000000000004
+    },
+    "Jeff Goldblum": {
+      "n_bonafide": 56,
+      "n_spoof": 4,
+      "frr": 0.17857142857142858,
+      "frr_ic95": [
+        0.08928571428571429,
+        0.2857142857142857
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 10,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.20535714285714285,
+      "media_bonafide": -3.073255947657994,
+      "media_spoof": -3.592351734638214,
+      "duracao_mediana_bonafide": 3.5885499999999997
+    },
+    "Jerry Seinfeld": {
+      "n_bonafide": 8,
+      "n_spoof": 43,
+      "frr": 0.125,
+      "frr_ic95": [
+        0.0,
+        0.375
+      ],
+      "far": 0.046511627906976744,
+      "far_ic95": [
+        0.0,
+        0.11627906976744186
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 2,
+      "eer_proprio": 0.023255813953488372,
+      "media_bonafide": -0.8298371373675764,
+      "media_spoof": -3.657489222149516,
+      "duracao_mediana_bonafide": 6.80705
+    },
+    "Jimmy Carter": {
+      "n_bonafide": 16,
+      "n_spoof": 11,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0,
+      "media_bonafide": -0.5383942313492298,
+      "media_spoof": -3.66100491176952,
+      "duracao_mediana_bonafide": 2.8966
+    },
+    "John Cleese": {
+      "n_bonafide": 59,
+      "n_spoof": 70,
+      "frr": 0.1694915254237288,
+      "frr_ic95": [
+        0.0847457627118644,
+        0.2711864406779661
+      ],
+      "far": 0.014285714285714285,
+      "far_ic95": [
+        0.0,
+        0.04285714285714286
+      ],
+      "genuinos_rejeitados": 10,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.10084745762711865,
+      "media_bonafide": -1.451867867576874,
+      "media_spoof": -3.6451508658272878,
+      "duracao_mediana_bonafide": 5.337
+    },
+    "Kamala Harris": {
+      "n_bonafide": 25,
+      "n_spoof": 4,
+      "frr": 0.04,
+      "frr_ic95": [
+        0.0,
+        0.12
+      ],
+      "far": 1.0,
+      "far_ic95": [
+        1.0,
+        1.0
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 4,
+      "eer_proprio": 0.265,
+      "media_bonafide": -1.9196967129409312,
+      "media_spoof": -3.3622193336486816,
+      "duracao_mediana_bonafide": 3.969
+    },
+    "Kanye West": {
+      "n_bonafide": 75,
+      "n_spoof": 79,
+      "frr": 0.04,
+      "frr_ic95": [
+        0.0,
+        0.09333333333333334
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 3,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0129957805907173,
+      "media_bonafide": 0.6702702722946803,
+      "media_spoof": -3.6431329039078726,
+      "duracao_mediana_bonafide": 2.841
+    },
+    "Louis C.K.": {
+      "n_bonafide": 9,
+      "n_spoof": 57,
+      "frr": 0.1111111111111111,
+      "frr_ic95": [
+        0.0,
+        0.3333333333333333
+      ],
+      "far": 0.17543859649122806,
+      "far_ic95": [
+        0.08771929824561403,
+        0.2807017543859649
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 10,
+      "eer_proprio": 0.19883040935672514,
+      "media_bonafide": -2.77342328760359,
+      "media_spoof": -3.615520435467101,
+      "duracao_mediana_bonafide": 3.851
+    },
+    "Louis Farrakhan": {
+      "n_bonafide": 302,
+      "n_spoof": 108,
+      "frr": 0.06622516556291391,
+      "frr_ic95": [
+        0.03642384105960265,
+        0.09602649006622517
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 20,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.035074809909246996,
+      "media_bonafide": -0.825344517456972,
+      "media_spoof": -3.6551779905954995,
+      "duracao_mediana_bonafide": 2.64905
+    },
+    "Lyndon Johnson": {
+      "n_bonafide": 95,
+      "n_spoof": 12,
+      "frr": 0.031578947368421054,
+      "frr_ic95": [
+        0.0,
+        0.07368421052631578
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 3,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0,
+      "media_bonafide": 0.15071017981359833,
+      "media_spoof": -3.6795067191123962,
+      "duracao_mediana_bonafide": 2.589
+    },
+    "Malcolm X": {
+      "n_bonafide": 130,
+      "n_spoof": 46,
+      "frr": 0.5923076923076923,
+      "frr_ic95": [
+        0.5076923076923077,
+        0.676923076923077
+      ],
+      "far": 0.021739130434782608,
+      "far_ic95": [
+        0.0,
+        0.06521739130434782
+      ],
+      "genuinos_rejeitados": 77,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.10819397993311036,
+      "media_bonafide": -3.498977257655217,
+      "media_spoof": -3.6742140106532886,
+      "duracao_mediana_bonafide": 3.4065
+    },
+    "Mark Zuckerberg": {
+      "n_bonafide": 321,
+      "n_spoof": 261,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.07662835249042145,
+      "far_ic95": [
+        0.04597701149425287,
+        0.1111111111111111
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 20,
+      "eer_proprio": 0.011977656031797186,
+      "media_bonafide": 1.2017834033132342,
+      "media_spoof": -3.5926996455795464,
+      "duracao_mediana_bonafide": 5.606
+    },
+    "Martin Luther King": {
+      "n_bonafide": 516,
+      "n_spoof": 283,
+      "frr": 0.39728682170542634,
+      "frr_ic95": [
+        0.3546511627906977,
+        0.43992248062015504
+      ],
+      "far": 0.04240282685512368,
+      "far_ic95": [
+        0.02120141342756184,
+        0.06713780918727916
+      ],
+      "genuinos_rejeitados": 205,
+      "falsos_aceitos": 12,
+      "eer_proprio": 0.19407236968252664,
+      "media_bonafide": -3.3667267281128916,
+      "media_spoof": -3.5825521128758946,
+      "duracao_mediana_bonafide": 2.3736
+    },
+    "Milton Friedman": {
+      "n_bonafide": 289,
+      "n_spoof": 300,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.23,
+      "far_ic95": [
+        0.18,
+        0.28
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 69,
+      "eer_proprio": 0.0,
+      "media_bonafide": 3.209415930171842,
+      "media_spoof": -3.6001493883132936,
+      "duracao_mediana_bonafide": 3.3731
+    },
+    "Mitch Hedberg": {
+      "n_bonafide": 3,
+      "n_spoof": 28,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.0,
+      "media_bonafide": -2.007124940554301,
+      "media_spoof": -3.667977895055498,
+      "duracao_mediana_bonafide": 13.715
+    },
+    "Mr. Rogers": {
+      "n_bonafide": 34,
+      "n_spoof": 96,
+      "frr": 0.058823529411764705,
+      "frr_ic95": [
+        0.0,
+        0.14705882352941177
+      ],
+      "far": 0.052083333333333336,
+      "far_ic95": [
+        0.010416666666666666,
+        0.09375
+      ],
+      "genuinos_rejeitados": 2,
+      "falsos_aceitos": 5,
+      "eer_proprio": 0.06066176470588235,
+      "media_bonafide": -0.34154515450491624,
+      "media_spoof": -3.6518589879075685,
+      "duracao_mediana_bonafide": 2.7781000000000002
+    },
+    "Nelson Mandela": {
+      "n_bonafide": 97,
+      "n_spoof": 284,
+      "frr": 0.030927835051546393,
+      "frr_ic95": [
+        0.0,
+        0.07216494845360824
+      ],
+      "far": 0.1056338028169014,
+      "far_ic95": [
+        0.07042253521126761,
+        0.1443661971830986
+      ],
+      "genuinos_rejeitados": 3,
+      "falsos_aceitos": 30,
+      "eer_proprio": 0.05218164658051401,
+      "media_bonafide": -2.3297715897566262,
+      "media_spoof": -3.622756473615136,
+      "duracao_mediana_bonafide": 2.455
+    },
+    "Nick Offerman": {
+      "n_bonafide": 158,
+      "n_spoof": 11,
+      "frr": 0.02531645569620253,
+      "frr_ic95": [
+        0.006329113924050633,
+        0.05063291139240506
+      ],
+      "far": 0.8181818181818182,
+      "far_ic95": [
+        0.5454545454545454,
+        1.0
+      ],
+      "genuinos_rejeitados": 4,
+      "falsos_aceitos": 9,
+      "eer_proprio": 0.1826812428078251,
+      "media_bonafide": 0.6748068164798278,
+      "media_spoof": -2.00278715653853,
+      "duracao_mediana_bonafide": 2.7495
+    },
+    "Norm MacDonald": {
+      "n_bonafide": 36,
+      "n_spoof": 93,
+      "frr": 0.05555555555555555,
+      "frr_ic95": [
+        0.0,
+        0.1388888888888889
+      ],
+      "far": 0.021505376344086023,
+      "far_ic95": [
+        0.0,
+        0.053763440860215055
+      ],
+      "genuinos_rejeitados": 2,
+      "falsos_aceitos": 2,
+      "eer_proprio": 0.030017921146953404,
+      "media_bonafide": -2.1005598062442408,
+      "media_spoof": -3.659697163489557,
+      "duracao_mediana_bonafide": 4.6030999999999995
+    },
+    "Orson Welles": {
+      "n_bonafide": 26,
+      "n_spoof": 176,
+      "frr": 0.5769230769230769,
+      "frr_ic95": [
+        0.38461538461538464,
+        0.7692307692307693
+      ],
+      "far": 0.7443181818181818,
+      "far_ic95": [
+        0.6761363636363636,
+        0.8068181818181818
+      ],
+      "genuinos_rejeitados": 15,
+      "falsos_aceitos": 131,
+      "eer_proprio": 0.6621503496503496,
+      "media_bonafide": -3.4601593063427853,
+      "media_spoof": -3.181887734681368,
+      "duracao_mediana_bonafide": 2.39855
+    },
+    "Queen Elizabeth II": {
+      "n_bonafide": 105,
+      "n_spoof": 359,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.3064066852367688,
+      "far_ic95": [
+        0.2590529247910863,
+        0.3565459610027855
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 110,
+      "eer_proprio": 0.008940177742406154,
+      "media_bonafide": 2.6779984047725085,
+      "media_spoof": -3.5475151102190896,
+      "duracao_mediana_bonafide": 4.8921
+    },
+    "Richard Nixon": {
+      "n_bonafide": 233,
+      "n_spoof": 126,
+      "frr": 0.19742489270386265,
+      "frr_ic95": [
+        0.15021459227467812,
+        0.24892703862660945
+      ],
+      "far": 0.031746031746031744,
+      "far_ic95": [
+        0.007936507936507936,
+        0.06349206349206349
+      ],
+      "genuinos_rejeitados": 46,
+      "falsos_aceitos": 4,
+      "eer_proprio": 0.07830914912459977,
+      "media_bonafide": -2.044304302513855,
+      "media_spoof": -3.655290821241954,
+      "duracao_mediana_bonafide": 2.722
+    },
+    "Robert Kardashian": {
+      "n_bonafide": 103,
+      "n_spoof": 40,
+      "frr": 0.0970873786407767,
+      "frr_ic95": [
+        0.038834951456310676,
+        0.1553398058252427
+      ],
+      "far": 0.15,
+      "far_ic95": [
+        0.05,
+        0.275
+      ],
+      "genuinos_rejeitados": 10,
+      "falsos_aceitos": 6,
+      "eer_proprio": 0.10339805825242718,
+      "media_bonafide": -1.3602389587288342,
+      "media_spoof": -3.5593127369880677,
+      "duracao_mediana_bonafide": 2.847
+    },
+    "Ronald Reagan": {
+      "n_bonafide": 620,
+      "n_spoof": 916,
+      "frr": 0.03870967741935484,
+      "frr_ic95": [
+        0.024193548387096774,
+        0.054838709677419356
+      ],
+      "far": 0.03384279475982533,
+      "far_ic95": [
+        0.02292576419213974,
+        0.04694323144104803
+      ],
+      "genuinos_rejeitados": 24,
+      "falsos_aceitos": 31,
+      "eer_proprio": 0.035755035920552194,
+      "media_bonafide": -0.4147613512532365,
+      "media_spoof": -3.645701174132168,
+      "duracao_mediana_bonafide": 2.925
+    },
+    "Scarlett Johansson": {
+      "n_bonafide": 31,
+      "n_spoof": 42,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.047619047619047616,
+      "far_ic95": [
+        0.0,
+        0.11904761904761904
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 2,
+      "eer_proprio": 0.039938556067588324,
+      "media_bonafide": -1.2777814663225604,
+      "media_spoof": -3.6424195369084678,
+      "duracao_mediana_bonafide": 5.3361
+    },
+    "The Notorious B.I.G.": {
+      "n_bonafide": 14,
+      "n_spoof": 315,
+      "frr": 0.42857142857142855,
+      "frr_ic95": [
+        0.21428571428571427,
+        0.7142857142857143
+      ],
+      "far": 0.0380952380952381,
+      "far_ic95": [
+        0.01904761904761905,
+        0.06031746031746032
+      ],
+      "genuinos_rejeitados": 6,
+      "falsos_aceitos": 12,
+      "eer_proprio": 0.2857142857142857,
+      "media_bonafide": -3.528060027531215,
+      "media_spoof": -3.6244429270426433,
+      "duracao_mediana_bonafide": 2.89155
+    },
+    "Tucker Carlson": {
+      "n_bonafide": 33,
+      "n_spoof": 67,
+      "frr": 0.0,
+      "frr_ic95": [
+        0.0,
+        0.0
+      ],
+      "far": 0.014925373134328358,
+      "far_ic95": [
+        0.0,
+        0.04477611940298507
+      ],
+      "genuinos_rejeitados": 0,
+      "falsos_aceitos": 1,
+      "eer_proprio": 0.0,
+      "media_bonafide": -0.12276843122460625,
+      "media_spoof": -3.620465940503932,
+      "duracao_mediana_bonafide": 5.302
+    },
+    "William F. Buckley": {
+      "n_bonafide": 4,
+      "n_spoof": 22,
+      "frr": 0.25,
+      "frr_ic95": [
+        0.0,
+        0.75
+      ],
+      "far": 0.0,
+      "far_ic95": [
+        0.0,
+        0.0
+      ],
+      "genuinos_rejeitados": 1,
+      "falsos_aceitos": 0,
+      "eer_proprio": 0.022727272727272728,
+      "media_bonafide": -3.171328544616699,
+      "media_spoof": -3.666174357587641,
+      "duracao_mediana_bonafide": 7.80505
+    },
+    "Winston Churchill": {
+      "n_bonafide": 625,
+      "n_spoof": 257,
+      "frr": 0.3552,
+      "frr_ic95": [
+        0.32,
+        0.392
+      ],
+      "far": 0.08560311284046693,
+      "far_ic95": [
+        0.054474708171206226,
+        0.12062256809338522
+      ],
+      "genuinos_rejeitados": 222,
+      "falsos_aceitos": 22,
+      "eer_proprio": 0.1747486381322957,
+      "media_bonafide": -2.5876133199989795,
+      "media_spoof": -3.6585855131483265,
+      "duracao_mediana_bonafide": 2.4271
+    }
+  },
+  "concentracao_genuinos_rejeitados": {
+    "total_erros": 2091,
+    "k_para_metade": 5,
+    "ordem": [
+      {
+        "k": 1,
+        "locutor": "Alec Guinness",
+        "erros": 414,
+        "fracao_acumulada": 0.19799139167862267
+      },
+      {
+        "k": 2,
+        "locutor": "Winston Churchill",
+        "erros": 222,
+        "fracao_acumulada": 0.30416068866571017
+      },
+      {
+        "k": 3,
+        "locutor": "Martin Luther King",
+        "erros": 205,
+        "fracao_acumulada": 0.4021999043519847
+      },
+      {
+        "k": 4,
+        "locutor": "Barack Obama",
+        "erros": 162,
+        "fracao_acumulada": 0.4796747967479675
+      },
+      {
+        "k": 5,
+        "locutor": "Dwight Eisenhower",
+        "erros": 122,
+        "fracao_acumulada": 0.5380200860832137
+      },
+      {
+        "k": 6,
+        "locutor": "Ayn Rand",
+        "erros": 113,
+        "fracao_acumulada": 0.5920612147297943
+      },
+      {
+        "k": 7,
+        "locutor": "FDR",
+        "erros": 98,
+        "fracao_acumulada": 0.6389287422285987
+      },
+      {
+        "k": 8,
+        "locutor": "Malcolm X",
+        "erros": 77,
+        "fracao_acumulada": 0.6757532281205165
+      },
+      {
+        "k": 9,
+        "locutor": "JFK",
+        "erros": 72,
+        "fracao_acumulada": 0.7101865136298422
+      },
+      {
+        "k": 10,
+        "locutor": "Bill Clinton",
+        "erros": 65,
+        "fracao_acumulada": 0.741272118603539
+      },
+      {
+        "k": 11,
+        "locutor": "Bernie Sanders",
+        "erros": 59,
+        "fracao_acumulada": 0.7694882831181253
+      },
+      {
+        "k": 12,
+        "locutor": "George Carlin",
+        "erros": 58,
+        "fracao_acumulada": 0.7972262075561932
+      },
+      {
+        "k": 13,
+        "locutor": "Calvin Coolidge",
+        "erros": 46,
+        "fracao_acumulada": 0.8192252510760402
+      },
+      {
+        "k": 14,
+        "locutor": "Richard Nixon",
+        "erros": 46,
+        "fracao_acumulada": 0.8412242945958871
+      },
+      {
+        "k": 15,
+        "locutor": "Donald Trump",
+        "erros": 45,
+        "fracao_acumulada": 0.8627450980392157
+      }
+    ]
+  },
+  "concentracao_falsos_aceitos": {
+    "total_erros": 1239,
+    "k_para_metade": 6,
+    "ordem": [
+      {
+        "k": 1,
+        "locutor": "Bill Clinton",
+        "erros": 160,
+        "fracao_acumulada": 0.129136400322841
+      },
+      {
+        "k": 2,
+        "locutor": "Orson Welles",
+        "erros": 131,
+        "fracao_acumulada": 0.23486682808716708
+      },
+      {
+        "k": 3,
+        "locutor": "Alec Guinness",
+        "erros": 115,
+        "fracao_acumulada": 0.327683615819209
+      },
+      {
+        "k": 4,
+        "locutor": "Queen Elizabeth II",
+        "erros": 110,
+        "fracao_acumulada": 0.41646489104116224
+      },
+      {
+        "k": 5,
+        "locutor": "Alan Watts",
+        "erros": 92,
+        "fracao_acumulada": 0.4907183212267958
+      },
+      {
+        "k": 6,
+        "locutor": "Donald Trump",
+        "erros": 71,
+        "fracao_acumulada": 0.5480225988700564
+      },
+      {
+        "k": 7,
+        "locutor": "Christopher Hitchens",
+        "erros": 70,
+        "fracao_acumulada": 0.6045197740112994
+      },
+      {
+        "k": 8,
+        "locutor": "Milton Friedman",
+        "erros": 69,
+        "fracao_acumulada": 0.6602098466505246
+      },
+      {
+        "k": 9,
+        "locutor": "Adam Driver",
+        "erros": 65,
+        "fracao_acumulada": 0.7126715092816788
+      },
+      {
+        "k": 10,
+        "locutor": "Barack Obama",
+        "erros": 53,
+        "fracao_acumulada": 0.7554479418886199
+      },
+      {
+        "k": 11,
+        "locutor": "Bob Ross",
+        "erros": 42,
+        "fracao_acumulada": 0.7893462469733656
+      },
+      {
+        "k": 12,
+        "locutor": "Ronald Reagan",
+        "erros": 31,
+        "fracao_acumulada": 0.814366424535916
+      },
+      {
+        "k": 13,
+        "locutor": "Nelson Mandela",
+        "erros": 30,
+        "fracao_acumulada": 0.8385794995964487
+      },
+      {
+        "k": 14,
+        "locutor": "Winston Churchill",
+        "erros": 22,
+        "fracao_acumulada": 0.8563357546408394
+      },
+      {
+        "k": 15,
+        "locutor": "Ayn Rand",
+        "erros": 20,
+        "fracao_acumulada": 0.8724778046811945
+      }
+    ]
+  },
+  "sensibilidade_sem_piores": {
+    "1": {
+      "sem": [
+        "Alec Guinness"
+      ],
+      "eer": 0.09970628557899533
+    },
+    "3": {
+      "sem": [
+        "Alec Guinness",
+        "Winston Churchill",
+        "Martin Luther King"
+      ],
+      "eer": 0.08989627370757014
+    },
+    "5": {
+      "sem": [
+        "Alec Guinness",
+        "Winston Churchill",
+        "Martin Luther King",
+        "Barack Obama",
+        "Dwight Eisenhower"
+      ],
+      "eer": 0.08919144049734543
+    }
+  },
+  "spearman_media_genuinos_vs_duracao_mediana": {
+    "rho": 0.019668756793295702,
+    "p": 0.8877381053943492
+  }
+}

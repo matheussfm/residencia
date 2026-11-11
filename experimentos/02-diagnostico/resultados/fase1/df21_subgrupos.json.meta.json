@@ -1,0 +1,17 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_df21_subgrupos.py",
+  "parametros": {
+    "B": 200
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/duracoes_por_arquivo.tsv": "9ec9d4c4db664a6e078e3c9cd0b48092917f8668490d568130d7f1bebe013812",
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/pontuacoes_repeat.txt": "92aa3835323f5693ce434ed0111497e51e414078ea040deb0de24633c9b0ed4e",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/trial_metadata.txt": "64144026fce4fb39e70208f96038e3937405b70ac50e797f89faba74efddec65"
+  },
+  "saida_sha256": "6f8724511e4e0ffe608438ed44163c40d28774a1d35ee189ea6fb115ff66f0ce",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

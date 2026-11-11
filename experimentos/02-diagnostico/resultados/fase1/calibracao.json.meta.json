@@ -1,0 +1,41 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_calibracao.py",
+  "parametros": {
+    "reps": 200,
+    "semente": 0,
+    "k": [
+      10,
+      50,
+      200
+    ]
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/mapa_falsos_ordenado.tsv": "7a1d67c474ecdbf120ca4aff733cdf8c26ba63a1bf6f9925a9f04a1023a5abdd",
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/rotulos.tsv": "1ef2f72a89c6592ccb5b61e9507994a86f7557b262997d48731a4169d514b915",
+    "experimentos/01-linha-de-base/listas/in_the_wild/rotulos.tsv": "69ed6f3443f64fcc89435e8d09932fff37c0ed688085ff9bd540a77bbc191539",
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/duracoes_por_arquivo.tsv": "9ec9d4c4db664a6e078e3c9cd0b48092917f8668490d568130d7f1bebe013812",
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/pontuacoes_repeat.txt": "92aa3835323f5693ce434ed0111497e51e414078ea040deb0de24633c9b0ed4e",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/duracoes_por_arquivo.tsv": "628bc8e6e26b7dd2c84a27490c522129f43eea0c07c87537221fc81837a6c388",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/pontuacoes_repeat.txt": "273058d4c9ad7e3516c1408b2734c0146ca62ecf5e7277cc47d661362d683747",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/duracoes_por_arquivo.tsv": "6a747d8c6a6615e4be39d9c4904ca99e679c73a6eeb74deb5b0f14c1278d693e",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/pontuacoes_repeat.txt": "826e10dd156d9d3b3876fcaf5a5ebc6c5b81012c6fd81840940f1f4f35f46e43",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/brspeech_df/brspeech_meta.csv": "ae54acccd3b5f0db3633a9e2468f0cffe460adaf8ddbed303a0d3541dca38f8b",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/brspeech_df/synthetic_meta.csv": "98906b887191a7ad31e11e29f68d16fd63c8ba2b1d10508359e7ebd3de86bdf1",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/trial_metadata.txt": "64144026fce4fb39e70208f96038e3937405b70ac50e797f89faba74efddec65",
+    "third_party/BRSpeech-DF-Dataset/data/scores/aasist/aasist_asvspoof2021DFeval_scores.pkl": "67ad0f94baf020546bae2f2583c73a4efe34a1c9a536a59790f897a24749a249",
+    "third_party/BRSpeech-DF-Dataset/data/scores/aasist/aasist_brspeech_full_scores.pkl": "a4fd0bd2fbf326f2936dd1665d967e0396fe0b1077fb2e62c3c863e80fe42116",
+    "third_party/BRSpeech-DF-Dataset/data/scores/aasist/aasist_sintetico_full_scores.pkl": "df55699d4f1e97c42da54d7b2a6568a592af7f0657385f4147d713593aa178c2",
+    "third_party/BRSpeech-DF-Dataset/data/scores/sls/sls_asvspoof2021DF_scores.txt": "b0c20e37bd67899f736b03497e35e67665a1a9f238bee4dfb573e6495045149b",
+    "third_party/BRSpeech-DF-Dataset/data/scores/sls/sls_brspeech_full_scores.pkl": "32952aefa622bb3d5e59d9fe25beb859d3661631dfaed959f508805fb34468fe",
+    "third_party/BRSpeech-DF-Dataset/data/scores/sls/sls_sintetico_full_scores.pkl": "f5d1b0042f4ab6ce247441cc1dd1b4c38255dc7b26f74eb1a633a4591ac54421",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_asvspoof2021DF_scores.txt": "d99b7b5d178e66c8a49175b7e063bc4cefc18faa667349f7dcbccf633d522449",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_brspeech_full_scores.pkl": "996d4f3d702b31761c59d3f7271a7d84b9abf6472af89cda083eca0bcf05e969",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_sintetico_full_scores.pkl": "94d047e3b262d5407f023e9c1583f7e2beac93983ad5d3cb20f1488f4a7f8ae4"
+  },
+  "saida_sha256": "895d6b3ebee2865c87b2b46375ec4fe72a36688a2d58ee4c436487c016f4524d",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

@@ -1,0 +1,25 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_global.py",
+  "parametros": {
+    "B": 1000,
+    "B_df21": 200
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/mapa_falsos_ordenado.tsv": "7a1d67c474ecdbf120ca4aff733cdf8c26ba63a1bf6f9925a9f04a1023a5abdd",
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/rotulos.tsv": "1ef2f72a89c6592ccb5b61e9507994a86f7557b262997d48731a4169d514b915",
+    "experimentos/01-linha-de-base/listas/in_the_wild/rotulos.tsv": "69ed6f3443f64fcc89435e8d09932fff37c0ed688085ff9bd540a77bbc191539",
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/duracoes_por_arquivo.tsv": "9ec9d4c4db664a6e078e3c9cd0b48092917f8668490d568130d7f1bebe013812",
+    "experimentos/01-linha-de-base/resultados/asvspoof21df/pontuacoes_repeat.txt": "92aa3835323f5693ce434ed0111497e51e414078ea040deb0de24633c9b0ed4e",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/duracoes_por_arquivo.tsv": "628bc8e6e26b7dd2c84a27490c522129f43eea0c07c87537221fc81837a6c388",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/pontuacoes_repeat.txt": "273058d4c9ad7e3516c1408b2734c0146ca62ecf5e7277cc47d661362d683747",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/duracoes_por_arquivo.tsv": "6a747d8c6a6615e4be39d9c4904ca99e679c73a6eeb74deb5b0f14c1278d693e",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/pontuacoes_repeat.txt": "826e10dd156d9d3b3876fcaf5a5ebc6c5b81012c6fd81840940f1f4f35f46e43",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/trial_metadata.txt": "64144026fce4fb39e70208f96038e3937405b70ac50e797f89faba74efddec65"
+  },
+  "saida_sha256": "fbb85055d26d2e749d6399b486abeb82b347ec16b7642db8ea4ae4239e857c9b",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

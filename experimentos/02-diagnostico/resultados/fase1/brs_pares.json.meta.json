@@ -1,0 +1,22 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_brs_pares.py",
+  "parametros": {
+    "sorteios": 1000
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/mapa_falsos_ordenado.tsv": "7a1d67c474ecdbf120ca4aff733cdf8c26ba63a1bf6f9925a9f04a1023a5abdd",
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/rotulos.tsv": "1ef2f72a89c6592ccb5b61e9507994a86f7557b262997d48731a4169d514b915",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/duracoes_por_arquivo.tsv": "628bc8e6e26b7dd2c84a27490c522129f43eea0c07c87537221fc81837a6c388",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/pontuacoes_repeat.txt": "273058d4c9ad7e3516c1408b2734c0146ca62ecf5e7277cc47d661362d683747",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/brspeech_df/brspeech_meta.csv": "ae54acccd3b5f0db3633a9e2468f0cffe460adaf8ddbed303a0d3541dca38f8b",
+    "third_party/BRSpeech-DF-Dataset/data/metadata/brspeech_df/synthetic_meta.csv": "98906b887191a7ad31e11e29f68d16fd63c8ba2b1d10508359e7ebd3de86bdf1",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_brspeech_full_scores.pkl": "996d4f3d702b31761c59d3f7271a7d84b9abf6472af89cda083eca0bcf05e969",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_sintetico_full_scores.pkl": "94d047e3b262d5407f023e9c1583f7e2beac93983ad5d3cb20f1488f4a7f8ae4"
+  },
+  "saida_sha256": "39756907e3fb3cb8b7b41fedee1642aae4f525e981eae5dc19ce86af8cbd1439",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

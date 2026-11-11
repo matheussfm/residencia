@@ -1,0 +1,18 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_itw_locutores.py",
+  "parametros": {
+    "B": 2000,
+    "limiar": "EER global do In-the-Wild"
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/in_the_wild/rotulos.tsv": "69ed6f3443f64fcc89435e8d09932fff37c0ed688085ff9bd540a77bbc191539",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/duracoes_por_arquivo.tsv": "6a747d8c6a6615e4be39d9c4904ca99e679c73a6eeb74deb5b0f14c1278d693e",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/pontuacoes_repeat.txt": "826e10dd156d9d3b3876fcaf5a5ebc6c5b81012c6fd81840940f1f4f35f46e43"
+  },
+  "saida_sha256": "6346e63436db1bb02dc53cb1e4a5b5da606e7ef97f66eee6c883823a2810d013",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

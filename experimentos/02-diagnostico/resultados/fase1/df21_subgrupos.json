@@ -1,0 +1,2742 @@
+{
+  "eer_eval": 0.02858272519037352,
+  "limiar_eer_eval": -3.532778024673462,
+  "subgrupos": {
+    "codec": {
+      "high_m4a": {
+        "n_bonafide": 1120,
+        "n_spoof": 52950,
+        "eer": {
+          "valor": 0.021431943882368812,
+          "ic95": [
+            0.01392942532636879,
+            0.028936963044903202
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.01607142857142857,
+          "falsos_aceitos": 0.029480642115203022,
+          "erro_balanceado": 0.022776035343315796
+        },
+        "media_bonafide": 2.1230247547583923,
+        "media_spoof": -3.64038041995038
+      },
+      "high_mp3": {
+        "n_bonafide": 1135,
+        "n_spoof": 52940,
+        "eer": {
+          "valor": 0.026580044901634133,
+          "ic95": [
+            0.017459567125895217,
+            0.03545113849631884
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.03259911894273128,
+          "falsos_aceitos": 0.02196826596146581,
+          "erro_balanceado": 0.027283692452098544
+        },
+        "media_bonafide": 1.6822832139545338,
+        "media_spoof": -3.646253299311192
+      },
+      "high_ogg": {
+        "n_bonafide": 2293,
+        "n_spoof": 63624,
+        "eer": {
+          "valor": 0.01913484279014044,
+          "ic95": [
+            0.014424649775008935,
+            0.025218171944765323
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.011774967291757523,
+          "falsos_aceitos": 0.043819942160191125,
+          "erro_balanceado": 0.027797454725974325
+        },
+        "media_bonafide": 3.2931828729668613,
+        "media_spoof": -3.6294524622554123
+      },
+      "low_m4a": {
+        "n_bonafide": 1146,
+        "n_spoof": 52895,
+        "eer": {
+          "valor": 0.02432529986718394,
+          "ic95": [
+            0.016083743407920594,
+            0.030875129705572768
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.02356020942408377,
+          "falsos_aceitos": 0.024784951318650154,
+          "erro_balanceado": 0.024172580371366964
+        },
+        "media_bonafide": 1.633310523466004,
+        "media_spoof": -3.6441895421814468
+      },
+      "low_mp3": {
+        "n_bonafide": 1140,
+        "n_spoof": 52858,
+        "eer": {
+          "valor": 0.042982771450553056,
+          "ic95": [
+            0.029680489297077194,
+            0.054361971836088
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.07719298245614035,
+          "falsos_aceitos": 0.014245714934352416,
+          "erro_balanceado": 0.04571934869524639
+        },
+        "media_bonafide": 0.23753780166438798,
+        "media_spoof": -3.6489404979658397
+      },
+      "low_ogg": {
+        "n_bonafide": 2293,
+        "n_spoof": 63624,
+        "eer": {
+          "valor": 0.026073677979147992,
+          "ic95": [
+            0.019767620242602136,
+            0.03463199150216686
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.024858264282599216,
+          "falsos_aceitos": 0.03019300892744876,
+          "erro_balanceado": 0.02752563660502399
+        },
+        "media_bonafide": 2.507320634203541,
+        "media_spoof": -3.638651718527681
+      },
+      "mp3m4a": {
+        "n_bonafide": 2293,
+        "n_spoof": 63624,
+        "eer": {
+          "valor": 0.032778740878939394,
+          "ic95": [
+            0.024680536420994936,
+            0.044059585722941046
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.040558220671609246,
+          "falsos_aceitos": 0.028149754809505847,
+          "erro_balanceado": 0.03435398774055755
+        },
+        "media_bonafide": 1.8312787758556064,
+        "media_spoof": -3.6384270395804887
+      },
+      "nocodec": {
+        "n_bonafide": 1156,
+        "n_spoof": 52920,
+        "eer": {
+          "valor": 0.023356205227188915,
+          "ic95": [
+            0.015319108179860938,
+            0.02979517029672917
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.019896193771626297,
+          "falsos_aceitos": 0.028854875283446713,
+          "erro_balanceado": 0.024375534527536505
+        },
+        "media_bonafide": 2.2468041713803903,
+        "media_spoof": -3.6425752361664774
+      },
+      "oggm4a": {
+        "n_bonafide": 2293,
+        "n_spoof": 63624,
+        "eer": {
+          "valor": 0.027474416448707677,
+          "ic95": [
+            0.020528508475918084,
+            0.033970221172419456
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.02398604448320977,
+          "falsos_aceitos": 0.031780460203696716,
+          "erro_balanceado": 0.027883252343453242
+        },
+        "media_bonafide": 2.498236676704868,
+        "media_spoof": -3.6374828956849563
+      }
+    },
+    "origem": {
+      "asvspoof": {
+        "n_bonafide": 7939,
+        "n_spoof": 73856,
+        "eer": {
+          "valor": 0.012724737480524703,
+          "ic95": [
+            0.010000852981574219,
+            0.015218328009872828
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.0,
+          "falsos_aceitos": 0.10089904679376083,
+          "erro_balanceado": 0.050449523396880414
+        },
+        "media_bonafide": 3.99182203407739,
+        "media_spoof": -3.580416282452683
+      },
+      "vcc2018": {
+        "n_bonafide": 3780,
+        "n_spoof": 182403,
+        "eer": {
+          "valor": 0.025131720369051994,
+          "ic95": [
+            0.01821671051323471,
+            0.03440972222222222
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 198,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.09947089947089947,
+          "falsos_aceitos": 0.0031413957007286066,
+          "erro_balanceado": 0.05130614758581404
+        },
+        "media_bonafide": -0.6281992670178177,
+        "media_spoof": -3.6696642924060927
+      },
+      "vcc2020": {
+        "n_bonafide": 3150,
+        "n_spoof": 262800,
+        "eer": {
+          "valor": 0.018729615133724724,
+          "ic95": [
+            0.01078510230690445,
+            0.024433201145315872
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "no_limiar_global": {
+          "limiar": -3.532778024673462,
+          "genuinos_rejeitados": 0.015555555555555555,
+          "falsos_aceitos": 0.025920852359208525,
+          "erro_balanceado": 0.02073820395738204
+        },
+        "media_bonafide": 0.9329216903247057,
+        "media_spoof": -3.6367820788047998
+      }
+    },
+    "vocoder": {
+      "neural_vocoder_autoregressive": {
+        "n_bonafide": 14869,
+        "n_spoof": 136085,
+        "eer": {
+          "valor": 0.040428813321562895,
+          "ic95": [
+            0.031030963916769513,
+            0.051995922406371006
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.07069111217253922,
+        "media_spoof": -3.607618051958069
+      },
+      "neural_vocoder_nonautoregressive": {
+        "n_bonafide": 14869,
+        "n_spoof": 115540,
+        "eer": {
+          "valor": 0.018427060001818665,
+          "ic95": [
+            0.012032012115074622,
+            0.02557514241175028
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0065085684611389995,
+        "media_spoof": -3.651735158493526
+      },
+      "traditional_vocoder": {
+        "n_bonafide": 14869,
+        "n_spoof": 232594,
+        "eer": {
+          "valor": 0.021453861859561447,
+          "ic95": [
+            0.01521726501072538,
+            0.029043073548380503
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.016294487390044455,
+        "media_spoof": -3.6519944355297245
+      },
+      "unknown": {
+        "n_bonafide": 14869,
+        "n_spoof": 29043,
+        "eer": {
+          "valor": 0.024548761093471375,
+          "ic95": [
+            0.01636715311778084,
+            0.03292760058477999
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.01756016940398719,
+        "media_spoof": -3.657974539875873
+      },
+      "waveform_concatenation": {
+        "n_bonafide": 14869,
+        "n_spoof": 5797,
+        "eer": {
+          "valor": 0.028489350957884817,
+          "ic95": [
+            0.018608675181068953,
+            0.036855104696776546
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.028462998102466792,
+        "media_spoof": -3.6233569229262974
+      }
+    },
+    "ataque": {
+      "A07": {
+        "n_bonafide": 14869,
+        "n_spoof": 5723,
+        "eer": {
+          "valor": 0.01694858259306417,
+          "ic95": [
+            0.010490555852170296,
+            0.022408915268550777
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0019220688450113576,
+        "media_spoof": -3.6436007803560826
+      },
+      "A08": {
+        "n_bonafide": 14869,
+        "n_spoof": 5740,
+        "eer": {
+          "valor": 0.012184049643307653,
+          "ic95": [
+            0.007472060695188103,
+            0.016710201575781333
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0012195121951219512,
+        "media_spoof": -3.66378234246882
+      },
+      "A09": {
+        "n_bonafide": 14869,
+        "n_spoof": 5577,
+        "eer": {
+          "valor": 0.012182956302627067,
+          "ic95": [
+            0.007423210804852528,
+            0.016751704035251908
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00017930787161556393,
+        "media_spoof": -3.648158978577987
+      },
+      "A10": {
+        "n_bonafide": 14869,
+        "n_spoof": 5709,
+        "eer": {
+          "valor": 0.10738949433801624,
+          "ic95": [
+            0.0796866745718116,
+            0.13227406899303043
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.5251357505692765,
+        "media_spoof": -3.4323607825185207
+      },
+      "A11": {
+        "n_bonafide": 14869,
+        "n_spoof": 5788,
+        "eer": {
+          "valor": 0.09710612279747156,
+          "ic95": [
+            0.07416566354351359,
+            0.1164083677698474
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.3873531444367657,
+        "media_spoof": -3.4232838770269103
+      },
+      "A12": {
+        "n_bonafide": 14869,
+        "n_spoof": 5628,
+        "eer": {
+          "valor": 0.042105944868052345,
+          "ic95": [
+            0.02919541434019604,
+            0.05554854636381671
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.09701492537313433,
+        "media_spoof": -3.5981181532081004
+      },
+      "A13": {
+        "n_bonafide": 14869,
+        "n_spoof": 5756,
+        "eer": {
+          "valor": 0.010424139173100859,
+          "ic95": [
+            0.005508823905074536,
+            0.01480968311891098
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00017373175816539263,
+        "media_spoof": -3.65377702594549
+      },
+      "A14": {
+        "n_bonafide": 14869,
+        "n_spoof": 5691,
+        "eer": {
+          "valor": 0.017029861410515185,
+          "ic95": [
+            0.010634992965432317,
+            0.02346122373299748
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0024600246002460025,
+        "media_spoof": -3.6403917640819428
+      },
+      "A15": {
+        "n_bonafide": 14869,
+        "n_spoof": 5588,
+        "eer": {
+          "valor": 0.026110987520552312,
+          "ic95": [
+            0.017548556938832834,
+            0.03443946564822766
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.020221904080171795,
+        "media_spoof": -3.618621336065537
+      },
+      "A16": {
+        "n_bonafide": 14869,
+        "n_spoof": 5797,
+        "eer": {
+          "valor": 0.028489350957884817,
+          "ic95": [
+            0.018608675181068953,
+            0.036855104696776546
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.028462998102466792,
+        "media_spoof": -3.6233569229262974
+      },
+      "A17": {
+        "n_bonafide": 14869,
+        "n_spoof": 5654,
+        "eer": {
+          "valor": 0.04244255508840406,
+          "ic95": [
+            0.03045199488211364,
+            0.052938752869715375
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0627874071453838,
+        "media_spoof": -3.5465530686246494
+      },
+      "A18": {
+        "n_bonafide": 14869,
+        "n_spoof": 5578,
+        "eer": {
+          "valor": 0.051136944976205606,
+          "ic95": [
+            0.0350097497804674,
+            0.06638070624315676
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.08139117963427751,
+        "media_spoof": -3.541430794634259
+      },
+      "A19": {
+        "n_bonafide": 14869,
+        "n_spoof": 5627,
+        "eer": {
+          "valor": 0.04743193930983991,
+          "ic95": [
+            0.03521985370715302,
+            0.05872146526998876
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.09685445175048872,
+        "media_spoof": -3.5129025140070502
+      },
+      "HUB-B00": {
+        "n_bonafide": 14869,
+        "n_spoof": 630,
+        "eer": {
+          "valor": 0.009873210162402443,
+          "ic95": [
+            0.006090911909503018,
+            0.012767008094057604
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 123,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6655528541595217
+      },
+      "HUB-B01": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.01033728957765544,
+          "ic95": [
+            0.00686310520794554,
+            0.014310887269487713
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0007936507936507937,
+        "media_spoof": -3.6672864493396546
+      },
+      "HUB-D01": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.005602446551737022,
+          "ic95": [
+            0.0022747090864130427,
+            0.008923333807167425
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.679303350950044
+      },
+      "HUB-D02": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006301915031486624,
+          "ic95": [
+            0.003155420158605108,
+            0.009795434500967672
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6833157707301396
+      },
+      "HUB-D03": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006935804171243676,
+          "ic95": [
+            0.002896333795946661,
+            0.011533440454330447
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.670428484441742
+      },
+      "HUB-D04": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006101827654638872,
+          "ic95": [
+            0.0030860306766042336,
+            0.010112186627462638
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6751590823370313
+      },
+      "HUB-D05": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.004534755649070667,
+          "ic95": [
+            0.00208305568651788,
+            0.007165146201045578
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6857039708466757
+      },
+      "HUB-N03": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.004168207904588966,
+          "ic95": [
+            0.0018681899448006992,
+            0.006508358427322175
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6893298195468054
+      },
+      "HUB-N04": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.009737027447112186,
+          "ic95": [
+            0.004636649090614176,
+            0.013464482945329264
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.001388888888888889,
+        "media_spoof": -3.67046258634045
+      },
+      "HUB-N05": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.012104448960071396,
+          "ic95": [
+            0.007942978177436654,
+            0.015510885179501837
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.001388888888888889,
+        "media_spoof": -3.668688256210751
+      },
+      "HUB-N06": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.009536940070264437,
+          "ic95": [
+            0.0032012102092287475,
+            0.013691301699702549
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6697482208883954
+      },
+      "HUB-N07": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.004568382658284468,
+          "ic95": [
+            0.0021192989575515775,
+            0.007763367019377364
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6838619059513484
+      },
+      "HUB-N08": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.005602446551737022,
+          "ic95": [
+            0.0027831116840258347,
+            0.008169963758621338
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6799667408068975
+      },
+      "HUB-N09": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.009170392325782735,
+          "ic95": [
+            0.0073934063646393326,
+            0.011868451434754141
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.006150793650793651,
+        "media_spoof": -3.6721622966584704
+      },
+      "HUB-N10": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.036079632494152636,
+          "ic95": [
+            0.020309565364922517,
+            0.04667911077372161
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.047817460317460314,
+        "media_spoof": -3.6213639419548036
+      },
+      "HUB-N11": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.007169518557305228,
+          "ic95": [
+            0.003948397324937281,
+            0.010486437180599184
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0001984126984126984,
+        "media_spoof": -3.673750668149146
+      },
+      "HUB-N12": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.009737027447112186,
+          "ic95": [
+            0.005114160376858826,
+            0.01374950243139216
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0001984126984126984,
+        "media_spoof": -3.660312025603794
+      },
+      "HUB-N13": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.007102264538877627,
+          "ic95": [
+            0.003436361037372074,
+            0.010753016812470591
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6688405930049837
+      },
+      "HUB-N14": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006902177162029875,
+          "ic95": [
+            0.0034846552049249786,
+            0.010332301498284367
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0003968253968253968,
+        "media_spoof": -3.6742007651972393
+      },
+      "HUB-N15": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.003768033150893464,
+          "ic95": [
+            0.0018675237275507938,
+            0.0063512570082412375
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6839720337636885
+      },
+      "HUB-N16": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.005968994296218723,
+          "ic95": [
+            0.0026271454210476577,
+            0.00955329535658667
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.682643074175668
+      },
+      "HUB-N17": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.01070383732213714,
+          "ic95": [
+            0.0065880388423355625,
+            0.014543189299962917
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0003968253968253968,
+        "media_spoof": -3.67252000442573
+      },
+      "HUB-N18": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.019440427885010575,
+          "ic95": [
+            0.01142537733646148,
+            0.026534605073818728
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.007738095238095238,
+        "media_spoof": -3.65549395756116
+      },
+      "HUB-N19": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.008936677939721183,
+          "ic95": [
+            0.003161850540679418,
+            0.014006949565965888
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6628509025725107
+      },
+      "HUB-N20": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.0071358915480914265,
+          "ic95": [
+            0.0037093253033273453,
+            0.010340329155094863
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6802871306737264
+      },
+      "SPO-B00": {
+        "n_bonafide": 14869,
+        "n_spoof": 333,
+        "eer": {
+          "valor": 0.006601092988879659,
+          "ic95": [
+            0.0034190032585736823,
+            0.01150500732580009
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 123,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.66541862917376
+      },
+      "SPO-B01": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.008536503186025682,
+          "ic95": [
+            0.005805891583952989,
+            0.011478429503287436
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0017857142857142857,
+        "media_spoof": -3.667318661298071
+      },
+      "SPO-N03": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.005602446551737022,
+          "ic95": [
+            0.0022615246011421447,
+            0.008556836616234485
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.682174088557561
+      },
+      "SPO-N04": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.00850287617681188,
+          "ic95": [
+            0.005148096450162424,
+            0.01241765115416049
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.667079777850045
+      },
+      "SPO-N05": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.009536940070264437,
+          "ic95": [
+            0.0051401275875488615,
+            0.013742143544983829
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.667718586372951
+      },
+      "SPO-N06": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.010137202200807688,
+          "ic95": [
+            0.00546252311704922,
+            0.013618130018737315
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.671902325181734
+      },
+      "SPO-N10": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.03094461471453872,
+          "ic95": [
+            0.015280381375518208,
+            0.04204059779096115
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.03591269841269841,
+        "media_spoof": -3.6181513036142974
+      },
+      "SPO-N11": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006902177162029875,
+          "ic95": [
+            0.003545464164984763,
+            0.011127132864603624
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6721448873243636
+      },
+      "SPO-N12": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.01030366256844164,
+          "ic95": [
+            0.005929270570847966,
+            0.01375201198591376
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0007936507936507937,
+        "media_spoof": -3.662080958059856
+      },
+      "SPO-N13": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006502002408334375,
+          "ic95": [
+            0.002840941324060205,
+            0.010939360451153138
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6658120948643913
+      },
+      "SPO-N16": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.0073696059341529785,
+          "ic95": [
+            0.0036542896461585544,
+            0.011417907560867153
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6784450302048337
+      },
+      "SPO-N17": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.006135454663852673,
+          "ic95": [
+            0.002874700530722401,
+            0.0095665706765479
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.669351695075868
+      },
+      "SPO-N18": {
+        "n_bonafide": 14869,
+        "n_spoof": 5040,
+        "eer": {
+          "valor": 0.019406800875796774,
+          "ic95": [
+            0.00876414911662248,
+            0.027126583965987095
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00873015873015873,
+        "media_spoof": -3.654877532900326
+      },
+      "Task1-team01": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.014965196045463716,
+          "ic95": [
+            0.005848985047019418,
+            0.021382847677244993
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.001388888888888889,
+        "media_spoof": -3.6403765085670683
+      },
+      "Task1-team02": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.02053401558798694,
+          "ic95": [
+            0.011118052473469088,
+            0.02891962630688876
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.006666666666666667,
+        "media_spoof": -3.6320486160119376
+      },
+      "Task1-team03": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.017185998460630243,
+          "ic95": [
+            0.01028073721101945,
+            0.0242594203047831
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0002777777777777778,
+        "media_spoof": -3.6334552816549937
+      },
+      "Task1-team04": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.0125046237137669,
+          "ic95": [
+            0.006615746680737593,
+            0.01846106068203783
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0002777777777777778,
+        "media_spoof": -3.6583765610059102
+      },
+      "Task1-team06": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.008063018883433842,
+          "ic95": [
+            0.004009015861036303,
+            0.01187226537778168
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.669035392271148
+      },
+      "Task1-team07": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.03133100372886169,
+          "ic95": [
+            0.01995359113573025,
+            0.04375444349369132
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.04027777777777778,
+        "media_spoof": -3.6083831233448453
+      },
+      "Task1-team08": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.010523591215130659,
+          "ic95": [
+            0.004438673192443815,
+            0.015356093003255791
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6625540682342317
+      },
+      "Task1-team09": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.01031744830781417,
+          "ic95": [
+            0.006092441465945269,
+            0.014620740487027994
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0002777777777777778,
+        "media_spoof": -3.65870829794142
+      },
+      "Task1-team10": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.03392608409741371,
+          "ic95": [
+            0.020118543925082787,
+            0.04798325969531127
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.06222222222222222,
+        "media_spoof": -3.5963076279560724
+      },
+      "Task1-team11": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.054460099685400644,
+          "ic95": [
+            0.027258438418654846,
+            0.0770377440327622
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.14694444444444443,
+        "media_spoof": -3.564479349076541
+      },
+      "Task1-team12": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.0156128709245933,
+          "ic95": [
+            0.009640028694095823,
+            0.02157892763722043
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0022222222222222222,
+        "media_spoof": -3.6405067310730614
+      },
+      "Task1-team13": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.03163802766381958,
+          "ic95": [
+            0.018771149452464473,
+            0.04420534804897548
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.04111111111111111,
+        "media_spoof": -3.607682073911031
+      },
+      "Task1-team14": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.009430003512154296,
+          "ic95": [
+            0.005865550902943256,
+            0.01228322817991999
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0011111111111111111,
+        "media_spoof": -3.6742211482922236
+      },
+      "Task1-team16": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.010250194289386567,
+          "ic95": [
+            0.005565704786968869,
+            0.013851123348446886
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6659682835472953
+      },
+      "Task1-team17": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.0075162250319456584,
+          "ic95": [
+            0.004129473614991219,
+            0.011486869430759685
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6704941280020607
+      },
+      "Task1-team18": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.004715001756077148,
+          "ic95": [
+            0.0023354532399965976,
+            0.007326918163685135
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.679536689254973
+      },
+      "Task1-team19": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.011377409001576733,
+          "ic95": [
+            0.0068002968770087425,
+            0.01559597823760503
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.66356331050396
+      },
+      "Task1-team20": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.015032450063891317,
+          "ic95": [
+            0.007793430355552456,
+            0.02066483155094303
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0005555555555555556,
+        "media_spoof": -3.651014843384425
+      },
+      "Task1-team21": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.008336415809177933,
+          "ic95": [
+            0.003344711464684191,
+            0.012222365728048036
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6757799579699832
+      },
+      "Task1-team22": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.022275278170092887,
+          "ic95": [
+            0.007885123754477426,
+            0.03139237883811482
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.009722222222222222,
+        "media_spoof": -3.6288784270154104
+      },
+      "Task1-team23": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.017286879488271647,
+          "ic95": [
+            0.008509141981973799,
+            0.025489013614391227
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0022222222222222222,
+        "media_spoof": -3.6383783419926963
+      },
+      "Task1-team24": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.014998823054677517,
+          "ic95": [
+            0.007044630583259363,
+            0.020698854384898924
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0008333333333333334,
+        "media_spoof": -3.6474478483200072
+      },
+      "Task1-team25": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.06556411176123329,
+          "ic95": [
+            0.021418535441927646,
+            0.09398153930344494
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.20444444444444446,
+        "media_spoof": -3.535466924060343
+      },
+      "Task1-team26": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.007209201096987767,
+          "ic95": [
+            0.003987561096209448,
+            0.010950651207667868
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6684204600254695
+      },
+      "Task1-team27": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.03915425269576524,
+          "ic95": [
+            0.017527463249925372,
+            0.053858459591483394
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.10361111111111111,
+        "media_spoof": -3.589197861486011
+      },
+      "Task1-team28": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.029997646109355035,
+          "ic95": [
+            0.012644165237120428,
+            0.04884307525579726
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.03277777777777778,
+        "media_spoof": -3.6267260248131223
+      },
+      "Task1-team29": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.0680919381113577,
+          "ic95": [
+            0.03599374693797921,
+            0.10700062695089894
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.22166666666666668,
+        "media_spoof": -3.5276777414677456
+      },
+      "Task1-team30": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.03806066499278887,
+          "ic95": [
+            0.01995961666237452,
+            0.05333045736831025
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.08388888888888889,
+        "media_spoof": -3.5973242304060196
+      },
+      "Task1-team31": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.011890575843851114,
+          "ic95": [
+            0.005110088060493527,
+            0.016646991472983496
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0002777777777777778,
+        "media_spoof": -3.6658955207135944
+      },
+      "Task1-team32": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.028083867629146397,
+          "ic95": [
+            0.016453093704943272,
+            0.03994340464264059
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.02666666666666667,
+        "media_spoof": -3.607117433945338
+      },
+      "Task1-team33": {
+        "n_bonafide": 14869,
+        "n_spoof": 3600,
+        "eer": {
+          "valor": 0.023335238863855447,
+          "ic95": [
+            0.008865610237809182,
+            0.032401977898642166
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 199,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.01138888888888889,
+        "media_spoof": -3.6258687469032074
+      },
+      "Task2-team02": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.0186665334040746,
+          "ic95": [
+            0.01016404598761085,
+            0.02859309781306704
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.006296296296296296,
+        "media_spoof": -3.6392819643462144
+      },
+      "Task2-team03": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.01429218259216914,
+          "ic95": [
+            0.008499689910075787,
+            0.019815346487387527
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.638011579381095
+      },
+      "Task2-team05": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.006275460005031597,
+          "ic95": [
+            0.003319691251552601,
+            0.00973170183982117
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6700195693528213
+      },
+      "Task2-team06": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.007949468568709943,
+          "ic95": [
+            0.004073176014305528,
+            0.01280252337742271
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6691273151503667
+      },
+      "Task2-team07": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.017026151849610052,
+          "ic95": [
+            0.01031544417591599,
+            0.023565718154561047
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0016666666666666668,
+        "media_spoof": -3.644871072239346
+      },
+      "Task2-team08": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.015705463517185894,
+          "ic95": [
+            0.00904351411204414,
+            0.02223270298923965
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0012962962962962963,
+        "media_spoof": -3.655691493484709
+      },
+      "Task2-team09": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.009303783910347902,
+          "ic95": [
+            0.005274726683447042,
+            0.013500899537250557
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.6593489846476803
+      },
+      "Task2-team10": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.04254856611941823,
+          "ic95": [
+            0.025042614075995024,
+            0.07380538697524218
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.09111111111111111,
+        "media_spoof": -3.572526624844306
+      },
+      "Task2-team11": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.031865128293267375,
+          "ic95": [
+            0.019553259736275624,
+            0.045236248847602446
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.046481481481481485,
+        "media_spoof": -3.6086309602525497
+      },
+      "Task2-team12": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.00868973604043212,
+          "ic95": [
+            0.005232457660367002,
+            0.012342287485237743
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00037037037037037035,
+        "media_spoof": -3.662624707663501
+      },
+      "Task2-team13": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.028130163925442694,
+          "ic95": [
+            0.017809545497550382,
+            0.04101209722724872
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.02666666666666667,
+        "media_spoof": -3.6156344522811747
+      },
+      "Task2-team15": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.0185066867930544,
+          "ic95": [
+            0.010875677019083657,
+            0.02645420052590627
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.006296296296296296,
+        "media_spoof": -3.643186399318554
+      },
+      "Task2-team16": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.007015727476753773,
+          "ic95": [
+            0.0038131296982525037,
+            0.010697277993370799
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.671156981918547
+      },
+      "Task2-team18": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.010590845233558261,
+          "ic95": [
+            0.0043851205534967816,
+            0.015406632097203152
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0,
+        "media_spoof": -3.67440102758231
+      },
+      "Task2-team19": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.012197599778809007,
+          "ic95": [
+            0.006694039388995983,
+            0.01796317978119719
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00037037037037037035,
+        "media_spoof": -3.661593702810782
+      },
+      "Task2-team20": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.017026151849610052,
+          "ic95": [
+            0.010135988582914264,
+            0.024606306843586834
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0024074074074074076,
+        "media_spoof": -3.642860730489095
+      },
+      "Task2-team22": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.009043056271686308,
+          "ic95": [
+            0.004070516022989003,
+            0.01391868708314195
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0012962962962962963,
+        "media_spoof": -3.670147178084762
+      },
+      "Task2-team23": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.021854703920411098,
+          "ic95": [
+            0.013817994406349534,
+            0.02997866918917271
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.009074074074074075,
+        "media_spoof": -3.6353946491524027
+      },
+      "Task2-team24": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.015352143285931704,
+          "ic95": [
+            0.00961508414202978,
+            0.020910363998345907
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0014814814814814814,
+        "media_spoof": -3.6576709157890743
+      },
+      "Task2-team25": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.04683032433873109,
+          "ic95": [
+            0.0264699006790834,
+            0.06720147561717792
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.11055555555555556,
+        "media_spoof": -3.5841457393489504
+      },
+      "Task2-team26": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.007015727476753773,
+          "ic95": [
+            0.003728454226875793,
+            0.010734913023661053
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.00018518518518518518,
+        "media_spoof": -3.6804655460075097
+      },
+      "Task2-team27": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.0279703173144225,
+          "ic95": [
+            0.014607054488498597,
+            0.04778264665196967
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.027407407407407408,
+        "media_spoof": -3.617756628087135
+      },
+      "Task2-team28": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.022754818003153467,
+          "ic95": [
+            0.011844707386922637,
+            0.033470517046604774
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.013703703703703704,
+        "media_spoof": -3.6433777529221993
+      },
+      "Task2-team29": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.05668090210056717,
+          "ic95": [
+            0.0344040815279879,
+            0.08246901411132619
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.205,
+        "media_spoof": -3.5526464328107736
+      },
+      "Task2-team30": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.030544439960843217,
+          "ic95": [
+            0.018321145847895567,
+            0.04230054432604057
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.03851851851851852,
+        "media_spoof": -3.614412463594366
+      },
+      "Task2-team31": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.012071380177002614,
+          "ic95": [
+            0.006791244493597117,
+            0.018668608669032482
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0011111111111111111,
+        "media_spoof": -3.6579348880273326
+      },
+      "Task2-team32": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.020374168976966745,
+          "ic95": [
+            0.011782114020570693,
+            0.028907977941661167
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0016666666666666668,
+        "media_spoof": -3.620954216453764
+      },
+      "Task2-team33": {
+        "n_bonafide": 14869,
+        "n_spoof": 5400,
+        "eer": {
+          "valor": 0.014998823054677517,
+          "ic95": [
+            0.008915461799256324,
+            0.020554910643993073
+          ],
+          "bootstrap": {
+            "B": 200,
+            "validas": 200,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "falsos_aceitos_no_limiar_global": 0.0012962962962962963,
+        "media_spoof": -3.6522594903575047
+      }
+    }
+  },
+  "hidden_track": {
+    "composicao": {
+      "origem": {
+        "eval": {
+          "asvspoof": 81795,
+          "vcc2018": 186183,
+          "vcc2020": 265950
+        },
+        "hidden": {
+          "asvspoof": 18576
+        }
+      },
+      "codec": {
+        "eval": {
+          "high_m4a": 54070,
+          "high_mp3": 54075,
+          "high_ogg": 65917,
+          "low_m4a": 54041,
+          "low_mp3": 53998,
+          "low_ogg": 65917,
+          "mp3m4a": 65917,
+          "nocodec": 54076,
+          "oggm4a": 65917
+        },
+        "hidden": {
+          "high_m4a": 2064,
+          "high_mp3": 2064,
+          "high_ogg": 2064,
+          "low_m4a": 2064,
+          "low_mp3": 2064,
+          "low_ogg": 2064,
+          "mp3m4a": 2064,
+          "nocodec": 2064,
+          "oggm4a": 2064
+        }
+      },
+      "vocoder": {
+        "eval": {
+          "bonafide": 14869,
+          "neural_vocoder_autoregressive": 136085,
+          "neural_vocoder_nonautoregressive": 115540,
+          "traditional_vocoder": 232594,
+          "unknown": 29043,
+          "waveform_concatenation": 5797
+        },
+        "hidden": {
+          "bonafide": 1980,
+          "neural_vocoder_autoregressive": 3879,
+          "neural_vocoder_nonautoregressive": 1251,
+          "traditional_vocoder": 10197,
+          "waveform_concatenation": 1269
+        }
+      },
+      "trim": {
+        "eval": {
+          "notrim": 533928
+        },
+        "hidden": {
+          "trim": 18576
+        }
+      }
+    },
+    "geral": {
+      "eval": {
+        "valor": 0.02858272519037352,
+        "ic95": [
+          0.020935565930706897,
+          0.03570624363505192
+        ],
+        "bootstrap": {
+          "B": 200,
+          "validas": 200,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "hidden": {
+        "valor": 0.11875534082692435,
+        "ic95": [
+          0.09977861040183815,
+          0.13898267536871062
+        ],
+        "bootstrap": {
+          "B": 200,
+          "validas": 200,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eval_no_limiar_eval": {
+        "limiar": -3.532778024673462,
+        "genuinos_rejeitados": 0.028582957831730448,
+        "falsos_aceitos": 0.02858441911227818,
+        "erro_balanceado": 0.028583688472004314
+      },
+      "hidden_no_limiar_eval": {
+        "limiar": -3.532778024673462,
+        "genuinos_rejeitados": 0.30707070707070705,
+        "falsos_aceitos": 0.0480236201494336,
+        "erro_balanceado": 0.17754716361007034
+      }
+    },
+    "media": {
+      "eval": {
+        "bonafide": 2.169290821422817,
+        "spoof": -3.6403170568171928
+      },
+      "hidden": {
+        "bonafide": -2.9448191759449363,
+        "spoof": -3.637104304127124
+      }
+    },
+    "cruzada": {
+      "gen_hidden_vs_fal_eval": 0.10709766533420492,
+      "gen_eval_vs_fal_hidden": 0.03524528167835685
+    },
+    "por_celula": {
+      "origem": {
+        "asvspoof": {
+          "n_hidden": [
+            1980,
+            16596
+          ],
+          "eer_eval": 0.012724737480524703,
+          "eer_hidden": 0.11875534082692435,
+          "frr_hidden_no_limiar_eval": 0.30707070707070705,
+          "far_hidden_no_limiar_eval": 0.0480236201494336,
+          "frr_eval_no_limiar_eval": 0.0,
+          "far_eval_no_limiar_eval": 0.10089904679376083
+        }
+      },
+      "codec": {
+        "high_m4a": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.021431943882368812,
+          "eer_hidden": 0.11457306251232499,
+          "frr_hidden_no_limiar_eval": 0.2318181818181818,
+          "far_hidden_no_limiar_eval": 0.05802603036876356,
+          "frr_eval_no_limiar_eval": 0.01607142857142857,
+          "far_eval_no_limiar_eval": 0.029480642115203022
+        },
+        "high_mp3": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.026580044901634133,
+          "eer_hidden": 0.1273565371721554,
+          "frr_hidden_no_limiar_eval": 0.3,
+          "far_hidden_no_limiar_eval": 0.052060737527114966,
+          "frr_eval_no_limiar_eval": 0.03259911894273128,
+          "far_eval_no_limiar_eval": 0.02196826596146581
+        },
+        "high_ogg": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.01913484279014044,
+          "eer_hidden": 0.1095888384933938,
+          "frr_hidden_no_limiar_eval": 0.2318181818181818,
+          "far_hidden_no_limiar_eval": 0.055856832971800434,
+          "frr_eval_no_limiar_eval": 0.011774967291757523,
+          "far_eval_no_limiar_eval": 0.043819942160191125
+        },
+        "low_m4a": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.02432529986718394,
+          "eer_hidden": 0.1273565371721554,
+          "frr_hidden_no_limiar_eval": 0.3181818181818182,
+          "far_hidden_no_limiar_eval": 0.049891540130151846,
+          "frr_eval_no_limiar_eval": 0.02356020942408377,
+          "far_eval_no_limiar_eval": 0.024784951318650154
+        },
+        "low_mp3": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.042982771450553056,
+          "eer_hidden": 0.12264346282784461,
+          "frr_hidden_no_limiar_eval": 0.38636363636363635,
+          "far_hidden_no_limiar_eval": 0.039045553145336226,
+          "frr_eval_no_limiar_eval": 0.07719298245614035,
+          "far_eval_no_limiar_eval": 0.014245714934352416
+        },
+        "low_ogg": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.026073677979147992,
+          "eer_hidden": 0.12816998619601655,
+          "frr_hidden_no_limiar_eval": 0.31363636363636366,
+          "far_hidden_no_limiar_eval": 0.04121475054229935,
+          "frr_eval_no_limiar_eval": 0.024858264282599216,
+          "far_eval_no_limiar_eval": 0.03019300892744876
+        },
+        "mp3m4a": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.032778740878939394,
+          "eer_hidden": 0.11928613685663578,
+          "frr_hidden_no_limiar_eval": 0.39545454545454545,
+          "far_hidden_no_limiar_eval": 0.04121475054229935,
+          "frr_eval_no_limiar_eval": 0.040558220671609246,
+          "far_eval_no_limiar_eval": 0.028149754809505847
+        },
+        "nocodec": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.023356205227188915,
+          "eer_hidden": 0.11321731413922304,
+          "frr_hidden_no_limiar_eval": 0.21818181818181817,
+          "far_hidden_no_limiar_eval": 0.05314533622559653,
+          "frr_eval_no_limiar_eval": 0.019896193771626297,
+          "far_eval_no_limiar_eval": 0.028854875283446713
+        },
+        "oggm4a": {
+          "n_hidden": [
+            220,
+            1844
+          ],
+          "eer_eval": 0.027474416448707677,
+          "eer_hidden": 0.10823309012029185,
+          "frr_hidden_no_limiar_eval": 0.36818181818181817,
+          "far_hidden_no_limiar_eval": 0.04175704989154013,
+          "frr_eval_no_limiar_eval": 0.02398604448320977,
+          "far_eval_no_limiar_eval": 0.031780460203696716
+        }
+      }
+    }
+  }
+}

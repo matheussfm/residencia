@@ -1,0 +1,16 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f1_qualidade_analise.py",
+  "parametros": {
+    "limiar_silencio_db": 40
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/qualidade/medidas.tsv": "5466f1d19e9214bb9488399c19e30465830d558379e4a5f66360174b94c656a6"
+  },
+  "saida_sha256": "449dbc4f8e73b685f16dbc174f4143e8d5852e53faf00f9ca2e04e7a371ef7f5",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

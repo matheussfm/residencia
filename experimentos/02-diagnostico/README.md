@@ -215,6 +215,34 @@ evidência:** antes, é preciso conferir se essas pontuações foram geradas cor
 exemplo, o áudio de 24 kHz pode ter entrado sem reamostragem, e convém comparar com os números
 do artigo do BRSpeech-DF. O segundo detector da Fase 4 continua em aberto.
 
+### 4.10 Medidas acústicas dos áudios (sem modelo)
+
+(`f1_qualidade_audio.py` no servidor, sobre os 10.640 áudios da amostra da Fase 3;
+`f1_qualidade_analise.py`; `resultados/qualidade/`.) Para cada áudio: silêncio no início e no fim
+(trecho abaixo de máximo − 40 dB, o mesmo critério do corte da Fase 2), SNR estimada, nível,
+banda que contém 99% da energia, fração de energia abaixo de 300 Hz e duração.
+
+| Cenário | Silêncio inicial, genuínos (mediana) | Silêncio inicial, falsos | Silêncio inicial sozinho como pontuação |
+|---|---|---|---|
+| 2021 DF eval | 0,24 s | 0,11 s | EER de 35,9% (AUC 0,71): o atalho existe no protocolo |
+| In-the-Wild | **0 s** | **0,23 s** | **AUC 0,34: invertido** |
+| BRSpeech-DF | 0,27 s | 0 s | EER de 33,8% (AUC 0,72) |
+
+- **No In-the-Wild, o atalho do silêncio aponta para o lado errado.** A fala real quase não tem
+  silêncio inicial, e a sintética tem. A regra aprendida no ASVspoof ("silêncio no início =
+  genuíno", seção 5.2) faz a voz real parecer falsa e a falsa parecer real nesse cenário. É uma
+  explicação concreta, medida nos próprios dados, para parte da perda no In-the-Wild.
+- **Dentro dos genuínos, a pontuação acompanha o silêncio inicial:** correlação de Spearman de
+  +0,60 no 2021 DF eval, +0,26 no In-the-Wild e +0,37 no BRSpeech-DF.
+- **Os 3 locutores "ruins" do BRSpeech-DF não se explicam por nenhuma medida isolada.** Silêncio
+  inicial, SNR, nível, banda e graves ficam na mesma faixa dos locutores "bons" (por exemplo, o
+  locutor 13063, ruim, tem 0,42 s de silêncio inicial). A duração explica parte do locutor 5739
+  (68% dos áudios abaixo de 4 s), mas os áudios **longos** dos três também recebem −3,6. Restam a
+  reverberação e as características da voz, que estas medidas não captam; a escuta é a checagem
+  seguinte.
+- Dentro dos locutores "bons", o efeito da duração aparece claramente (locutor 3050: pontuação
+  mediana de −0,32 nos áudios longos e −3,28 nos curtos), coerente com a seção 4.7.
+
 ## 5. Fase 2: perturbações controladas (teste causal)
 
 ### 5.1 Desenho
@@ -277,9 +305,13 @@ falsos; por isso a EER é a medida principal.
    Só a compressão mais agressiva pesa: MP3 a 32 e 64 kbps e Opus a 16 kbps quase não mudam nada.
    Na banda, o que pesa é o corte dos **graves** (abaixo de 300 Hz): cortar os agudos acima de 4
    ou 6 kHz não muda nada.
-4. **Ruído aditivo não afeta o detector**, mesmo com SNR de 10 dB. *Interpretação, a confirmar no
-   código do RawBoost:* o modelo do Tak foi treinado com RawBoost, que inclui ruído aditivo; ele
-   é robusto ao que viu no aumento de dados e frágil ao que não viu (reverberação).
+4. **Ruído aditivo não afeta o detector**, mesmo com SNR de 10 dB. O script de treino do DF do Tak
+   (`main_SSL_DF.py`) usa por padrão o RawBoost `algo 3` (SSI): ruído aditivo estacionário e
+   colorido com **SNR entre 10 e 40 dB**, exatamente a faixa em que a Fase 2 não vê efeito.
+   Nenhum algoritmo do RawBoost simula reverberação (o "convolutivo" do algoritmo 1 é um filtro
+   *notch* com não-linearidade, não a resposta de uma sala). Leitura: o detector é robusto ao que
+   viu no aumento de dados e frágil ao que não viu. *Ressalva:* o README do Tak não diz qual
+   `algo` gerou o checkpoint de DF; o padrão do script é indício forte, a confirmar no artigo [1]; o RawBoost está em [7].
 
 ### 5.3 Controles e limites
 
@@ -364,15 +396,34 @@ Poucos exemplos do domínio-alvo (EER mediana em locutores não vistos; entre co
    classe de 5 locutores, a EER no BRSpeech-DF cai de 39,5% (modelo completo) para 8,7% em locutores
    novos; com 200, para 2,1%. As camadas iniciais adaptam muito melhor que as finais.
 
-### 6.3 Limites
+### 6.3 Controles complementares (`f3_complementos.py`, `complementos.json`)
+
+**TTS deixado de fora.** Treinando o probe no próprio domínio sem um dos 5 TTS (e com locutores
+disjuntos) e testando justamente nele:
+
+| Camada | XTTS | YourTTS | ToucanTTS | F5-TTS | Fish-Speech | Referência (todos os TTS no treino) |
+|---|---|---|---|---|---|---|
+| 3 | 1,4% | 3,0% | 7,9% | **17,0%** | **20,1%** | 1,2% |
+| 5 | 2,7% | 1,1% | 6,1% | **18,6%** | **25,4%** | 1,2% |
+| 24 | 10,2% | 14,8% | 20,5% | 41,4% | 32,2% | 9,2% |
+
+O 1,2% depende em parte de o probe ter visto o gerador. Para XTTS e YourTTS, a separação
+transfere quase intacta; para os TTS mais recentes (F5-TTS e Fish-Speech), nunca vistos, o erro
+sobe para 17–25%. **O gerador novo (resposta 2) é secundário no detector atual, mas é a fronteira
+que sobra quando o problema de canal e de atalhos é resolvido.**
+
+**Locutores "ruins" × "bons" do BRSpeech-DF.** O detector completo erra 59,5% nos 3 locutores
+"ruins" e 17,9% nos 7 "bons". Um probe na camada 3 treinado **só nos locutores bons** separa os
+ruins com **2,3%** (camada 5: 6,8%). A fala real desses locutores é distinguível da sintética nas
+representações; o que falha é a regra de decisão do detector.
+
+### 6.4 Limites
 
 - **O probe no próprio domínio pode aprender artefatos do dataset**, e não "sinais de síntese" em
-  geral: no BRSpeech-DF, todos os falsos vêm dos mesmos 5 TTS, gerados por um mesmo processo; no
-  In-the-Wild, os falsos vêm de fontes específicas. A validação por locutor evita que o probe
-  memorize locutores, mas não que use traços do processo de geração do dataset. "A informação
-  existe" significa "as representações separam as classes deste dataset", não que essa separação
-  generalize para outros geradores. Testar em outro dataset em português, ou com TTS deixados de
-  fora, é o controle que falta.
+  geral. O controle de TTS deixado de fora (6.3) mostra que parte da separação depende do gerador;
+  o que é comum a todos os falsos do BRSpeech-DF (o mesmo processo de geração) e a todos os
+  genuínos (o mesmo corpus de origem) continua sem controle. Testar em outro dataset em português
+  é o controle que falta.
 - Médias no tempo descartam a estrutura temporal; o AASIST usa essa estrutura.
 - O BRSpeech-DF tem só 10 locutores no teste; as faixas p10–p90 dos poucos exemplos são largas.
 
@@ -380,13 +431,13 @@ Poucos exemplos do domínio-alvo (EER mediana em locutores não vistos; entre co
 
 | Resposta candidata | Fase 1 (observacional) | Fase 2 (causal) | Fase 3 (no modelo) | Situação |
 |---|---|---|---|---|
-| 1. Condição de gravação/canal | Perda vem dos genuínos; concentrada por locutor; VCC 2018 e `low_mp3` já deslocam no 2021 DF | **Reverberação: EER de 0,3% → 11–24%, voz real vai para o pico dos falsos**; MP3 16 kbps, telefone e volume baixo: 5–6%; ruído aditivo: nenhum efeito | — | **Confirmada como causa; a reverberação é o fator dominante** |
-| Silêncio (parte de 1 e 4) | Hidden track: 1,27% → 11,88% na mesma origem | **Atalho nos dois sentidos:** cortar → 5,7%; acrescentar 2 s → 22% dos falsos aceitos | Um probe sobre médias no tempo sofre menos (5,3% contra 12,3%) | **Confirmado** (coerente com Müller et al., 2021) |
-| 2. Gerador novo | Falsos do BRSpeech-DF dão 6,91% contra genuínos do 2021 DF | — | — | Contribui, secundário |
+| 1. Condição de gravação/canal | Perda vem dos genuínos; concentrada por locutor; VCC 2018 e `low_mp3` já deslocam no 2021 DF; SNR, nível e banda não separam os locutores "ruins" | **Reverberação: EER de 0,3% → 11–24%, voz real vai para o pico dos falsos**; MP3 16 kbps, telefone e volume baixo: 5–6%; ruído aditivo (coberto pelo RawBoost): nenhum efeito | — | **Confirmada como causa; a reverberação é o fator dominante** |
+| Silêncio (parte de 1 e 4) | Hidden track: 1,27% → 11,88% na mesma origem; **no In-the-Wild o silêncio inicial aponta para o lado errado** (genuínos 0 s, falsos 0,23 s) | **Atalho nos dois sentidos:** cortar → 5,7%; acrescentar 2 s → 22% dos falsos aceitos | Um probe sobre médias no tempo sofre menos (5,3% contra 12,3%) | **Confirmado**, inclusive como causa de erro em dados reais (coerente com Müller et al., 2021) |
+| 2. Gerador novo | Falsos do BRSpeech-DF dão 6,91% contra genuínos do 2021 DF | — | Com o TTS fora do treino do probe: XTTS e YourTTS ~1–3%; F5-TTS e Fish-Speech 17–25% | Secundário hoje; **fronteira restante** para os TTS mais recentes |
 | 3. Idioma | Não isolado; 7 dos 10 locutores em português têm EER própria de 7–33% | — | O XLS-R separa o português no próprio domínio (1,2%) | **O idioma não impede a separação nas representações**; o efeito no detector segue em aberto |
 | 4. Duração e pré-processamento | Curtos piores; sem atalho de duração | — | — | Contribui, secundário |
 | 5. Calibração | Recalibrar não muda a EER; minCllr alto | — | — | Não é o gargalo principal |
-| 6. Front-end × back-end | — | — | **A informação existe no front-end; perde-se no que foi aprendido no 2021 DF (camadas finais e AASIST)** | **Gargalo no treino/back-end** |
+| 6. Front-end × back-end | — | — | **A informação existe no front-end; perde-se no que foi aprendido no 2021 DF (camadas finais e AASIST)**; os 3 locutores "ruins" (detector: 59,5%) são separados com 2,3% por um probe treinado nos outros 7 | **Gargalo no treino/back-end** |
 
 **Resposta à pergunta norteadora.** Fora do domínio, o detector erra principalmente porque **a
 fala genuína gravada em condições diferentes do treino**, sobretudo com **reverberação** e **sem o
@@ -473,6 +524,16 @@ bash $S 0 python ../../02-diagnostico/scripts/f3_extrair.py --lista ../../02-dia
 # no PC (features.npz fica fora do git, ~526 MB; o SHA-256 está no .meta.json):
 python -B f3_probing.py --features ../resultados/fase3/features.npz --amostra ../listas/fase3/amostra.tsv
 python -B f3_poucos_exemplos.py --features ../resultados/fase3/features.npz --amostra ../listas/fase3/amostra.tsv
+python -B f3_complementos.py --features ../resultados/fase3/features.npz --amostra ../listas/fase3/amostra.tsv
+```
+
+Medidas acústicas (servidor, depois PC):
+
+```bash
+bash $S nenhuma python ../../02-diagnostico/scripts/f1_qualidade_audio.py \
+    --lista ../../02-diagnostico/listas/fase3/lista.tsv --saida ../../02-diagnostico/resultados/qualidade/medidas.tsv
+# no PC:
+python -B f1_qualidade_analise.py --medidas ../resultados/qualidade/medidas.tsv --amostra ../listas/fase3/amostra.tsv
 ```
 
 A semente é fixa (0) em todos os bootstraps e sorteios. Os parâmetros (B, k e faixas) estão
@@ -481,16 +542,21 @@ no `.meta.json` de cada resultado.
 ## Referências
 
 1. H. Tak et al. *Automatic speaker verification spoofing and deepfake detection using wav2vec 2.0
-   and data augmentation*. Odyssey 2022.
+   and data augmentation*. Odyssey 2022. arXiv:2202.12233.
 2. A. C. Ferro Filho et al. *BRSpeech-DF: A Deep Fake Synthetic Speech Dataset for Portuguese
    Zero-Shot TTS*. EMNLP 2025. Repositório com a chave completa do 2021 DF e as pontuações de SSL,
    SLS e AASIST.
 3. N. Müller et al. *Does Audio Deepfake Detection Generalize?* Interspeech 2022 (In-the-Wild).
 4. N. Brümmer, J. du Preez. *Application-independent evaluation of speaker detection*. Computer
    Speech & Language, 2006 (Cllr). _(referência de memória: conferir os dados antes de citar)_
-5. ASVspoof 2021: plano de avaliação e chaves completas do DF (hidden track). _(conferir a citação
-   exata)_
+5. X. Liu et al. *ASVspoof 2021: Towards Spoofed and Deepfake Speech Detection in the Wild*. IEEE/ACM
+   TASLP, v. 31, p. 2507–2522, 2023. arXiv:2210.02437. (Análise dos subconjuntos ocultos; conferir na
+   seção correspondente o efeito do corte de silêncio antes de citar números.)
 6. N. M. Müller, F. Dieckmann, P. Czempin, R. Canals, K. Böttinger, J. Williams. *Speech is Silver,
    Silence is Golden: What do ASVspoof-trained Models Really Learn?* ASVspoof 2021 Workshop.
    arXiv:2106.12914. (Os números de EER do artigo variam entre as versões do arXiv; aqui só se cita
    o achado qualitativo.)
+7. H. Tak et al. *RawBoost: A Raw Data Boosting and Augmentation Method applied to Automatic Speaker
+   Verification Anti-Spoofing*. ICASSP 2022. arXiv:2111.04433.
+8. N. M. Müller et al. *MLAAD: The Multi-Language Audio Anti-Spoofing Dataset*. IJCNN 2024.
+   arXiv:2401.09512. (Candidato para isolar o fator idioma; os números variam entre versões.)

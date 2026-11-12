@@ -55,6 +55,9 @@ imagem e o `inferir.py` do Experimento 01.
 | `f3_probing.py` | Fase 3: probe linear por camada, com transferência a partir do 2021 DF e validação cruzada por locutor no próprio domínio. Testado com features sintéticas. Lê as camadas por memory-map de dentro do `.npz` (problema 10). |
 | `f3_poucos_exemplos.py` | Fase 3: probe treinado com k exemplos por classe de metade dos locutores do alvo e testado na outra metade (20 sorteios). |
 | `f2_figura.py` | Fase 2: figura do deslocamento e da EER por condição. |
+| `f3_complementos.py` | Fase 3: controles do probing no BRSpeech-DF (TTS deixado de fora; locutores "ruins" × "bons"). |
+| `f1_qualidade_audio.py` | Medidas acústicas por áudio (silêncio inicial e final, SNR estimada, nível, banda, graves, clipping). Roda no servidor, no container, porque precisa dos áudios. |
+| `f1_qualidade_analise.py` | Análise das medidas contra rótulos e pontuações (atalho do silêncio em dados reais, locutores "ruins"). |
 
 ## 4. Decisões metodológicas
 
@@ -140,14 +143,16 @@ imagem e o `inferir.py` do Experimento 01.
 - Ouvir uma amostra dos genuínos dos 3 locutores "ruins" do BRSpeech-DF (5739, 13063 e 12626) e dos
   locutores com maior rejeição no In-the-Wild, procurando eco e gravação de sala (a Fase 2 aponta a
   reverberação como fator dominante).
-- Conferir no código do RawBoost quais degradações ele aplica no treino (a robustez a ruído aditivo e
-  a fragilidade à reverberação sugerem que ele cobre a primeira e não a segunda).
-- Fase 3: testar a separação "no próprio domínio" com TTS deixados de fora, ou em outro dataset em
+- Confirmar no artigo do Tak qual algoritmo do RawBoost gerou o checkpoint de DF. O código foi
+  conferido: o padrão do `main_SSL_DF.py` é o `algo 3` (ruído aditivo estacionário, SNR de 10 a
+  40 dB), e nenhum algoritmo simula reverberação (README, seção 5.2).
+- Fase 3: o controle de TTS deixado de fora foi feito (README 6.3). Falta testar em outro dataset em
   português, para separar "sinal de síntese" de artefato do processo de geração do BRSpeech-DF.
-- Confirmar a leitura do MLAAD (seção 4.3 do contexto). O trabalho sobre o silêncio como atalho foi
-  confirmado: Müller et al., ASVspoof 2021 Workshop, arXiv:2106.12914 (README, referência 6).
-  Conferir também a citação do Cllr (Brümmer e du Preez, 2006) e do plano de avaliação do ASVspoof
-  2021 (hidden track) antes de citá-los.
+- Medir reverberação nos genuínos dos locutores "ruins" (por exemplo, estimativa de RT60 ou da
+  razão direto/reverberante) ou confirmar pela escuta: nenhuma medida simples os explica (README 4.10).
+- Referências confirmadas: Müller et al. 2021 (silêncio), MLAAD, ASVspoof 2021 (Liu et al., TASLP
+  2023), Tak et al. 2022 e RawBoost (README, referências). Falta conferir a citação do Cllr
+  (Brümmer e du Preez, 2006) e, no artigo do ASVspoof 2021, os números dos subconjuntos ocultos.
 - Confirmar o significado da 13ª coluna da chave completa (provavelmente o idioma do alvo no VCC 2020).
 - Investigar as pontuações do SLS e do AASIST no BRSpeech-DF (problema 3).
 - Guardar a imagem Docker em disco no servidor (`docker save`), para não depender dela continuar

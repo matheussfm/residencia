@@ -82,6 +82,7 @@ def main():
     ap.add_argument('--saida', default=None, help='pasta de saída (padrão: resultados/fase3)')
     ap.add_argument('--C', type=float, default=0.1)
     ap.add_argument('--semente', type=int, default=0)
+    ap.add_argument('--nome', default='probing', help='nome dos arquivos de saída (ex.: probing_xlsr_original)')
     args = ap.parse_args()
     import os
     out = args.saida or D.pasta_saida('fase3')
@@ -96,17 +97,20 @@ def main():
     cen = np.array([am[i]['cenario'] for i in ids])
     y = np.array([am[i]['rotulo'] == 'bonafide' for i in ids], int)
     loc = np.array([am[i]['locutor'] for i in ids])
-    p_npz = z['pontuacao'].astype(float)
     p_exp01 = np.array([float(am[i]['pontuacao_exp01']) for i in ids])
-    conf = {'pearson_pontuacao_npz_vs_exp01': float(np.corrcoef(p_npz, p_exp01)[0, 1]),
-            'dif_abs_max': float(np.abs(p_npz - p_exp01).max())}
-    print('conferência das pontuações (extração × Exp. 01):', conf)
+    if 'pontuacao' in z.files:
+        p_npz = z['pontuacao'].astype(float)
+        conf = {'pearson_pontuacao_npz_vs_exp01': float(np.corrcoef(p_npz, p_exp01)[0, 1]),
+                'dif_abs_max': float(np.abs(p_npz - p_exp01).max())}
+        print('conferência das pontuações (extração × Exp. 01):', conf)
+    else:  # features de outro modelo (ex.: XLS-R original): a referência é o detector do Exp. 01
+        p_npz, conf = p_exp01, {'observacao': 'sem pontuação no .npz; EER do modelo = pontuações do Exp. 01'}
 
     # As camadas ocupam ~500 MB. Para não depender de memória nem de disco livres, o array é lido
     # por memory-map direto de dentro do .npz (um zip sem compressão), uma camada por vez.
     camadas = memmap_npz(args.features, 'camadas')
     reps = [(f'camada_{i + 1}', camadas[:, i, :]) for i in range(camadas.shape[1])]
-    reps += [('final', z['final']), ('aasist', z['aasist'])]
+    reps += [('final', z['final'])] + ([('aasist', z['aasist'])] if 'aasist' in z.files else [])
 
     # Divisão por locutores do 2021 DF eval: metade treina a transferência, metade testa
     rng = np.random.default_rng(args.semente)
@@ -137,7 +141,7 @@ def main():
         print(f"{nome:10s} transf.: " + ' '.join(f"{c}={D.pct(d['transferencia'][c], 1)}" for c in CENARIOS)
               + ' | no domínio: ' + ' '.join(f"{c}={D.pct(d['no_dominio'][c], 1)}" for c in CENARIOS), flush=True)
 
-    D.salvar_json(os.path.join(out, 'probing.json'), res, __file__, {'C': args.C, 'semente': args.semente})
+    D.salvar_json(os.path.join(out, f'{args.nome}.json'), res, __file__, {'C': args.C, 'semente': args.semente})
     del camadas, reps
 
     nomes = list(res['representacoes'])
@@ -154,14 +158,15 @@ def main():
         ax.set_title(NOMES[c], loc='left')
         ax.set_ylim(0, 55)
     for ax in axs[-1]:
-        nc = len(nomes) - 2
-        ax.set_xticks(list(range(0, nc, 2)) + [nc, nc + 1],
-                      [str(i + 1) for i in range(0, nc, 2)] + ['final', 'AASIST'], fontsize=7)
+        nc = sum(n.startswith('camada_') for n in nomes)
+        extras = [n for n in nomes if not n.startswith('camada_')]
+        ax.set_xticks(list(range(0, nc, 2)) + list(range(nc, nc + len(extras))),
+                      [str(i + 1) for i in range(0, nc, 2)] + [{'final': 'fin.', 'aasist': 'AAS.'}[n] for n in extras], fontsize=7)
         ax.set_xlabel('camada do XLS-R (1–24), saída final e embedding do AASIST')
     for ax in axs[:, 0]:
         ax.set_ylabel('EER do probe linear (%)')
     axs[0, 0].legend(loc='upper right', fontsize=8)
-    F.salvar(fig, os.path.join(out, 'figuras', 'probing.png'))
+    F.salvar(fig, os.path.join(out, 'figuras', f'{args.nome}.png'))
 
 
 if __name__ == '__main__':

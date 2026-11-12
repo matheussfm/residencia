@@ -27,13 +27,21 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--pasta', default=os.path.join(D.EXP02, 'resultados', 'silencio'))
     ap.add_argument('--B', type=int, default=1000)
+    ap.add_argument('--condicoes', nargs='+', default=['aparar', 'padronizar'])
+    ap.add_argument('--base', default='exp01', help="'exp01' (pontuações do Exp. 01) ou o nome de uma condição de controle")
+    ap.add_argument('--saida', default='silencio_real.json')
     args = ap.parse_args()
     res = {}
     for cen, carregar in (('itw', D.carregar_itw), ('brs', D.carregar_brs)):
         base = carregar()
-        r = {'original': {'eer': D.com_ic(base, grupos='locutor', B=args.B),
+        if args.base != 'exp01':  # controle regravado: mesmos ids, pontuações da condição de controle
+            pb = D.ler_pontuacoes(D._usar(os.path.join(args.pasta, f'pontuacoes_{args.base}_{cen}.txt')))
+            exp01_eer = D.eer(base.bona, base.spoof)[0]
+            base = D.Cenario(base.nome, base.ids, [pb[i] for i in base.ids], base.rotulo, base.meta, base.duracao)
+            print(f'{cen}: base = {args.base} (EER do Exp. 01 nos mesmos áudios: {D.pct(exp01_eer)})')
+        r = {'original' if args.base == 'exp01' else args.base: {'eer': D.com_ic(base, grupos='locutor', B=args.B),
                           'media_bonafide': float(base.bona.mean()), 'media_spoof': float(base.spoof.mean())}}
-        for cond in ('aparar', 'padronizar'):
+        for cond in [c for c in args.condicoes if c != args.base]:
             cam = os.path.join(args.pasta, f'pontuacoes_{cond}_{cen}.txt')
             if not os.path.exists(cam):
                 print(f'(sem {cam})')
@@ -56,7 +64,7 @@ def main():
                 ruim = np.isin(c.meta['locutor'], list(RUINS))
                 for nome, m in (('ruins', ruim), ('bons', ~ruim)):
                     d[f'eer_{nome}'] = D.eer(c.pont[m & (c.rotulo == 1)], c.pont[m & (c.rotulo == 0)])[0]
-                    r['original'][f'eer_{nome}'] = D.eer(base.pont[m & (base.rotulo == 1)], base.pont[m & (base.rotulo == 0)])[0]
+                    r['original' if args.base == 'exp01' else args.base][f'eer_{nome}'] = D.eer(base.pont[m & (base.rotulo == 1)], base.pont[m & (base.rotulo == 0)])[0]
             r[cond] = d
         res[cen] = r
         print(f'\n== {cen}')
@@ -68,7 +76,7 @@ def main():
             dps = (f"  Δ EER pareada {100 * dp['valor']:+.2f} pp [{100 * dp['ic95'][0]:+.2f}, {100 * dp['ic95'][1]:+.2f}]" if dp else '')
             print(f"  {cond:11s} EER {D.pct(d['eer']['valor'])} [{D.pct(ic[0])}, {D.pct(ic[1])}]{dps}  médias gen {d['media_bonafide']:+.2f}"
                   f" fal {d['media_spoof']:+.2f}{dl}{extra}")
-    D.salvar_json(os.path.join(args.pasta, 'silencio_real.json'), res, __file__, {'B': args.B})
+    D.salvar_json(os.path.join(args.pasta, args.saida), res, __file__, {'B': args.B, 'condicoes': args.condicoes, 'base': args.base})
 
 
 if __name__ == '__main__':

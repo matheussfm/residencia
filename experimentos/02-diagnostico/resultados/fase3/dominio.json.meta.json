@@ -1,0 +1,17 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f3_dominio.py",
+  "parametros": {
+    "C": 0.1,
+    "cv": "GroupKFold(3) por locutor"
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d"
+  },
+  "saida_sha256": "023271bda579401cd98f73a8c24cc6690054c11273246f8d274594a69e6bce68",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

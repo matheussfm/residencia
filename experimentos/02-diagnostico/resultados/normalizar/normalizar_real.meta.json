@@ -1,0 +1,34 @@
+{
+  "condicoes": [
+    "controle",
+    "equalizar",
+    "volume",
+    "janela_meio",
+    "janela_fim"
+  ],
+  "sr": 16000,
+  "janela": 64600,
+  "wpe": {
+    "nperseg": 512,
+    "shift": 128,
+    "taps": 10,
+    "delay": 3,
+    "iteracoes": 3
+  },
+  "equalizar": {
+    "numtaps": 513,
+    "ganho_max_db": 15,
+    "referencia": "386 genuínos VCTK sem codec"
+  },
+  "volume_dbfs": -18,
+  "cenarios": {
+    "itw": {
+      "n": 31779,
+      "lidos_via_ffmpeg": 0
+    },
+    "brs": {
+      "n": 7907,
+      "lidos_via_ffmpeg": 0
+    }
+  }
+}

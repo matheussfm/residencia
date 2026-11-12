@@ -139,6 +139,20 @@ imagem e o `inferir.py` do Experimento 01.
     `.flac` lidos pelo ffmpeg (problema 8). Teste de robustez com os 594 áudios idênticos ao Exp. 01:
     a ordem dos fatores não muda (`resultados/fase2/robustez_consistentes.json`).
 
+12. **Remoção de reverberação (WPE) descartada como teste.** A ideia era remover a reverberação dos
+    áudios reais e pontuar de novo, como na Fase 2b. Antes de rodar, o WPE de um canal (pacote
+    `nara_wpe`) foi testado com reverberação sintética: num áudio limpo ele não distorce nada
+    (correlação de 1,0, sem atraso), mas num áudio com eco melhora só 0,3–0,8 dB de SDR, mesmo com
+    40 *taps* (RT60 de 0,3 e 0,6 s). Com essa eficácia, um resultado nulo nos dados reais não
+    distinguiria "a reverberação não causa o erro" de "o WPE não removeu a reverberação". Ele foi
+    trocado pelo **teste de assinatura** (`f3_assinaturas.py`), que compara, nas representações do
+    modelo, o deslocamento observado nos dados reais com o deslocamento causado por cada fator da
+    Fase 2, com um controle positivo (a hidden track deve se parecer com o corte de silêncio). A
+    condição `dereverb` continua disponível no `f2_normalizar_real.py`, fora do padrão.
+13. **Disco do PC.** As features do XLS-R original e das assinaturas (~830 MB) não cabem no PC.
+    As análises que as usam rodam no servidor, no ambiente isolado (com scikit-learn e
+    matplotlib), e só os JSON e as figuras vêm para o repositório.
+
 ## 6. Pendências
 
 - Revisar a interpretação do README (seções 4 a 7).

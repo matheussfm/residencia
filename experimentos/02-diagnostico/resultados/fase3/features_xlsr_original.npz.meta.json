@@ -1,0 +1,25 @@
+{
+  "lista": "../../02-diagnostico/listas/fase3/lista.tsv",
+  "n": 10640,
+  "xlsr_sha256": "b08927597f2c9eb2ebd7dcc3ac78ee4b5f6021cbac4b3a6c5a9deec445d80ed9",
+  "task_normalize_checkpoint": true,
+  "entrada_normalizada": true,
+  "saida_sha256": "cb57985ef8eabb0400ff6164b173ab20edf01266bb057bfcf1cee06b3ef2f610",
+  "formas": {
+    "ids": [
+      10640
+    ],
+    "camadas": [
+      10640,
+      24,
+      1024
+    ],
+    "final": [
+      10640,
+      1024
+    ]
+  },
+  "torch": "1.8.1",
+  "fairseq": "1.0.0a0",
+  "gpu": "NVIDIA GeForce RTX 4090"
+}

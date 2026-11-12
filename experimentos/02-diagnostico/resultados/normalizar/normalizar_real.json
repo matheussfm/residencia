@@ -1,0 +1,314 @@
+{
+  "itw": {
+    "controle": {
+      "eer": {
+        "valor": 0.1046237587607487,
+        "ic95": [
+          0.07768706225595758,
+          0.1397826459555667
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -0.5330592675290079,
+      "media_spoof": -3.6075460601660447
+    },
+    "equalizar": {
+      "eer": {
+        "valor": 0.12168724479488136,
+        "ic95": [
+          0.0920553237806241,
+          0.16153778623079829
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.2866819889093815,
+      "media_spoof": -3.614976741802313,
+      "delta_mediano_bonafide": -0.16395354270935059,
+      "delta_mediano_spoof": -0.00043833255767822266,
+      "auc": 0.9414582070771347,
+      "diferenca_eer_pareada": {
+        "valor": 0.017063486034132658,
+        "ic95": [
+          0.003938391728911128,
+          0.0325508502848137
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    },
+    "volume": {
+      "eer": {
+        "valor": 0.060948553741144204,
+        "ic95": [
+          0.04254019555657078,
+          0.08317402141632922
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": 0.6194440162651215,
+      "media_spoof": -3.6336789750087357,
+      "delta_mediano_bonafide": 0.19307374954223633,
+      "delta_mediano_spoof": -0.005208849906921387,
+      "auc": 0.9819309107936345,
+      "diferenca_eer_pareada": {
+        "valor": -0.04367520501960449,
+        "ic95": [
+          -0.06402761584239543,
+          -0.03001023531608607
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    },
+    "janela_meio": {
+      "eer": {
+        "valor": 0.1034051833061102,
+        "ic95": [
+          0.07868925210644642,
+          0.1378360087044612
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.0650813031437993,
+      "media_spoof": -3.603716373589261,
+      "delta_mediano_bonafide": 0.0,
+      "delta_mediano_spoof": 0.0,
+      "auc": 0.9511959218325059,
+      "diferenca_eer_pareada": {
+        "valor": -0.001218575454638493,
+        "ic95": [
+          -0.007339641606546089,
+          0.005226394354676593
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    },
+    "janela_fim": {
+      "eer": {
+        "valor": 0.1029008269224945,
+        "ic95": [
+          0.07756017731457206,
+          0.13835990633284614
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.0323476251251131,
+      "media_spoof": -3.6015669199759133,
+      "delta_mediano_bonafide": 0.0,
+      "delta_mediano_spoof": 0.0,
+      "auc": 0.950764396106392,
+      "diferenca_eer_pareada": {
+        "valor": -0.0017229318382541992,
+        "ic95": [
+          -0.008367984376620062,
+          0.0061827826775669665
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    }
+  },
+  "brs": {
+    "controle": {
+      "eer": {
+        "valor": 0.3916736248165579,
+        "ic95": [
+          0.18317658426464373,
+          0.5314794208666043
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.8903914466133398,
+      "media_spoof": -3.4502136970061317,
+      "eer_ruins": 0.6056576624634573,
+      "eer_bons": 0.16944834011829862
+    },
+    "equalizar": {
+      "eer": {
+        "valor": 0.4220065579125091,
+        "ic95": [
+          0.24251057361856282,
+          0.5426876668630375
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -2.67373997209255,
+      "media_spoof": -3.5155719253836173,
+      "delta_mediano_bonafide": -0.03484225273132324,
+      "delta_mediano_spoof": -0.0057086944580078125,
+      "auc": 0.6263039342874624,
+      "diferenca_eer_pareada": {
+        "valor": 0.030332933095951198,
+        "ic95": [
+          0.003188524514172886,
+          0.08375428655677702
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.6225179949533413,
+      "eer_bons": 0.2395209619717304
+    },
+    "volume": {
+      "eer": {
+        "valor": 0.38105709823297496,
+        "ic95": [
+          0.15474461198953904,
+          0.5465978304581002
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.476077709931203,
+      "media_spoof": -3.4440672575666227,
+      "delta_mediano_bonafide": 0.027533650398254395,
+      "delta_mediano_spoof": 0.0032892227172851562,
+      "auc": 0.6703286086920518,
+      "diferenca_eer_pareada": {
+        "valor": -0.01061652658358292,
+        "ic95": [
+          -0.03544972452652282,
+          0.014134067652319228
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.6208323828441678,
+      "eer_bons": 0.1361956796976957
+    },
+    "janela_meio": {
+      "eer": {
+        "valor": 0.3984985347631469,
+        "ic95": [
+          0.20676828480018988,
+          0.5498137374673108
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -2.6417906712994657,
+      "media_spoof": -3.4214797373049506,
+      "delta_mediano_bonafide": 0.0,
+      "delta_mediano_spoof": 0.0,
+      "auc": 0.6432938386445294,
+      "diferenca_eer_pareada": {
+        "valor": 0.0068249099465890195,
+        "ic95": [
+          0.0007935624001268724,
+          0.030023107539360692
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.6260769773391685,
+      "eer_bons": 0.19238119817942176
+    },
+    "janela_fim": {
+      "eer": {
+        "valor": 0.4129066779837237,
+        "ic95": [
+          0.22162431769180382,
+          0.5515360934411955
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -2.7486889952285725,
+      "media_spoof": -3.4306127277757286,
+      "delta_mediano_bonafide": 0.0,
+      "delta_mediano_spoof": 0.0,
+      "auc": 0.6338649129828726,
+      "diferenca_eer_pareada": {
+        "valor": 0.02123305316716584,
+        "ic95": [
+          0.009515459090042165,
+          0.05673320329686641
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.6092166448492846,
+      "eer_bons": 0.2140400085704825
+    }
+  }
+}

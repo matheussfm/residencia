@@ -23,6 +23,13 @@ import _diag as D
 RUINS = {'5739', '13063', '12626'}
 
 
+def amostra_df21(cenario):
+    """Trials do 2021 DF da amostra da Fase 3 (ids com prefixo), com as pontuações do Exp. 01."""
+    am = [r for r in D.ler_tsv(D._usar(os.path.join(D.EXP02, 'listas', 'fase3', 'amostra.tsv'))) if r['cenario'] == cenario]
+    return D.Cenario(cenario, [r['id'] for r in am], [float(r['pontuacao_exp01']) for r in am],
+                     [r['rotulo'] == 'bonafide' for r in am], {'locutor': [r['locutor'] for r in am]})
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--pasta', default=os.path.join(D.EXP02, 'resultados', 'silencio'))
@@ -30,19 +37,24 @@ def main():
     ap.add_argument('--condicoes', nargs='+', default=['aparar', 'padronizar'])
     ap.add_argument('--base', default='exp01', help="'exp01' (pontuações do Exp. 01) ou o nome de uma condição de controle")
     ap.add_argument('--saida', default='silencio_real.json')
+    ap.add_argument('--cenarios', nargs='+', default=['itw', 'brs'], choices=['itw', 'brs', 'df21_eval', 'df21_hidden'])
     args = ap.parse_args()
     res = {}
-    for cen, carregar in (('itw', D.carregar_itw), ('brs', D.carregar_brs)):
+    carregadores = {'itw': (D.carregar_itw, 'itw'), 'brs': (D.carregar_brs, 'brs'),
+                    'df21_eval': (lambda: amostra_df21('df21_eval'), 'df21'),
+                    'df21_hidden': (lambda: amostra_df21('df21_hidden'), 'df21')}
+    for cen in args.cenarios:
+        carregar, arq = carregadores[cen]
         base = carregar()
         if args.base != 'exp01':  # controle regravado: mesmos ids, pontuações da condição de controle
-            pb = D.ler_pontuacoes(D._usar(os.path.join(args.pasta, f'pontuacoes_{args.base}_{cen}.txt')))
+            pb = D.ler_pontuacoes(D._usar(os.path.join(args.pasta, f'pontuacoes_{args.base}_{arq}.txt')))
             exp01_eer = D.eer(base.bona, base.spoof)[0]
             base = D.Cenario(base.nome, base.ids, [pb[i] for i in base.ids], base.rotulo, base.meta, base.duracao)
             print(f'{cen}: base = {args.base} (EER do Exp. 01 nos mesmos áudios: {D.pct(exp01_eer)})')
         r = {'original' if args.base == 'exp01' else args.base: {'eer': D.com_ic(base, grupos='locutor', B=args.B),
                           'media_bonafide': float(base.bona.mean()), 'media_spoof': float(base.spoof.mean())}}
         for cond in [c for c in args.condicoes if c != args.base]:
-            cam = os.path.join(args.pasta, f'pontuacoes_{cond}_{cen}.txt')
+            cam = os.path.join(args.pasta, f'pontuacoes_{cond}_{arq}.txt')
             if not os.path.exists(cam):
                 print(f'(sem {cam})')
                 continue

@@ -447,7 +447,34 @@ que sobra quando o problema de canal e de atalhos é resolvido.**
 ruins com **2,3%** (camada 5: 6,8%). A fala real desses locutores é distinguível da sintética nas
 representações; o que falha é a regra de decisão do detector.
 
-### 6.4 Limites
+### 6.4 Em que camada o domínio aparece, e para que lado ele empurra (`f3_dominio.py`)
+
+Para cada camada: (1) a AUC de um classificador linear que distingue os genuínos de um cenário dos
+genuínos do 2021 DF (validação cruzada por locutor); (2) a projeção do deslocamento médio dos
+genuínos sobre a direção "real × falso" aprendida no 2021 DF, como fração da distância entre as
+médias de genuínos e falsos do 2021 DF (0 = não empurra; 1 = leva os genuínos até o lugar dos
+falsos). (`resultados/fase3/dominio.json`, `figuras/dominio.png`)
+
+| Representação | Hidden track | In-the-Wild | BRSpeech-DF |
+|---|---|---|---|
+| Camada 1 | 0,81 | **0,83** | 0,42 |
+| Camada 6 | 0,30 | **0,02** | 0,23 |
+| Camada 12 | 0,47 | 0,08 | 0,32 |
+| Camada 24 | 0,55 | 0,27 | 0,38 |
+| Embedding do AASIST | 0,41 | 0,17 | **0,50** |
+
+- **Os domínios são totalmente distinguíveis** em todas as camadas do XLS-R (AUC ≈ 1,00) e quase
+  totalmente no embedding do AASIST (0,91–0,94): cada corpus deixa uma assinatura fácil de
+  reconhecer.
+- **O deslocamento de domínio dos genuínos aponta sempre para o lado "falso"** da regra aprendida no
+  2021 DF, em todas as camadas e nos três cenários. É o mecanismo do erro visto por dentro do
+  modelo.
+- O tamanho do empurrão acompanha o probing (6.2): no In-the-Wild, a camada 1 empurra 83% do
+  caminho, e é onde a transferência falha (48% de EER); nas camadas 6–13 o empurrão some, e é onde
+  ela funciona. No BRSpeech-DF o empurrão fica entre 22% e 50% em todas as representações, e a
+  transferência falha em todas.
+
+### 6.5 Limites
 
 - **O probe no próprio domínio pode aprender artefatos do dataset**, e não "sinais de síntese" em
   geral. O controle de TTS deixado de fora (6.3) mostra que parte da separação depende do gerador;

@@ -1,0 +1,17 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f3_probing.py",
+  "parametros": {
+    "C": 0.1,
+    "semente": 0
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features_xlsr_original.npz": "cb57985ef8eabb0400ff6164b173ab20edf01266bb057bfcf1cee06b3ef2f610"
+  },
+  "saida_sha256": "112982c3dc614b2d5c7f02dded9ba2b43b015a30623b18d9997b1395d69b19b2",
+  "python": "3.10.12",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "plataforma": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35"
+}

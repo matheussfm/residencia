@@ -1,0 +1,27 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f3_assinaturas.py",
+  "parametros": {
+    "fatores": [
+      "reverb_0.6s",
+      "aparar_40db",
+      "mp3_16k",
+      "banda_telefone",
+      "ganho_-20db",
+      "silencio_1.0s",
+      "ruido_branco_10db"
+    ],
+    "referencia": "genuínos VCTK do 2021 DF eval (amostra da Fase 3)"
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase2/selecao.tsv": "c199be312fd9bb721e803b31de8c5f4ef155e94fdf48ec825b1fdee9745cb876",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d",
+    "experimentos/02-diagnostico/resultados/fase3/features_assinaturas.npz": "9b038c7b8c440e8128ae4706ce243ca4347701221977b479da21a8064f979329"
+  },
+  "saida_sha256": "b25dfd442ffeafa43f791a469c242871b819e878bcfc9c3f24878065f34ec966",
+  "python": "3.10.12",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "plataforma": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35"
+}

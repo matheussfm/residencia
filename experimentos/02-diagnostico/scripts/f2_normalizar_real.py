@@ -14,7 +14,15 @@ por parte da perda nesse cenário. Uma condição por vez:
                  faixa limitado a ±15 dB; RMS restaurado (só a forma do espectro muda);
   - volume:      leva o RMS do áudio a −18 dBFS (mediana dos genuínos do 2021 DF eval, README 4.10);
   - janela_meio: o trecho de 64.600 amostras do MEIO do áudio (áudios mais curtos ficam iguais);
-  - janela_fim:  o trecho de 64.600 amostras do FIM do áudio.
+  - janela_fim:  o trecho de 64.600 amostras do FIM do áudio;
+  - padronizar:  silêncio das pontas cortado (máximo − 40 dB) e 0,5 s de silêncio digital no início
+                 (a mesma condição da Fase 2b, aqui com o caminho de E/S do controle);
+  - volume_padronizar: corta o silêncio, leva o RMS da fala a −18 dBFS e acrescenta 0,5 s de
+                 silêncio no início (as duas intervenções que ajudaram no In-the-Wild, juntas).
+
+Cenários (--cenarios): itw e brs (listas do Exp. 01) e df21 (amostra do 2021 DF da Fase 3: 3.000
+trials do eval e 2.000 da hidden track, para verificar que a intervenção não piora o domínio de
+treino; ids com o prefixo da Fase 3, ex.: df21_eval::DF_E_...).
 
 Saídas em 16 kHz, FLAC 16 bits. Ids do Experimento 01, para usar os mesmos rotulos.tsv.
 
@@ -44,11 +52,11 @@ import soundfile as sf
 from scipy import signal
 
 from _comum import erro, escrever_tsv, garantir_fora_third_party, ler_tsv, resumo
-from f2_silencio_real import CENARIOS, LIS01, ler
+from f2_silencio_real import CENARIOS, LIS01, aparar, ler
 
 SR = 16000
 JANELA = 64600
-CONDICOES = ['controle', 'dereverb', 'equalizar', 'volume', 'janela_meio', 'janela_fim']
+CONDICOES = ['controle', 'dereverb', 'equalizar', 'volume', 'janela_meio', 'janela_fim', 'padronizar', 'volume_padronizar']
 PADRAO = ['controle', 'equalizar', 'volume', 'janela_meio', 'janela_fim']
 NPERSEG = 512
 REF = None  # espectro de referência (preenchido em cada processo)
@@ -102,6 +110,11 @@ def transformar(cond, x):
         return equalizar(x)
     if cond == 'volume':
         return np.clip(x * (10 ** (-18 / 20) / rms(x)), -1, 1).astype(np.float32)
+    if cond in ('padronizar', 'volume_padronizar'):
+        y = aparar(x, SR)
+        if cond == 'volume_padronizar':
+            y = np.clip(y * (10 ** (-18 / 20) / rms(y)), -1, 1)
+        return np.concatenate([np.zeros(int(0.5 * SR), dtype=np.float32), y.astype(np.float32)])
     if x.size <= JANELA:
         return x
     if cond == 'janela_meio':
@@ -141,6 +154,7 @@ def main():
     ap.add_argument('--condicoes', nargs='+', default=PADRAO, choices=CONDICOES)
     ap.add_argument('--processos', type=int, default=max(1, (os.cpu_count() or 2) // 2))
     ap.add_argument('--listas', default=LIS01)
+    ap.add_argument('--cenarios', nargs='+', default=['itw', 'brs'], choices=['itw', 'brs', 'df21'])
     ap.add_argument('--limite', type=int, default=None)
     ap.add_argument('--selecao', default=os.path.join(AQUI, '..', 'resultados', 'fase2', 'selecao.tsv'),
                     help='seleção da Fase 2 (os genuínos dão a referência espectral)')
@@ -161,8 +175,13 @@ def main():
     print(f'referência espectral: {len(trials)} genuínos VCTK sem codec')
 
     stats = {}
-    for cen, pasta in CENARIOS.items():
-        itens = ler_tsv(os.path.join(args.listas, pasta, 'lista.tsv'))
+    fontes = dict(CENARIOS, df21=None)
+    for cen in args.cenarios:
+        if cen == 'df21':  # amostra da Fase 3, só os trials do 2021 DF
+            itens = [r for r in ler_tsv(os.path.join(AQUI, '..', 'listas', 'fase3', 'lista.tsv'))
+                     if r['id'].startswith(('df21_eval::', 'df21_hidden::'))]
+        else:
+            itens = ler_tsv(os.path.join(args.listas, fontes[cen], 'lista.tsv'))
         if args.limite:
             itens = itens[:args.limite]
         tarefas, listas = [], {c: [] for c in args.condicoes}

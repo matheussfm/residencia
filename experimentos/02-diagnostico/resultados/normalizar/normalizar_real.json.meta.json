@@ -1,0 +1,39 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f2_silencio_analise.py",
+  "parametros": {
+    "B": 1000,
+    "condicoes": [
+      "controle",
+      "equalizar",
+      "volume",
+      "janela_meio",
+      "janela_fim"
+    ],
+    "base": "controle"
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/mapa_falsos_ordenado.tsv": "b211c1c702da1554cd52cb849a0985afec8840f536afd3ec54d6ffc91cb096a3",
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/rotulos.tsv": "ac337145f0a045414f2316a4730bf65612ce459607d948ae21d943ab2dc0092f",
+    "experimentos/01-linha-de-base/listas/in_the_wild/rotulos.tsv": "dd5d7707afa520ca065e33968e02a553ff180c6bb4d76e02e0b7be582d573275",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/duracoes_por_arquivo.tsv": "68d8be0021d4af4bb23f4bfbd5089eb62d64451459dc86154f145c8a3c0cd506",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/pontuacoes_repeat.txt": "d473ae2f799abdce9042ed978736bf762eee9e5b877c6dbb61914847611bd0b3",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/duracoes_por_arquivo.tsv": "f8123a63fec861bd3ca3e7f174bd5c5d5150d9d078cb8c759aea21803bf2e69c",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/pontuacoes_repeat.txt": "a42d8df458f6d8ca46b680f1450607bb93eba935199c1c767f841fb63e0cb146",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_controle_brs.txt": "e7120ba4365dbc893e3929151c2f4084cc5b008ebb93ff652a68db58fb5ab8f7",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_controle_itw.txt": "16a7684ee6398b9dd9f1d0f5a31442e3a9ee744020e901189c98b4bf5f599e98",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_equalizar_brs.txt": "c24e2caa84dd63814439f61b06b676fceec8409722b95296de29346b22be1093",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_equalizar_itw.txt": "17085657ac6ea8952ce545fbad7b455a3177200d229074020007c498cb1c2eb8",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_janela_fim_brs.txt": "1baf490e554ffb2b97830e16830ff5df59b3d9b0fe045089d348b1b1da853cf3",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_janela_fim_itw.txt": "dc0a56e015dc0ceb091a899e68799261afc8a242d16e6fdd1a980c8b0bde6d4c",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_janela_meio_brs.txt": "20cbb494710f323eb7e8de09ab2bf70550d22a72abe547ee0b9233b8a1cb566b",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_janela_meio_itw.txt": "fad77ccda3798b76b3c3dd70b7d4c7d4ff6cbe32edb1d5d049931a5c9e9ff9f7",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_volume_brs.txt": "eca261d8269d26d494e5d16c1187314361db8f0faee45bda26b047a91bc8ab2f",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_volume_itw.txt": "253086b4bebc50b44fe8a9660443fd160a22bbbbb2a1ce899e260858d0e96176"
+  },
+  "saida_sha256": "458a437e3c3fc7a4a44ec9e784bd98493b037b1346adfd499dd9fd1710a41753",
+  "python": "3.10.12",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "plataforma": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35"
+}

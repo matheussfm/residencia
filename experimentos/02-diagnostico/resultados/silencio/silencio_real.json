@@ -1,0 +1,178 @@
+{
+  "itw": {
+    "original": {
+      "eer": {
+        "valor": 0.10475848244099248,
+        "ic95": [
+          0.0776855538671122,
+          0.14000860915669372
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -0.5336064270121423,
+      "media_spoof": -3.6075124177919697
+    },
+    "aparar": {
+      "eer": {
+        "valor": 0.12441888940036698,
+        "ic95": [
+          0.09856337115502428,
+          0.16485852246457286
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.262683166507192,
+      "media_spoof": -3.597650029704406,
+      "delta_mediano_bonafide": -0.010302066802978516,
+      "delta_mediano_spoof": 0.003656744956970215,
+      "auc": 0.9398704779705692,
+      "diferenca_eer_pareada": {
+        "valor": 0.019660406959374502,
+        "ic95": [
+          0.012117175551006146,
+          0.032444157637757244
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    },
+    "padronizar": {
+      "eer": {
+        "valor": 0.07640656244858676,
+        "ic95": [
+          0.05557452079183611,
+          0.10169667722712898
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": 0.4566215255394244,
+      "media_spoof": -3.4893898342366563,
+      "delta_mediano_bonafide": 0.42973899841308594,
+      "delta_mediano_spoof": 0.049714088439941406,
+      "auc": 0.9753787228105237,
+      "diferenca_eer_pareada": {
+        "valor": -0.028351919992405716,
+        "ic95": [
+          -0.0495633516894575,
+          -0.010487432045184706
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      }
+    }
+  },
+  "brs": {
+    "original": {
+      "eer": {
+        "valor": 0.39243194814395665,
+        "ic95": [
+          0.18772375884883039,
+          0.5184678940903005
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -2.1479295723168463,
+      "media_spoof": -3.4894147703309004,
+      "eer_ruins": 0.5889850881410537,
+      "eer_bons": 0.1783666738087354
+    },
+    "aparar": {
+      "eer": {
+        "valor": 0.4021383372206964,
+        "ic95": [
+          0.23124613448834297,
+          0.5105178931594372
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -3.1678190120665186,
+      "media_spoof": -3.5326089341715443,
+      "delta_mediano_bonafide": -0.011397361755371094,
+      "delta_mediano_spoof": 0.0,
+      "auc": 0.6554535218589417,
+      "diferenca_eer_pareada": {
+        "valor": 0.009706389076739763,
+        "ic95": [
+          -0.011795724278483941,
+          0.048366767973145076
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.5588234055471133,
+      "eer_bons": 0.22448723192894293
+    },
+    "padronizar": {
+      "eer": {
+        "valor": 0.3954652414535518,
+        "ic95": [
+          0.19911561910432626,
+          0.5598918918733053
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "media_bonafide": -1.7406679428492984,
+      "media_spoof": -3.2943363156165693,
+      "delta_mediano_bonafide": 0.01713109016418457,
+      "delta_mediano_spoof": 0.014830589294433594,
+      "auc": 0.6464174728919682,
+      "diferenca_eer_pareada": {
+        "valor": 0.0030332933095951198,
+        "ic95": [
+          -0.007240961830416798,
+          0.04573377335872845
+        ],
+        "bootstrap": {
+          "B": 1000,
+          "validas": 1000,
+          "grupos": "locutor",
+          "semente": 0
+        }
+      },
+      "eer_ruins": 0.6470595667173205,
+      "eer_bons": 0.18855905516923457
+    }
+  }
+}

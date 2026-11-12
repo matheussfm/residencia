@@ -57,6 +57,8 @@ imagem e o `inferir.py` do Experimento 01.
 | `f2_figura.py` | Fase 2: figura do deslocamento e da EER por condição. |
 | `f3_complementos.py` | Fase 3: controles do probing no BRSpeech-DF (TTS deixado de fora; locutores "ruins" × "bons"). |
 | `f1_qualidade_audio.py` | Medidas acústicas por áudio (silêncio inicial e final, SNR estimada, nível, banda, graves, clipping). Roda no servidor, no container, porque precisa dos áudios. |
+| `f2_silencio_real.py` | Fase 2b: corta o silêncio (aparar) ou o padroniza em 0,5 s (padronizar) em todos os áudios do In-the-Wild e do BRSpeech-DF, gravando FLAC 16 bits na taxa original. Roda fora do container. |
+| `f2_silencio_analise.py` | Fase 2b: EER com IC por locutor e diferença de EER pareada (mesmos locutores sorteados nas duas condições). |
 | `f1_qualidade_analise.py` | Análise das medidas contra rótulos e pontuações (atalho do silêncio em dados reais, locutores "ruins"). |
 
 ## 4. Decisões metodológicas

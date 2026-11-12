@@ -330,6 +330,36 @@ falsos; por isso a EER é a medida principal.
 - O corte de silêncio aqui (40 dB) dá efeito menor que a hidden track (5,7% contra 11,88%). O
   método de corte do ASVspoof é desconhecido, e os conjuntos de áudio são outros.
 
+### 5.4 Fase 2b: normalizar o silêncio em dados reais fora do domínio
+
+As medidas acústicas (4.10) mostraram que, no In-the-Wild, o atalho do silêncio aponta para o lado
+errado. Para medir quanto da perda real vem dele, o silêncio foi normalizado em **todos** os áudios
+do In-the-Wild e do BRSpeech-DF, nas duas classes (`f2_silencio_real.py`), e os áudios foram
+pontuados de novo, com o mesmo `inferir.py`:
+- **aparar:** corta o silêncio do início e do fim (máximo − 40 dB);
+- **padronizar:** corta e acrescenta exatamente 0,5 s de silêncio digital no início de todos.
+
+(`f2_silencio_analise.py`, `resultados/silencio/silencio_real.json`; diferença de EER pareada com
+IC de 95% por bootstrap de locutores, sorteando os mesmos locutores nas duas condições.)
+
+| Cenário | Original | aparar | padronizar |
+|---|---|---|---|
+| **In-the-Wild** | 10,48% [7,77; 14,00] | 12,44% (Δ +1,97 pp [+1,21; +3,24]) | **7,64%** (Δ **−2,84 pp [−4,96; −1,05]**) |
+| BRSpeech-DF | 39,24% [18,77; 51,85] | 40,21% (Δ +0,97 pp [−1,18; +4,84]) | 39,55% (Δ +0,30 pp [−0,72; +4,57]) |
+| BRSpeech-DF, 3 locutores "ruins" | 58,90% | 55,88% | 64,71% |
+
+- **No In-the-Wild, padronizar o silêncio reduz a EER em 2,8 pontos (27% relativos), sem nenhum
+  treino**, e a diferença é significativa. A média dos genuínos sobe de −0,53 para +0,46: a fala
+  real, que não tinha silêncio inicial, deixa de ser penalizada. Cortar o silêncio de todos piora
+  (+2,0 pontos), porque reforça a pista "sem silêncio = falso".
+- **No BRSpeech-DF, nada muda:** lá os genuínos já tinham mais silêncio que os falsos (4.10), e a
+  perda vem de outro fator (canal, reverberação ou voz), concentrado nos 3 locutores "ruins".
+- **Consequência para a aplicação:** padronizar o silêncio antes de pontuar também neutraliza o
+  ataque de acrescentar silêncio a um áudio falso (Fase 2: com 2 s, 22% dos falsos passam), porque
+  o corte remove esse silêncio antes da padronização.
+- Limite: a diferença pareada é medida com os locutores do próprio dataset; um efeito de 2,8
+  pontos em 10,5% não elimina a perda do In-the-Wild, que segue em 7,6%.
+
 ## 6. Fase 3: onde a informação se perde (probing por camada)
 
 ### 6.1 Desenho
@@ -432,7 +462,7 @@ representações; o que falha é a regra de decisão do detector.
 | Resposta candidata | Fase 1 (observacional) | Fase 2 (causal) | Fase 3 (no modelo) | Situação |
 |---|---|---|---|---|
 | 1. Condição de gravação/canal | Perda vem dos genuínos; concentrada por locutor; VCC 2018 e `low_mp3` já deslocam no 2021 DF; SNR, nível e banda não separam os locutores "ruins" | **Reverberação: EER de 0,3% → 11–24%, voz real vai para o pico dos falsos**; MP3 16 kbps, telefone e volume baixo: 5–6%; ruído aditivo (coberto pelo RawBoost): nenhum efeito | — | **Confirmada como causa; a reverberação é o fator dominante** |
-| Silêncio (parte de 1 e 4) | Hidden track: 1,27% → 11,88% na mesma origem; **no In-the-Wild o silêncio inicial aponta para o lado errado** (genuínos 0 s, falsos 0,23 s) | **Atalho nos dois sentidos:** cortar → 5,7%; acrescentar 2 s → 22% dos falsos aceitos | Um probe sobre médias no tempo sofre menos (5,3% contra 12,3%) | **Confirmado**, inclusive como causa de erro em dados reais (coerente com Müller et al., 2021) |
+| Silêncio (parte de 1 e 4) | Hidden track: 1,27% → 11,88% na mesma origem; **no In-the-Wild o silêncio inicial aponta para o lado errado** (genuínos 0 s, falsos 0,23 s) | **Atalho nos dois sentidos:** cortar → 5,7%; acrescentar 2 s → 22% dos falsos aceitos | Um probe sobre médias no tempo sofre menos (5,3% contra 12,3%) | **Confirmado**, inclusive como causa de erro em dados reais: padronizar o silêncio reduz a EER do In-the-Wild de 10,48% para 7,64% (Δ pareada −2,84 pp [−4,96; −1,05]); no BRSpeech-DF não muda (coerente com Müller et al., 2021) |
 | 2. Gerador novo | Falsos do BRSpeech-DF dão 6,91% contra genuínos do 2021 DF | — | Com o TTS fora do treino do probe: XTTS e YourTTS ~1–3%; F5-TTS e Fish-Speech 17–25% | Secundário hoje; **fronteira restante** para os TTS mais recentes |
 | 3. Idioma | Não isolado; 7 dos 10 locutores em português têm EER própria de 7–33% | — | O XLS-R separa o português no próprio domínio (1,2%) | **O idioma não impede a separação nas representações**; o efeito no detector segue em aberto |
 | 4. Duração e pré-processamento | Curtos piores; sem atalho de duração | — | — | Contribui, secundário |
@@ -441,7 +471,10 @@ representações; o que falha é a regra de decisão do detector.
 
 **Resposta à pergunta norteadora.** Fora do domínio, o detector erra principalmente porque **a
 fala genuína gravada em condições diferentes do treino**, sobretudo com **reverberação** e **sem o
-silêncio** que o ASVspoof associa à fala real, **é empurrada para o lado "falso"**. A informação
+silêncio** que o ASVspoof associa à fala real, **é empurrada para o lado "falso"**. O peso de cada
+fator muda com o cenário: no In-the-Wild, o atalho do silêncio responde por cerca de 2,8 dos 10,5
+pontos de EER; no BRSpeech-DF, o silêncio não pesa, e a perda se concentra em 3 locutores cuja fala
+real cai no pico dos falsos, sem diferença de silêncio, SNR, nível ou banda. A informação
 para separar real de sintético continua presente nas camadas do XLS-R, inclusive em português,
 mas a regra de decisão aprendida no ASVspoof 2019 LA não a usa. O problema é o que o detector
 aprendeu (atalhos do conjunto de treino), não o que ele consegue ouvir.
@@ -462,8 +495,11 @@ aprendeu (atalhos do conjunto de treino), não o que ele consegue ouvir.
 
 ## 9. Semana 10: intervenção
 
-O diagnóstico aponta duas intervenções com justificativa direta:
+O diagnóstico aponta três intervenções com justificativa direta:
 
+0. **Normalizar o silêncio antes de pontuar** (sem treino): já testada na Fase 2b, reduz a EER do
+   In-the-Wild de 10,48% para 7,64% e neutraliza o ataque de acrescentar silêncio. Custo quase
+   nulo; não resolve o BRSpeech-DF.
 1. **Back-end leve sobre as camadas iniciais do XLS-R, adaptado com poucos exemplos do domínio.**
    É a mais barata e a mais apoiada pela Fase 3: com 50 exemplos por classe em português, a EER
    no BRSpeech-DF cai de 39,5% para 8,7% em locutores não vistos. A avaliação justa precisa de
@@ -534,6 +570,19 @@ bash $S nenhuma python ../../02-diagnostico/scripts/f1_qualidade_audio.py \
     --lista ../../02-diagnostico/listas/fase3/lista.tsv --saida ../../02-diagnostico/resultados/qualidade/medidas.tsv
 # no PC:
 python -B f1_qualidade_analise.py --medidas ../resultados/qualidade/medidas.tsv --amostra ../listas/fase3/amostra.tsv
+```
+
+Fase 2b, normalização do silêncio (servidor: geração fora do container no ambiente isolado;
+inferência e análise no container):
+
+```bash
+python -B f2_silencio_real.py --raiz-host-dados ~/matheus/dados \
+    --saida ~/matheus/dados/exp02_silencio --raiz-container /dados/exp02_silencio
+for c in aparar padronizar; do for s in itw brs; do
+  bash $S 0 python inferir.py --lista /dados/exp02_silencio/${c}_${s}.lista.tsv --workers 8 $CK \
+      --saida ../../02-diagnostico/resultados/silencio/pontuacoes_${c}_${s}.txt
+done; done
+bash $S nenhuma python ../../02-diagnostico/scripts/f2_silencio_analise.py
 ```
 
 A semente é fixa (0) em todos os bootstraps e sorteios. Os parâmetros (B, k e faixas) estão

@@ -1,0 +1,25 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f2_silencio_analise.py",
+  "parametros": {
+    "B": 1000
+  },
+  "entradas": {
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/mapa_falsos_ordenado.tsv": "7a1d67c474ecdbf120ca4aff733cdf8c26ba63a1bf6f9925a9f04a1023a5abdd",
+    "experimentos/01-linha-de-base/listas/brspeech_test_hf/rotulos.tsv": "1ef2f72a89c6592ccb5b61e9507994a86f7557b262997d48731a4169d514b915",
+    "experimentos/01-linha-de-base/listas/in_the_wild/rotulos.tsv": "69ed6f3443f64fcc89435e8d09932fff37c0ed688085ff9bd540a77bbc191539",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/duracoes_por_arquivo.tsv": "628bc8e6e26b7dd2c84a27490c522129f43eea0c07c87537221fc81837a6c388",
+    "experimentos/01-linha-de-base/resultados/brspeech_test_hf/pontuacoes_repeat.txt": "273058d4c9ad7e3516c1408b2734c0146ca62ecf5e7277cc47d661362d683747",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/duracoes_por_arquivo.tsv": "6a747d8c6a6615e4be39d9c4904ca99e679c73a6eeb74deb5b0f14c1278d693e",
+    "experimentos/01-linha-de-base/resultados/in_the_wild/pontuacoes_repeat.txt": "826e10dd156d9d3b3876fcaf5a5ebc6c5b81012c6fd81840940f1f4f35f46e43",
+    "experimentos/02-diagnostico/resultados/silencio/pontuacoes_aparar_brs.txt": "6c979074810a2f48250eac694c39393b880c828badf53d4ae65bc02bed9c77a3",
+    "experimentos/02-diagnostico/resultados/silencio/pontuacoes_aparar_itw.txt": "0314cef76e4c47409dccea439ca3326a05b7891d3fcb550beffeac9a4a62e668",
+    "experimentos/02-diagnostico/resultados/silencio/pontuacoes_padronizar_brs.txt": "9019edf06cd8069a1059bfee355f3f2cedadf475d1e9ff9ad34ee4310fb178db",
+    "experimentos/02-diagnostico/resultados/silencio/pontuacoes_padronizar_itw.txt": "4e3ca8f43839cd1ab0b32cac7a904714fd3ccd635f1f5fcb3d95ea13219d49e1"
+  },
+  "saida_sha256": "e3017d77427596b3cebc29beac60aca8c0a00c19cf9ab431178f0a8da62efaf4",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

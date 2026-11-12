@@ -41,11 +41,17 @@ def main():
             pont = D.ler_pontuacoes(D._usar(cam))
             c = D.Cenario(base.nome, base.ids, [pont[i] for i in base.ids], base.rotulo, base.meta, base.duracao)
             delta = c.pont - base.pont
+            # diferença de EER pareada: os mesmos locutores sorteados nas duas condições
+            par = D.Cenario(base.nome, base.ids, c.pont, base.rotulo, dict(base.meta, p0=base.pont), base.duracao)
+            dif = D.com_ic(par, estatistica=lambda k: D.eer(k.bona, k.spoof)[0] - D.eer(
+                k.meta['p0'][k.rotulo == 1].astype(float), k.meta['p0'][k.rotulo == 0].astype(float))[0],
+                grupos='locutor', B=args.B)
             d = {'eer': D.com_ic(c, grupos='locutor', B=args.B),
                  'media_bonafide': float(c.bona.mean()), 'media_spoof': float(c.spoof.mean()),
                  'delta_mediano_bonafide': float(np.median(delta[c.rotulo == 1])),
                  'delta_mediano_spoof': float(np.median(delta[c.rotulo == 0])),
-                 'auc': D.auc(c.bona, c.spoof)}
+                 'auc': D.auc(c.bona, c.spoof),
+                 'diferenca_eer_pareada': dif}
             if cen == 'brs':
                 ruim = np.isin(c.meta['locutor'], list(RUINS))
                 for nome, m in (('ruins', ruim), ('bons', ~ruim)):
@@ -58,7 +64,9 @@ def main():
             ic = d['eer']['ic95']
             extra = (f"  ruins {D.pct(d.get('eer_ruins'))} bons {D.pct(d.get('eer_bons'))}" if cen == 'brs' else '')
             dl = (f"  Δgen {d['delta_mediano_bonafide']:+.2f} Δfal {d['delta_mediano_spoof']:+.2f}" if 'delta_mediano_bonafide' in d else '')
-            print(f"  {cond:11s} EER {D.pct(d['eer']['valor'])} [{D.pct(ic[0])}, {D.pct(ic[1])}]  médias gen {d['media_bonafide']:+.2f}"
+            dp = d.get('diferenca_eer_pareada')
+            dps = (f"  Δ EER pareada {100 * dp['valor']:+.2f} pp [{100 * dp['ic95'][0]:+.2f}, {100 * dp['ic95'][1]:+.2f}]" if dp else '')
+            print(f"  {cond:11s} EER {D.pct(d['eer']['valor'])} [{D.pct(ic[0])}, {D.pct(ic[1])}]{dps}  médias gen {d['media_bonafide']:+.2f}"
                   f" fal {d['media_spoof']:+.2f}{dl}{extra}")
     D.salvar_json(os.path.join(args.pasta, 'silencio_real.json'), res, __file__, {'B': args.B})
 

@@ -1,0 +1,89 @@
+{
+  "tts_deixado_de_fora": {
+    "camada_3": {
+      "f5tts": 0.17045454545454544,
+      "fish-speech": 0.20075757575757575,
+      "toucantts": 0.07916666666666666,
+      "xtts": 0.014393939393939393,
+      "yourtts": 0.030303030303030304,
+      "_referencia_todos_os_tts_no_treino": 0.012121212121212121
+    },
+    "camada_5": {
+      "f5tts": 0.18636363636363637,
+      "fish-speech": 0.2537878787878788,
+      "toucantts": 0.06060606060606061,
+      "xtts": 0.026515151515151516,
+      "yourtts": 0.010984848484848486,
+      "_referencia_todos_os_tts_no_treino": 0.012121212121212121
+    },
+    "camada_12": {
+      "f5tts": 0.35643939393939394,
+      "fish-speech": 0.49242424242424243,
+      "toucantts": 0.20416666666666666,
+      "xtts": 0.12121212121212122,
+      "yourtts": 0.12878787878787878,
+      "_referencia_todos_os_tts_no_treino": 0.08484848484848485
+    },
+    "camada_24": {
+      "f5tts": 0.41363636363636364,
+      "fish-speech": 0.32196969696969696,
+      "toucantts": 0.20454545454545456,
+      "xtts": 0.10227272727272728,
+      "yourtts": 0.14810606060606063,
+      "_referencia_todos_os_tts_no_treino": 0.09166666666666666
+    },
+    "final": {
+      "f5tts": 0.4090909090909091,
+      "fish-speech": 0.3181818181818182,
+      "toucantts": 0.19356060606060604,
+      "xtts": 0.10606060606060606,
+      "yourtts": 0.14734848484848484,
+      "_referencia_todos_os_tts_no_treino": 0.08787878787878788
+    }
+  },
+  "locutores": {
+    "ruins": [
+      "12626",
+      "13063",
+      "5739"
+    ],
+    "n_genuinos_ruins": 535,
+    "n_genuinos_bons": 785,
+    "eer_modelo": {
+      "ruins": 0.5947480507594558,
+      "bons": 0.17852558668959337
+    },
+    "camadas": {
+      "camada_3": {
+        "ruins_treino_no_outro_grupo": 0.022514388299276624,
+        "ruins_cv_dentro_do_grupo": 0.04502877659855325,
+        "bons_treino_no_outro_grupo": 0.04955559322854859,
+        "bons_cv_dentro_do_grupo": 0.011435906129665059
+      },
+      "camada_5": {
+        "ruins_treino_no_outro_grupo": 0.06754316489782988,
+        "ruins_cv_dentro_do_grupo": 0.04502877659855325,
+        "bons_treino_no_outro_grupo": 0.06988609301461982,
+        "bons_cv_dentro_do_grupo": 0.011435906129665059
+      },
+      "camada_12": {
+        "ruins_treino_no_outro_grupo": 0.2786120351303307,
+        "ruins_cv_dentro_do_grupo": 0.16979249168382704,
+        "bons_treino_no_outro_grupo": 0.31956842895546245,
+        "bons_cv_dentro_do_grupo": 0.06607412430473146
+      },
+      "camada_24": {
+        "ruins_treino_no_outro_grupo": 0.27485963708045125,
+        "ruins_cv_dentro_do_grupo": 0.1378971082598518,
+        "bons_treino_no_outro_grupo": 0.4853874532787613,
+        "bons_cv_dentro_do_grupo": 0.08513396785417322
+      },
+      "final": {
+        "ruins_treino_no_outro_grupo": 0.27485963708045125,
+        "ruins_cv_dentro_do_grupo": 0.14540190435961067,
+        "bons_treino_no_outro_grupo": 0.48157548456887295,
+        "bons_cv_dentro_do_grupo": 0.08640462409080268
+      }
+    }
+  }
+}

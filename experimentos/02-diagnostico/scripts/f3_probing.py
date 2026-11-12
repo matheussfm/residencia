@@ -55,6 +55,26 @@ def no_dominio(X, y, g, C, folds=5):
     return eer_xy(s, y)
 
 
+def memmap_npz(caminho, nome):
+    """Memory-map de um array guardado sem compressão dentro de um .npz (np.savez)."""
+    import struct
+    import zipfile
+    with zipfile.ZipFile(caminho) as zf:
+        info = zf.getinfo(nome + '.npy')
+    if info.compress_type != zipfile.ZIP_STORED:
+        D.erro(f'{nome}.npy está comprimido no .npz; use np.savez (sem compressão)')
+    with open(caminho, 'rb') as f:
+        f.seek(info.header_offset)
+        cab = f.read(30)
+        n_nome, n_extra = struct.unpack('<HH', cab[26:30])
+        f.seek(info.header_offset + 30 + n_nome + n_extra)
+        versao = np.lib.format.read_magic(f)
+        ler = np.lib.format.read_array_header_1_0 if versao == (1, 0) else np.lib.format.read_array_header_2_0
+        forma, fortran, dtype = ler(f)
+        inicio = f.tell()
+    return np.memmap(caminho, dtype=dtype, mode='r', offset=inicio, shape=forma, order='F' if fortran else 'C')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--features', required=True)
@@ -63,9 +83,9 @@ def main():
     ap.add_argument('--C', type=float, default=0.1)
     ap.add_argument('--semente', type=int, default=0)
     args = ap.parse_args()
+    import os
     out = args.saida or D.pasta_saida('fase3')
     D.garantir_fora_third_party(out)
-    import os
     os.makedirs(os.path.join(out, 'figuras'), exist_ok=True)
 
     z = np.load(D._usar(args.features))
@@ -82,7 +102,10 @@ def main():
             'dif_abs_max': float(np.abs(p_npz - p_exp01).max())}
     print('conferência das pontuações (extração × Exp. 01):', conf)
 
-    reps = [(f'camada_{i + 1}', z['camadas'][:, i, :]) for i in range(z['camadas'].shape[1])]
+    # As camadas ocupam ~500 MB. Para não depender de memória nem de disco livres, o array é lido
+    # por memory-map direto de dentro do .npz (um zip sem compressão), uma camada por vez.
+    camadas = memmap_npz(args.features, 'camadas')
+    reps = [(f'camada_{i + 1}', camadas[:, i, :]) for i in range(camadas.shape[1])]
     reps += [('final', z['final']), ('aasist', z['aasist'])]
 
     # Divisão por locutores do 2021 DF eval: metade treina a transferência, metade testa
@@ -102,7 +125,7 @@ def main():
     print('EER do modelo completo na amostra:', {c: D.pct(v) for c, v in res['eer_modelo'].items()})
 
     for nome, X in reps:
-        X = X.astype(np.float32)
+        X = np.ascontiguousarray(X, dtype=np.float32)
         clf = classificador(args.C).fit(X[m_tr], y[m_tr])
         d = {'transferencia': {}, 'no_dominio': {}}
         for c in CENARIOS:
@@ -115,6 +138,7 @@ def main():
               + ' | no domínio: ' + ' '.join(f"{c}={D.pct(d['no_dominio'][c], 1)}" for c in CENARIOS), flush=True)
 
     D.salvar_json(os.path.join(out, 'probing.json'), res, __file__, {'C': args.C, 'semente': args.semente})
+    del camadas, reps
 
     nomes = list(res['representacoes'])
     x = np.arange(len(nomes))

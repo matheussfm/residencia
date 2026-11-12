@@ -1,0 +1,27 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f3_poucos_exemplos.py",
+  "parametros": {
+    "camadas": [
+      5,
+      24
+    ],
+    "k": [
+      10,
+      50,
+      200
+    ],
+    "sorteios": 20,
+    "C": 0.1,
+    "semente": 0
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d"
+  },
+  "saida_sha256": "71c9a2863decd8ad13108e7b0d6ee7b385e65dc8b7230ea0195d5c2f2be22822",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

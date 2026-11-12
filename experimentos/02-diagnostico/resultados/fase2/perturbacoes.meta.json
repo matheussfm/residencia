@@ -1,0 +1,132 @@
+{
+  "n_por_classe_max": 400,
+  "n_genuinos": 386,
+  "n_falsos": 400,
+  "semente": 0,
+  "chave": "/home/dollis/matheus/residencia/third_party/BRSpeech-DF-Dataset/data/metadata/trial_metadata.txt",
+  "chave_sha256": "70e0e7d5964562cb0166e79143f73beaeaf77ee18e799fa4156355a57006d800",
+  "condicoes": [
+    {
+      "nome": "original",
+      "fator": "controle"
+    },
+    {
+      "nome": "aparar_40db",
+      "fator": "silencio"
+    },
+    {
+      "nome": "aparar_60db",
+      "fator": "silencio"
+    },
+    {
+      "nome": "silencio_0.25s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "silencio_0.5s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "silencio_1.0s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "silencio_2.0s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "ruido_fundo_0.5s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "ruido_fundo_1.0s",
+      "fator": "silencio"
+    },
+    {
+      "nome": "banda_telefone",
+      "fator": "banda"
+    },
+    {
+      "nome": "passa_baixas_4k",
+      "fator": "banda"
+    },
+    {
+      "nome": "passa_baixas_6k",
+      "fator": "banda"
+    },
+    {
+      "nome": "mp3_16k",
+      "fator": "codec"
+    },
+    {
+      "nome": "mp3_32k",
+      "fator": "codec"
+    },
+    {
+      "nome": "mp3_64k",
+      "fator": "codec"
+    },
+    {
+      "nome": "opus_16k",
+      "fator": "codec"
+    },
+    {
+      "nome": "ruido_branco_30db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "ruido_branco_20db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "ruido_branco_10db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "ruido_rosa_30db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "ruido_rosa_20db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "ruido_rosa_10db",
+      "fator": "ruido"
+    },
+    {
+      "nome": "reverb_0.3s",
+      "fator": "reverberacao"
+    },
+    {
+      "nome": "reverb_0.6s",
+      "fator": "reverberacao"
+    },
+    {
+      "nome": "reverb_1.0s",
+      "fator": "reverberacao"
+    },
+    {
+      "nome": "ganho_-20db",
+      "fator": "volume"
+    },
+    {
+      "nome": "ganho_-10db",
+      "fator": "volume"
+    },
+    {
+      "nome": "ganho_+6db",
+      "fator": "volume"
+    },
+    {
+      "nome": "reamostrar_8k",
+      "fator": "reamostragem"
+    }
+  ],
+  "lidos_via_ffmpeg": 339,
+  "puladas_sem_ffmpeg": [],
+  "ffmpeg": "ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developers",
+  "numpy": "2.2.6",
+  "soundfile": "0.14.0",
+  "python": "3.10.12"
+}

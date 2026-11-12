@@ -52,7 +52,9 @@ imagem e o `inferir.py` do Experimento 01.
 | `f2_analisar.py` | Fase 2: análise pareada das pontuações dos áudios perturbados (não executado com dados reais). |
 | `f3_selecionar.py` | Fase 3: sorteia os 10.640 áudios. Roda no servidor, porque as listas com caminhos só existem lá. |
 | `f3_extrair.py` | Fase 3: features das 24 camadas do XLS-R, da saída final e do embedding do AASIST, por *hooks* (modelo intacto, mesmo pré-processamento e carregamento do `inferir.py`). Testado com um modelo de mentira de mesma estrutura. |
-| `f3_probing.py` | Fase 3: probe linear por camada, com transferência a partir do 2021 DF e validação cruzada por locutor no próprio domínio. Testado com features sintéticas. |
+| `f3_probing.py` | Fase 3: probe linear por camada, com transferência a partir do 2021 DF e validação cruzada por locutor no próprio domínio. Testado com features sintéticas. Lê as camadas por memory-map de dentro do `.npz` (problema 10). |
+| `f3_poucos_exemplos.py` | Fase 3: probe treinado com k exemplos por classe de metade dos locutores do alvo e testado na outra metade (20 sorteios). |
+| `f2_figura.py` | Fase 2: figura do deslocamento e da EER por condição. |
 
 ## 4. Decisões metodológicas
 
@@ -115,17 +117,38 @@ imagem e o `inferir.py` do Experimento 01.
    decodificadores devolvem as mesmas amostras (conferido). A conferência final é a condição
    "original", que deve reproduzir as pontuações do Exp. 01.
 
+9. **A imagem Docker do Exp. 01 sumiu do servidor.** O `build_pt181.log` mostra que a imagem
+   `residencia-exp01:pt181` (id `fc125dd69fb7`) tinha sido construída, mas ela e a imagem base do
+   PyTorch 1.8.1 não estavam mais na lista: provavelmente uma limpeza de imagens sem uso na máquina
+   compartilhada. A imagem foi reconstruída com o mesmo Dockerfile, de versões fixadas (novo id
+   `632700088f33`). Equivalência conferida: as pontuações da Fase 3, extraídas na imagem nova,
+   reproduzem as do Exp. 01 com correlação de 0,9999999 e diferença máxima de 0,0003.
+10. **Disco e memória do PC.** O probing falhou três vezes: primeiro por um erro meu (cada acesso a
+    `z['camadas']` relia do disco o array inteiro, de 499 MB), depois por falta de memória livre e,
+    por fim, por falta de disco (o C: tinha ~10 MB livres) ao copiar o array para um arquivo
+    temporário. Solução: o `f3_probing.py` lê as camadas por memory-map **direto de dentro do
+    `.npz`** (um zip sem compressão), uma camada por vez, sem cópia. O mapeamento foi conferido
+    byte a byte contra a leitura pelo `zipfile`.
+11. **Linha da condição original da Fase 2.** Ela reproduz o Exp. 01 em 99,1% das decisões, mas não
+    arquivo a arquivo (192 de 786 diferem mais de 0,01). A causa provável é a decodificação dos 339
+    `.flac` lidos pelo ffmpeg (problema 8). Teste de robustez com os 594 áudios idênticos ao Exp. 01:
+    a ordem dos fatores não muda (`resultados/fase2/robustez_consistentes.json`).
+
 ## 6. Pendências
 
-- Revisar a interpretação do README.
+- Revisar a interpretação do README (seções 4 a 7).
 - Ouvir uma amostra dos genuínos dos 3 locutores "ruins" do BRSpeech-DF (5739, 13063 e 12626) e dos
-  locutores com maior rejeição no In-the-Wild. É a checagem qualitativa mais barata da resposta 1.
-- Confirmar as leituras da seção 4.3 do contexto: o silêncio como atalho (grupo do Müller) e o
-  MLAAD. Conferir também a citação do Cllr (Brümmer e du Preez, 2006) e do plano de avaliação do
-  ASVspoof 2021 (hidden track) antes de citá-los.
+  locutores com maior rejeição no In-the-Wild, procurando eco e gravação de sala (a Fase 2 aponta a
+  reverberação como fator dominante).
+- Conferir no código do RawBoost quais degradações ele aplica no treino (a robustez a ruído aditivo e
+  a fragilidade à reverberação sugerem que ele cobre a primeira e não a segunda).
+- Fase 3: testar a separação "no próprio domínio" com TTS deixados de fora, ou em outro dataset em
+  português, para separar "sinal de síntese" de artefato do processo de geração do BRSpeech-DF.
+- Confirmar a leitura do MLAAD (seção 4.3 do contexto). O trabalho sobre o silêncio como atalho foi
+  confirmado: Müller et al., ASVspoof 2021 Workshop, arXiv:2106.12914 (README, referência 6).
+  Conferir também a citação do Cllr (Brümmer e du Preez, 2006) e do plano de avaliação do ASVspoof
+  2021 (hidden track) antes de citá-los.
 - Confirmar o significado da 13ª coluna da chave completa (provavelmente o idioma do alvo no VCC 2020).
 - Investigar as pontuações do SLS e do AASIST no BRSpeech-DF (problema 3).
-- Fase 2: copiar o `f2_perturbar.py` para o servidor (vai junto com o repositório), conferir se há
-  ffmpeg no host, gerar as perturbações e rodar o `inferir.py` do Exp. 01 sobre a `lista.tsv` gerada.
-- Fase 3: escrever a extração de representações por camada (precisa importar o modelo do Tak sem
-  modificá-lo, com *hooks* do PyTorch).
+- Guardar a imagem Docker em disco no servidor (`docker save`), para não depender dela continuar
+  na máquina compartilhada (problema 9).

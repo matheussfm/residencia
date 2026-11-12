@@ -1,0 +1,27 @@
+{
+  "script": "experimentos/02-diagnostico/scripts/f3_complementos.py",
+  "parametros": {
+    "camadas": [
+      3,
+      5,
+      12,
+      24
+    ],
+    "C": 0.1,
+    "locutores_ruins": [
+      "12626",
+      "13063",
+      "5739"
+    ]
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d"
+  },
+  "saida_sha256": "fa7b159509fcaf4336c9eaf3797fd068f236dc607136d8dcd3b337dfc1e88755",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

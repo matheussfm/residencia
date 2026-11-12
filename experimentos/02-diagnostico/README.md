@@ -2,10 +2,11 @@
 
 Investiga **de onde vem e o que causa** a perda de desempenho do detector do Experimento 01
 (Tak et al., 2022: XLS-R 300M + AASIST, checkpoint publicado, sem treino) em áudios
-diferentes dos de treino. O experimento é dividido em fases; este documento cobre a
-**Fase 1 (decompor o erro existente, sem GPU)**, concluída, e o desenho das fases seguintes.
+diferentes dos de treino. O experimento é dividido em fases: a **Fase 1** decompõe o erro existente
+(observacional, sem GPU), a **Fase 2** testa causas com perturbações controladas e a **Fase 3**
+procura em que parte do modelo a informação se perde.
 
-> Status: Fase 1 concluída (rascunho, a revisar). Fases 2 e 3 em andamento.
+> Status: Fases 1, 2 e 3 executadas (Semana 9).
 
 ---
 
@@ -94,9 +95,10 @@ início e do fim removido** (`trim`). As nossas pontuações já cobriam esses t
 - Cruzada: genuínos sem silêncio contra falsos com silêncio, 10,71%; genuínos com silêncio contra
   falsos sem silêncio, 3,52%. De novo, é o **genuíno** que se desloca.
 - **Leitura:** o detector usa o silêncio das pontas como evidência de fala genuína. Sem ele, a
-  fala genuína do próprio corpus de treino passa a parecer falsa. Isso é coerente com um atalho
-  conhecido do ASVspoof 2019 (ver seção 4.3 do contexto: leitura do grupo do Müller **a
-  confirmar** antes de citar).
+  fala genuína do próprio corpus de treino passa a parecer falsa. Müller et al. (2021) [6] já
+  tinham mostrado que, no ASVspoof 2019 e 2021, a duração do silêncio se correlaciona com o rótulo e
+  que modelos treinados nesses dados se apoiam nesse atalho. O resultado aqui mostra que o atalho
+  continua presente num detector mais recente, com front-end auto-supervisionado (XLS-R + AASIST).
 - **Cuidados:** (a) os trials da hidden track não são os mesmos áudios do eval com o silêncio
   cortado, então a comparação é entre conjuntos, com a mesma origem e o mesmo codec, mas não é
   pareada por arquivo; (b) a proporção de vocoders difere entre as fases (mais tradicionais na
@@ -213,78 +215,215 @@ evidência:** antes, é preciso conferir se essas pontuações foram geradas cor
 exemplo, o áudio de 24 kHz pode ter entrado sem reamostragem, e convém comparar com os números
 do artigo do BRSpeech-DF. O segundo detector da Fase 4 continua em aberto.
 
-### 4.10 Síntese provisória (fator × evidência)
+## 5. Fase 2: perturbações controladas (teste causal)
 
-| Resposta candidata | Evidência da Fase 1 | Situação |
-|---|---|---|
-| 1. Condição de gravação/canal | Perda vem dos genuínos; concentrada por locutor; VCC 2018 e `low_mp3` já deslocam no 2021 DF | **Mais apoiada**; falta o teste causal (Fase 2) |
-| Silêncio (parte de 1 e 4) | Hidden track: EER de 1,27% → 11,88% na mesma origem, com rejeição de 0% → 31% | **Forte**; falta o teste causal pareado (Fase 2) |
-| 2. Gerador novo | Falsos do BRSpeech-DF dão 6,91% contra genuínos do 2021 DF; F5-TTS e XTTS piores | Contribui, secundário |
-| 3. Idioma | Não isolado. Em português, 7 dos 10 locutores do teste têm EER própria de 7% a 33%, enquanto 3 ficam acima de 50%: o idioma sozinho não explica essa diferença entre locutores | Em aberto (o mais difícil) |
-| 4. Duração e pré-processamento | Curtos piores; sem atalho de duração; preenchimento muda até ~4 pontos nos curtos | Contribui, secundário |
-| 5. Calibração | Cllr ruim, mas o limiar do treino e a recalibração não mudam a EER; minCllr alto | Não é o gargalo principal |
-| 6. Front-end × back-end | Não testado | Fase 3 |
+### 5.1 Desenho
 
-## 5. Validação
+A Fase 1 é observacional: os cenários diferem em muitos fatores ao mesmo tempo. Aqui cada fator
+é aplicado **sozinho** a áudios do domínio de treino, e cada áudio é comparado **com ele mesmo**
+antes da perturbação. Locutor, frase, idioma e gravação ficam fixos; só o fator muda.
 
-- Os carregadores do Experimento 02 reproduzem **exatamente** todas as EER do Experimento 01 (2,86%,
-  10,48%, 11,96%, 12,18%, 39,24%, 35,38% e 41,90%), e as do AKCIT (2,85% no 2021 DF e 35,38% no
-  BRSpeech-DF).
-- A chave completa do 2021 DF foi conferida contra a do Tak: os ids, a fase `eval` e os rótulos
-  são idênticos.
-- Os 6.587 falsos do teste do BRSpeech-DF têm o genuíno correspondente pelo mapa validado no
-  Experimento 01.
+- **Amostra:** todos os 386 genuínos do 2021 DF eval de origem VCTK sem codec e 400 falsos
+  sorteados (semente 0), da chave completa. É o caso mais "dentro do domínio" (Fase 1: EER de
+  1,27% e 0% de rejeição de genuínos na origem VCTK).
+- **29 condições** (`f2_perturbar.py`): original; silêncio (cortar as pontas a 40 e 60 dB abaixo
+  do máximo; acrescentar 0,25 a 2 s de silêncio digital ou de ruído baixo no início); banda
+  (telefone 300–3.400 Hz, passa-baixas de 4 e 6 kHz, RMS restaurado); codec (MP3 a 16/32/64
+  kbps, Opus a 16 kbps); ruído branco e rosa (SNR de 30/20/10 dB); reverberação (resposta ao
+  impulso sintética, RT60 de 0,3/0,6/1,0 s); volume (−20/−10/+6 dB); reamostragem para 8 kHz.
+- **Inferência:** `inferir.py` do Experimento 01, sem mudanças (repetição, corte de 4 s); 22.794
+  áudios em 1,7 min na RTX 4090.
+- **Análise** (`f2_analisar.py`): deslocamento mediano da pontuação de cada áudio (IC de 95% por
+  bootstrap), EER com só os genuínos perturbados (contra os falsos originais) e EER com as duas
+  classes perturbadas.
+
+### 5.2 Resultados
+
+(`resultados/fase2/perturbacoes.json`, `figuras/perturbacoes.png`)
+
+| Fator | Condição | Δ genuínos (mediana, IC 95%) | EER só genuínos perturbados | EER ambos perturbados | Genuínos rejeitados* |
+|---|---|---|---|---|---|
+| Controle | original | 0,00 | 0,3% | 0,3% | 0,3% |
+| **Reverberação** | RT60 0,3 s | **−7,71** [−7,78; −7,61] | **11,2%** | **15,3%** | **82,6%** |
+| | RT60 1,0 s | **−7,80** [−7,84; −7,77] | **11,2%** | **24,0%** | **96,1%** |
+| **Silêncio** | cortar as pontas (40 dB) | −0,87 [−1,74; −0,58] | 5,7% | 5,7% | 33,2% |
+| | +2 s de silêncio no início | +0,05 | 0,0% | 9,5% | 0,0% (falsos aceitos: **22,2%**) |
+| Codec | MP3 16 kbps | −2,95 [−3,29; −2,02] | 5,7% | 3,1% | 36,3% |
+| | MP3 32/64 kbps, Opus 16 kbps | ≈ 0 | 1,0–2,5% | 1,0–2,3% | ≈ 0% |
+| Banda | telefone (300–3.400 Hz) | −1,18 [−2,00; −0,70] | 5,5% | 3,6% | 25,9% |
+| | passa-baixas 4 e 6 kHz; reamostrar 8 kHz | ≈ 0 | 0,3–0,5% | 0,0–0,3% | ≈ 0% |
+| Volume | −20 dB | −2,41 [−2,86; −2,00] | 5,7% | 6,5% | 31,6% |
+| | −10 e +6 dB | ≈ 0 | 0,5–1,0% | 0,3–1,5% | ≈ 0% |
+| Ruído | branco e rosa, SNR 10–30 dB | ≈ 0 | 0,0–0,8% | 0,0–0,5% | ≤ 1% |
+
+\* No limiar da EER do conjunto original (0,086), isto é, o limiar em que o detector separa os
+áudios limpos com 0,3% de erro. No limiar fixo do 2021 DF (−3,53), que fica colado no pico dos
+falsos, as taxas são menores para os genuínos (reverberação: 6–8%) e muito instáveis para os
+falsos; por isso a EER é a medida principal.
+
+**Leituras:**
+
+1. **A reverberação é, de longe, o fator mais forte.** Ela empurra a pontuação mediana dos
+   genuínos do pico "verdadeiro" (+4,5) para o pico "falso" (−3,3), quase sem variação entre os
+   áudios (IC estreito). Com eco nos dois lados, a EER chega a 24%: o detector deixa de separar
+   as classes. É o mesmo padrão dos genuínos fora do domínio na Fase 1 (In-the-Wild, os 3
+   locutores "ruins" do BRSpeech-DF), agora com uma causa demonstrada.
+2. **O silêncio funciona como atalho nos dois sentidos.** Cortar o silêncio das pontas faz a fala
+   real parecer falsa (EER de 0,3% → 5,7%); acrescentar silêncio no início faz a fala sintética
+   parecer real (com 2 s, 22% dos falsos passam como genuínos e o percentil 90 do deslocamento
+   dos falsos é +7,5, ou seja, 10% deles saltam para o pico "verdadeiro"). É o teste causal do
+   que a hidden track sugeria (seção 4.2) e do que Müller et al. (2021) [6] descreveram.
+3. **Compressão forte, banda de telefone e volume muito baixo** têm efeito médio (EER de 5–6%).
+   Só a compressão mais agressiva pesa: MP3 a 32 e 64 kbps e Opus a 16 kbps quase não mudam nada.
+   Na banda, o que pesa é o corte dos **graves** (abaixo de 300 Hz): cortar os agudos acima de 4
+   ou 6 kHz não muda nada.
+4. **Ruído aditivo não afeta o detector**, mesmo com SNR de 10 dB. *Interpretação, a confirmar no
+   código do RawBoost:* o modelo do Tak foi treinado com RawBoost, que inclui ruído aditivo; ele
+   é robusto ao que viu no aumento de dados e frágil ao que não viu (reverberação).
+
+### 5.3 Controles e limites
+
+- **Reprodução da condição original.** As pontuações da condição "original" reproduzem as do
+  Experimento 01 em 99,1% das decisões (correlação de 0,993), mas não arquivo a arquivo: 192 dos
+  786 áudios diferem mais de 0,01 (um genuíno, 6,0). A causa provável é a decodificação: a
+  libsndfile recente recusou 339 dos `.flac`, que foram lidos pelo ffmpeg (PROCESSO, problema 8).
+  Como cada áudio é comparado com a sua própria versão original, a comparação pareada não é
+  afetada. **Teste de robustez** (`robustez_consistentes.json`): refeita só com os 594 áudios cuja
+  pontuação original difere menos de 0,01 do Exp. 01, a tabela mantém a mesma ordem de fatores
+  (reverberação 9–10% e 16–25%; silêncio, MP3 16 kbps, telefone e volume em 3–5%).
+- A amostra vem de um único domínio limpo (VCTK); os efeitos medem a sensibilidade do detector
+  partindo do melhor caso.
+- A reverberação é sintética (ruído com decaimento exponencial), não uma sala real; é uma
+  aproximação do efeito de sala.
+- O corte de silêncio aqui (40 dB) dá efeito menor que a hidden track (5,7% contra 11,88%). O
+  método de corte do ASVspoof é desconhecido, e os conjuntos de áudio são outros.
+
+## 6. Fase 3: onde a informação se perde (probing por camada)
+
+### 6.1 Desenho
+
+O detector tem duas partes: o **XLS-R** (front-end, 24 camadas), que transforma o som numa
+representação, e o **AASIST** (back-end), que decide. A pergunta é: quando o detector erra fora do
+domínio, a informação para separar real de falso já não existe nas representações, ou existe e
+não é usada?
+
+- **Amostra** (`f3_selecionar.py`, semente 0): 10.640 áudios balanceados por classe: 2021 DF eval
+  (500 por classe de cada origem: VCTK, VCC 2018 e VCC 2020), hidden track (1.000 por classe),
+  In-the-Wild (1.500 por classe) e BRSpeech-DF teste (os 1.320 genuínos e 1.320 falsos, 264 por TTS).
+- **Extração** (`f3_extrair.py`): média no tempo da saída de cada uma das 24 camadas do XLS-R, a
+  saída final (entrada do back-end) e o embedding final do AASIST (160 dimensões), capturados por
+  *hooks* do PyTorch, com o mesmo pré-processamento do Experimento 01 e o modelo intacto. As
+  pontuações extraídas reproduzem as do Experimento 01 (correlação de 0,9999999; diferença máxima
+  de 0,0003).
+- **Probe linear** (`f3_probing.py`): padronização + regressão logística (C = 0,1), avaliado de
+  duas formas:
+  - **transferência:** treinado no 2021 DF eval (metade dos locutores) e testado nos outros
+    cenários. Imita o detector: aprende no domínio de treino;
+  - **no próprio domínio:** validação cruzada em 5 partes **por locutor** (os locutores de teste
+    nunca aparecem no treino). Mede se a informação existe naquela representação, naquele domínio.
+- **Poucos exemplos** (`f3_poucos_exemplos.py`): probe treinado com k exemplos por classe de
+  metade dos locutores do cenário-alvo e testado na outra metade; 20 sorteios por k.
+
+### 6.2 Resultados
+
+(`resultados/fase3/probing.json`, `poucos_exemplos.json`, `figuras/probing.png`)
+
+| Cenário | Modelo completo | Probe treinado no 2021 DF (melhor camada) | Probe no próprio domínio, CV por locutor (melhor camada) | Embedding do AASIST, no próprio domínio |
+|---|---|---|---|---|
+| 2021 DF eval (locutores não vistos) | 3,5% | 0,6% (camada 11) | 0,8% (camadas 10–11) | 2,9% |
+| Hidden track (sem silêncio) | 12,3% | **5,3%** (camada 7) | 3,2% (camada 7) | 7,4% |
+| In-the-Wild | 9,8% | **6,3%** (camada 23) | **1,3%** (camadas 3–6) | 6,7% |
+| BRSpeech-DF | 39,5% | 26,8% (camada 3) | **1,2%** (camadas 3–5) | 29,5% |
+
+Poucos exemplos do domínio-alvo (EER mediana em locutores não vistos; entre colchetes, p10–p90):
+
+| Cenário | Camada | k = 10 por classe | k = 50 | k = 200 |
+|---|---|---|---|---|
+| BRSpeech-DF | 5 | 24,0% [19,8–32,4] | **8,7%** [4,6–12,2] | **2,1%** [1,0–7,8] |
+| BRSpeech-DF | 24 | 29,6% | 24,6% | 14,7% |
+| In-the-Wild | 5 | 7,8% | 3,0% | 1,7% |
+| In-the-Wild | 24 | 6,4% | 5,2% | 4,7% |
+
+**Leituras:**
+
+1. **A informação existe no front-end.** No próprio domínio, um probe linear separa o BRSpeech-DF
+   com 1,2% de EER e o In-the-Wild com 1,3%, em locutores nunca vistos, usando camadas iniciais
+   do XLS-R (3–6). O XLS-R "ouve" a diferença entre fala real e sintética em português.
+2. **O que se perde é o que foi aprendido no 2021 DF.** Treinado no domínio de treino, o mesmo
+   probe fica em 27–37% no BRSpeech-DF em todas as camadas. A regra de decisão aprendida no 2021
+   DF não usa as direções que funcionam em português. Resposta candidata 6: **o gargalo está no
+   treino (back-end e camadas finais ajustadas no 2021 DF), não na capacidade do front-end.**
+3. **A informação útil para o BRSpeech-DF se perde ao longo da rede:** no próprio domínio, 1,2% nas
+   camadas 3–5, 8,8% na saída final do XLS-R e 29,5% no embedding do AASIST. As camadas finais e o
+   back-end foram ajustados no 2021 DF e se especializam nele.
+4. **Um probe linear simples generaliza melhor que o detector completo** no In-the-Wild (6,3% contra
+   9,8%, camada 23) e na hidden track (5,3% contra 12,3%, camada 7), sem nenhum dado do alvo.
+   *Interpretação, a verificar:* a média no tempo dilui a posição do silêncio, o que reduziria o
+   atalho que o AASIST explora.
+5. **Poucos exemplos do domínio-alvo recuperam boa parte da separação:** com 50 exemplos de cada
+   classe de 5 locutores, a EER no BRSpeech-DF cai de 39,5% (modelo completo) para 8,7% em locutores
+   novos; com 200, para 2,1%. As camadas iniciais adaptam muito melhor que as finais.
+
+### 6.3 Limites
+
+- **O probe no próprio domínio pode aprender artefatos do dataset**, e não "sinais de síntese" em
+  geral: no BRSpeech-DF, todos os falsos vêm dos mesmos 5 TTS, gerados por um mesmo processo; no
+  In-the-Wild, os falsos vêm de fontes específicas. A validação por locutor evita que o probe
+  memorize locutores, mas não que use traços do processo de geração do dataset. "A informação
+  existe" significa "as representações separam as classes deste dataset", não que essa separação
+  generalize para outros geradores. Testar em outro dataset em português, ou com TTS deixados de
+  fora, é o controle que falta.
+- Médias no tempo descartam a estrutura temporal; o AASIST usa essa estrutura.
+- O BRSpeech-DF tem só 10 locutores no teste; as faixas p10–p90 dos poucos exemplos são largas.
+
+## 7. Síntese: fator × efeito
+
+| Resposta candidata | Fase 1 (observacional) | Fase 2 (causal) | Fase 3 (no modelo) | Situação |
+|---|---|---|---|---|
+| 1. Condição de gravação/canal | Perda vem dos genuínos; concentrada por locutor; VCC 2018 e `low_mp3` já deslocam no 2021 DF | **Reverberação: EER de 0,3% → 11–24%, voz real vai para o pico dos falsos**; MP3 16 kbps, telefone e volume baixo: 5–6%; ruído aditivo: nenhum efeito | — | **Confirmada como causa; a reverberação é o fator dominante** |
+| Silêncio (parte de 1 e 4) | Hidden track: 1,27% → 11,88% na mesma origem | **Atalho nos dois sentidos:** cortar → 5,7%; acrescentar 2 s → 22% dos falsos aceitos | Um probe sobre médias no tempo sofre menos (5,3% contra 12,3%) | **Confirmado** (coerente com Müller et al., 2021) |
+| 2. Gerador novo | Falsos do BRSpeech-DF dão 6,91% contra genuínos do 2021 DF | — | — | Contribui, secundário |
+| 3. Idioma | Não isolado; 7 dos 10 locutores em português têm EER própria de 7–33% | — | O XLS-R separa o português no próprio domínio (1,2%) | **O idioma não impede a separação nas representações**; o efeito no detector segue em aberto |
+| 4. Duração e pré-processamento | Curtos piores; sem atalho de duração | — | — | Contribui, secundário |
+| 5. Calibração | Recalibrar não muda a EER; minCllr alto | — | — | Não é o gargalo principal |
+| 6. Front-end × back-end | — | — | **A informação existe no front-end; perde-se no que foi aprendido no 2021 DF (camadas finais e AASIST)** | **Gargalo no treino/back-end** |
+
+**Resposta à pergunta norteadora.** Fora do domínio, o detector erra principalmente porque **a
+fala genuína gravada em condições diferentes do treino**, sobretudo com **reverberação** e **sem o
+silêncio** que o ASVspoof associa à fala real, **é empurrada para o lado "falso"**. A informação
+para separar real de sintético continua presente nas camadas do XLS-R, inclusive em português,
+mas a regra de decisão aprendida no ASVspoof 2019 LA não a usa. O problema é o que o detector
+aprendeu (atalhos do conjunto de treino), não o que ele consegue ouvir.
+
+## 8. Validação
+
+- Os carregadores reproduzem **exatamente** todas as EER do Experimento 01 (2,86%, 10,48%, 11,96%,
+  12,18%, 39,24%, 35,38% e 41,90%) e as do AKCIT (2,85% e 35,38%).
+- A chave completa do 2021 DF foi conferida contra a do Tak: ids, fase `eval` e rótulos idênticos.
+- Os 6.587 falsos do teste do BRSpeech-DF têm o genuíno correspondente pelo mapa validado no Exp. 01.
+- Fase 2: a condição original reproduz o Exp. 01 em 99,1% das decisões, e a conclusão se mantém
+  só com os 594 áudios idênticos ao Exp. 01 (seção 5.3).
+- Fase 3: as pontuações extraídas junto com as representações reproduzem o Exp. 01 (correlação de
+  0,9999999). O memory-map das camadas foi conferido byte a byte contra o arquivo.
+- Todos os scripts foram testados antes da execução real (áudio sintético, modelo de mentira com a
+  mesma estrutura, features sintéticas com padrão conhecido, teste rápido no servidor).
 - Todo JSON tem um `.meta.json` com o SHA-256 das entradas, as versões e os parâmetros.
-- Limites: vários subgrupos são pequenos (veja os IC). No BRSpeech-DF, os IC por locutores se
-  apoiam em só 10 grupos. As análises são observacionais: indicam fatores, mas não os isolam
-  (é o papel da Fase 2).
 
-## 6. Próximas fases (desenho)
+## 9. Semana 10: intervenção
 
-### Fase 2: perturbações controladas (GPU, servidor)
+O diagnóstico aponta duas intervenções com justificativa direta:
 
-Aplicar a genuínos do domínio de treino um fator por vez e medir o deslocamento da pontuação do
-**mesmo áudio** (análise pareada). O pré-processamento do Tak continua fixo.
+1. **Back-end leve sobre as camadas iniciais do XLS-R, adaptado com poucos exemplos do domínio.**
+   É a mais barata e a mais apoiada pela Fase 3: com 50 exemplos por classe em português, a EER
+   no BRSpeech-DF cai de 39,5% para 8,7% em locutores não vistos. A avaliação justa precisa de
+   locutores e, idealmente, de TTS deixados de fora, e de dados de adaptação separados do teste
+   (por exemplo, a divisão de treino do BRSpeech-DF).
+2. **Aumento de dados direcionado:** retreinar ou ajustar o detector com reverberação (respostas
+   ao impulso) e com silêncio cortado e acrescentado nas duas classes, para remover o atalho e
+   cobrir o fator dominante. É a intervenção mais ligada à causa, e a mais cara.
 
-- **Amostra:** todos os 386 genuínos do 2021 DF eval de origem VCTK sem codec (`asvspoof`, `nocodec`),
-  e 400 falsos sorteados com semente fixa, para medir os dois lados. Os dois
-  conjuntos vêm da chave completa. São 29 condições × 786 áudios (~23 mil), poucos minutos de GPU.
-- **Fatores e níveis**, nesta ordem de prioridade:
-  1. **Silêncio:** cortar as pontas (como na hidden track); acrescentar 0,25/0,5/1/2 s de
-     silêncio digital ou de ruído de fundo baixo no início. A janela de 4 s faz o silêncio
-     inicial pesar mais;
-  2. **Banda:** passa-faixa de telefone (300–3.400 Hz) e passa-baixas de 4/6 kHz (gravação
-     antiga);
-  3. **Compressão:** MP3 a 16/32/64 kbps e Opus (precisa do ffmpeg na imagem; ver PROCESSO);
-  4. **Ruído:** branco e rosa com SNR de 30/20/10 dB;
-  5. **Reverberação:** resposta ao impulso sintética com RT60 de 0,3/0,6/1,0 s;
-  6. **Volume e reamostragem:** ganho de −20/−10/+6 dB (com limitação); reamostragem para 8 kHz e
-     de volta.
-- **Medidas:** deslocamento mediano da pontuação por condição, fração de genuínos que caem abaixo
-  do limiar, EER contra os falsos sem perturbação e EER com os dois lados perturbados.
-- **Scripts prontos:** `scripts/f2_perturbar.py` gera os áudios perturbados (29 condições,
-  incluindo a original) e a `lista.tsv` para o `inferir.py` do Experimento 01.
-  `scripts/f2_analisar.py` faz a análise pareada. Os dois foram testados de ponta a ponta no PC,
-  com áudio sintético e pontuações simuladas. Ainda não rodaram com dados reais.
-
-### Fase 3: dentro do modelo (GPU, servidor)
-
-Extrair as representações por camada do XLS-R (as 24 camadas do transformer e a saída final,
-média no tempo) e o embedding final do AASIST, com *hooks* do PyTorch, sem alterar o modelo. A
-amostra tem 10.640 áudios, balanceados por classe:
-- 2021 DF eval: 500 por classe de cada origem (VCTK, VCC 2018 e VCC 2020);
-- hidden track: 1.000 por classe;
-- In-the-Wild: 1.500 por classe;
-- BRSpeech-DF: os 1.320 genuínos do teste e 1.320 falsos, 264 por TTS.
-
-Scripts: `f3_selecionar.py`, `f3_extrair.py` e `f3_probing.py`, testados no PC com um modelo de
-mentira de mesma estrutura e com features sintéticas.
-- *Probing* linear por camada: treinar no 2021 DF e testar nos outros cenários; depois, ajustar
-  só o classificador linear com k exemplos do alvo. Se a separação reaparecer, o gargalo está no
-  back-end ou na calibração. Se não, está no front-end.
-- Visualizar com UMAP ou t-SNE por cenário e por rótulo, e por locutor nos 3 locutores "ruins" do
-  BRSpeech-DF contra os outros 7.
-- Incluir os trials da hidden track: o silêncio se perde no front-end ou no back-end?
+Em qualquer caso: avaliar nos três cenários com o mesmo protocolo (IC por locutor, matriz
+cruzada, relato por locutor) e verificar que o 2021 DF não piora.
 
 ## Reprodutibilidade
 
@@ -292,6 +431,8 @@ Fase 1, sem GPU e sem áudio: só as pontuações do Experimento 01 e os submód
 localmente com Python 3.13.12, numpy 2.4.4, scipy 1.17.1 e scikit-learn 1.8.0. Os scripts são
 compatíveis com Python 3.8, a versão da imagem do Experimento 01. A partir da raiz do
 repositório, com os submódulos inicializados (`git submodule update --init`):
+
+Fase 1 (PC):
 
 ```bash
 cd experimentos/02-diagnostico/scripts
@@ -302,6 +443,36 @@ python -B f1_itw_locutores.py   # 4.4
 python -B f1_brs_pares.py       # 4.5, 4.6
 python -B f1_duracao.py         # 4.7
 bash ../../01-linha-de-base/scripts/verificar_submodulos.sh
+```
+
+Fase 2 (servidor; perturbações fora do container, num ambiente Python isolado com numpy, scipy,
+soundfile e imageio-ffmpeg; ver PROCESSO, problema 7):
+
+```bash
+cd experimentos/02-diagnostico/scripts
+python -B f2_perturbar.py --audio ~/matheus/dados/asvspoof2021_df/ASVspoof2021_DF_eval/flac \
+    --saida ~/matheus/dados/exp02_perturbacoes --raiz-container /dados/exp02_perturbacoes --n 400
+cd ~/matheus/residencia
+S=experimentos/01-linha-de-base/scripts/em_docker.sh
+CK="--checkpoint /ckpt/Best_LA_model_for_DF.pth --xlsr /ckpt/xlsr2_300m.pt"
+bash $S 0 python inferir.py --lista /dados/exp02_perturbacoes/lista.tsv --workers 8 $CK \
+    --saida ../../02-diagnostico/resultados/fase2/pontuacoes_repeat.txt
+bash $S nenhuma python ../../02-diagnostico/scripts/f2_analisar.py \
+    --pontuacoes ../../02-diagnostico/resultados/fase2/pontuacoes_repeat.txt \
+    --rotulos /dados/exp02_perturbacoes/rotulos.tsv --saida ../../02-diagnostico/resultados/fase2/perturbacoes.json
+# no PC:
+python -B f2_figura.py --resultado ../resultados/fase2/perturbacoes.json --meta ../resultados/fase2/perturbacoes.meta.json
+```
+
+Fase 3 (extração no servidor; probing no PC):
+
+```bash
+bash $S nenhuma python ../../02-diagnostico/scripts/f3_selecionar.py
+bash $S 0 python ../../02-diagnostico/scripts/f3_extrair.py --lista ../../02-diagnostico/listas/fase3/lista.tsv \
+    $CK --saida ../../02-diagnostico/resultados/fase3/features.npz
+# no PC (features.npz fica fora do git, ~526 MB; o SHA-256 está no .meta.json):
+python -B f3_probing.py --features ../resultados/fase3/features.npz --amostra ../listas/fase3/amostra.tsv
+python -B f3_poucos_exemplos.py --features ../resultados/fase3/features.npz --amostra ../listas/fase3/amostra.tsv
 ```
 
 A semente é fixa (0) em todos os bootstraps e sorteios. Os parâmetros (B, k e faixas) estão
@@ -319,3 +490,7 @@ no `.meta.json` de cada resultado.
    Speech & Language, 2006 (Cllr). _(referência de memória: conferir os dados antes de citar)_
 5. ASVspoof 2021: plano de avaliação e chaves completas do DF (hidden track). _(conferir a citação
    exata)_
+6. N. M. Müller, F. Dieckmann, P. Czempin, R. Canals, K. Böttinger, J. Williams. *Speech is Silver,
+   Silence is Golden: What do ASVspoof-trained Models Really Learn?* ASVspoof 2021 Workshop.
+   arXiv:2106.12914. (Os números de EER do artigo variam entre as versões do arXiv; aqui só se cita
+   o achado qualitativo.)

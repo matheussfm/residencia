@@ -59,6 +59,10 @@ imagem e o `inferir.py` do Experimento 01.
 | `f1_qualidade_audio.py` | Medidas acústicas por áudio (silêncio inicial e final, SNR estimada, nível, banda, graves, clipping). Roda no servidor, no container, porque precisa dos áudios. |
 | `f2_silencio_real.py` | Fase 2b: corta o silêncio (aparar) ou o padroniza em 0,5 s (padronizar) em todos os áudios do In-the-Wild e do BRSpeech-DF, gravando FLAC 16 bits na taxa original. Roda fora do container. |
 | `f2_silencio_analise.py` | Fase 2b: EER com IC por locutor e diferença de EER pareada (mesmos locutores sorteados nas duas condições). |
+| `f2_normalizar_real.py` | Fase 2c: outras intervenções no áudio de teste (controle, equalização, volume, janelas, silêncio padronizado e a combinação volume + silêncio), em In-the-Wild, BRSpeech-DF e na amostra do 2021 DF. |
+| `f3_dominio.py` | Fase 3: tamanho e direção do deslocamento de domínio por camada. |
+| `f3_extrair_original.py` | Fase 3: representações do XLS-R original (antes do ajuste no ASVspoof). |
+| `f3_assinaturas.py` | Fase 3: compara o deslocamento observado nos dados reais com o deslocamento causado por cada fator da Fase 2. |
 | `f1_qualidade_analise.py` | Análise das medidas contra rótulos e pontuações (atalho do silêncio em dados reais, locutores "ruins"). |
 
 ## 4. Decisões metodológicas
@@ -152,6 +156,11 @@ imagem e o `inferir.py` do Experimento 01.
 13. **Disco do PC.** As features do XLS-R original e das assinaturas (~830 MB) não cabem no PC.
     As análises que as usam rodam no servidor, no ambiente isolado (com scikit-learn e
     matplotlib), e só os JSON e as figuras vêm para o repositório.
+
+14. **Leitura dos .flac da amostra do 2021 DF na Fase 2c.** 2.297 dos 5.000 arquivos foram lidos pelo
+    ffmpeg (o mesmo caso do problema 8). Por isso a base de comparação da Fase 2c é a condição
+    **controle**, que passa pelo mesmo caminho; a análise também mostra a EER do Exp. 01 nos mesmos
+    áudios.
 
 ## 6. Pendências
 

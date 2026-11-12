@@ -1,10 +1,9 @@
 {
   "condicoes": [
     "controle",
-    "equalizar",
     "volume",
-    "janela_meio",
-    "janela_fim"
+    "padronizar",
+    "volume_padronizar"
   ],
   "sr": 16000,
   "janela": 64600,
@@ -29,6 +28,10 @@
     "brs": {
       "n": 7907,
       "lidos_via_ffmpeg": 0
+    },
+    "df21": {
+      "n": 5000,
+      "lidos_via_ffmpeg": 2297
     }
   }
 }

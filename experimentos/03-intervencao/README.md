@@ -6,8 +6,8 @@ sintética existe nas camadas do XLS-R, mas a regra de decisão aprendida no ASV
 AASIST, com o checkpoint publicado e **congelado**: nada do modelo é treinado. Só se treinam
 classificadores lineares (probes) sobre as representações dele.
 
-> Status: Etapas 0 (pré-registro, métricas e divisão) e 1 (linhas de base) concluídas. Etapas 2 a 4
-> ainda não rodadas. As seções 1 a 4 foram escritas **antes** de qualquer resultado do Exp. 03.
+> Status: Etapas 0 (pré-registro, métricas e divisão), 1 (linhas de base), 2 (I1) e 3 (I2)
+> concluídas. Etapa 4 (opcional) e fechamento pendentes. As seções 1 a 4 foram escritas **antes** de qualquer resultado do Exp. 03.
 
 ---
 
@@ -127,9 +127,12 @@ circular. O teste é sempre em dados reais fora do domínio.
 
 **I2, poucos exemplos em português, avaliação justa** (só o BRSpeech-DF):
 - k = 10, 50 e 200 exemplos por classe; 20 sorteios por k. Os mesmos sorteios valem para todos
-  os métodos, de modo que as comparações são pareadas.
-- Cada sorteio escolhe 3 dos 5 TTS para a adaptação (os outros 2 ficam para o teste) e divide os
-  10 locutores em 5 para a adaptação e 5 para o teste. A adaptação usa só genuínos dos locutores de
+  os métodos e todos os k, de modo que as comparações são pareadas.
+- Cada sorteio usa 3 dos 5 TTS para a adaptação e deixa os outros 2 para o teste, em rodízio: cada
+  uma das 10 combinações aparece em 2 sorteios. Os 10 locutores são divididos ao acaso em 5 para a
+  adaptação e 5 para o teste.
+- A incerteza é dada pela mediana, pelo p10 e pelo p90 sobre os 20 sorteios. As diferenças são
+  pareadas por sorteio, com a fração de sorteios em que o método fica melhor. A adaptação usa só genuínos dos locutores de
   adaptação e falsos desses locutores feitos pelos 3 TTS de adaptação. O teste usa só genuínos dos
   locutores de teste e falsos desses locutores feitos pelos 2 TTS restantes.
 - **Forma A (principal):** probe treinado com o treino da origem (limpo, ou limpo + (d)) **mais**
@@ -239,6 +242,165 @@ EER do probe limpo em cada representação fixada a priori (o C de cada uma foi 
    1,00). Observação nossa, a partir da definição: no ponto de operação do ASVspoof 5, o minDCF só
    informa quando o detector já é razoável. A EER segue como métrica principal.
 
+### 5.2 Etapa 2: I1, aumento de dados nas duas classes
+
+(`i1_aumentar.py`, `i1_probing.py`; `resultados/etapa2/i1.json`, `condicoes.tsv` com o sorteio de cada
+cópia, `i1_log.txt`.) Rodado no servidor (Python 3.10.12, scikit-learn 1.7.2). B = 1.000.
+
+**O aumento muda o que o detector vê.** A EER do detector completo nas cópias do treino (descritiva,
+não é teste de ganho) vai de 3,39% nos originais para 2,76% no controle, 34,76% com reverberação (a),
+14,81% com silêncio/volume (b), 9,10% com canal (c) e 30,24% com tudo (d). É a mesma ordem de fatores
+da Fase 2 do Exp. 02.
+
+**Conferências.** O probe limpo retreinado no servidor reproduz o B2 da Etapa 1 (diferença máxima de
+0,0001 na camada 12). As pontuações do detector gravadas na extração dos áudios normalizados
+reproduzem as da Fase 2c (correlação de 0,99999999996).
+
+**Escolha na validação limpa.** Camada 12 para limpo, controle, (c) e (d); camada 24 para (a);
+camada 5 para (b).
+
+EER [IC 95%] com a representação escolhida de cada método:
+
+| Conjunto | B0 | B2 limpo | I1 controle | I1 (a) | I1 (b) | I1 (c) | I1 (d) |
+|---|---|---|---|---|---|---|---|
+| In-the-Wild | 9,80% | **7,60%** | 8,13% | 8,20% | 13,47% | 8,20% | 9,20% |
+| BRSpeech-DF | 39,47% | 36,21% | 34,62% | 37,80% | **33,71%** | 36,36% | 36,36% |
+| Hidden track, completa | 12,30% | 6,60% | 7,50% | 8,70% | **5,60%** | 6,90% | 7,50% |
+| Hidden track, só teste | 13,09% | 6,91% | 9,38% | 7,41% | 7,90% | 6,91% | 6,91% |
+| df21 teste | 4,10% | **0,57%** | 0,57% | 2,12% | 2,12% | 1,13% | 1,55% |
+
+Diferença pareada de EER contra o B2, em pontos percentuais (IC 95%):
+
+| Conjunto | Controle − B2 | (a) − B2 | (b) − B2 | (c) − B2 | (d) − B2 |
+|---|---|---|---|---|---|
+| In-the-Wild | +0,53 [−0,61; +1,15] | +0,60 [−1,65; +2,52] | **+5,87 [+2,50; +9,26]** | +0,60 [−0,44; +1,24] | +1,60 [−0,07; +2,68] |
+| BRSpeech-DF | −1,59 [−3,60; +0,79] | +1,59 [−0,93; +4,07] | −2,50 [−4,77; +1,62] | +0,15 [−1,36; +2,35] | +0,15 [−1,93; +2,17] |
+| Hidden track, completa | **+0,90 [+0,09; +1,72]** | **+2,10 [+0,37; +3,19]** | −1,00 [−2,58; +0,65] | +0,30 [−0,32; +1,12] | +0,90 [−0,21; +2,09] |
+| Hidden track, só teste | +2,47 [0,00; +4,43] | +0,49 [−4,57; +5,05] | +0,99 [−3,97; +4,89] | 0,00 [−2,18; +1,35] | 0,00 [−2,23; +1,40] |
+| df21 teste (custo) | 0,00 [−0,89; +0,29] | **+1,55 [+0,11; +2,49]** | +1,55 [0,00; +2,98] | +0,57 [−0,51; +0,87] | +0,98 [−0,24; +1,93] |
+
+Com a **representação fixa**, cada variante contra o probe limpo na mesma representação: as diferenças
+significativas, de um lado e de outro, são estas (o JSON tem todas):
+
+- (b) melhora a hidden track completa nas três camadas do XLS-R: −1,5 [−2,4; −0,2] na 5,
+  −1,4 [−2,7; −0,3] na 12 e −1,8 [−2,9; −0,5] na 24;
+- (a) piora a hidden track completa nas três camadas (+1,7 a +2,3), o BRSpeech-DF na camada 12
+  (+2,0 [+0,9; +4,6]) e o df21 teste na camada 5 (+2,0 [+0,6; +4,8]; na 12, no limite);
+- no embedding do AASIST, (d) e (a) melhoram o In-the-Wild em −1,3 [−2,2; −0,4] e −1,1 [−2,1; −0,1],
+  e (d) melhora a hidden track só teste em −2,5 [−3,7; −0,6];
+- (c) piora a hidden track na camada 24 (+2,9 [+1,7; +4,4]).
+
+**I1 + B1** (probes aplicados aos áudios de teste normalizados; base: o mesmo probe na condição controle):
+
+| Conjunto | B1 detector | B2 + controle | B2 + B1 | I1 (d) + controle | I1 (d) + B1 | (I1 (d) + B1) − B1 |
+|---|---|---|---|---|---|---|
+| In-the-Wild | **4,20%** | 7,67% | 4,60% (Δ **−3,07 [−4,86; −1,78]**) | 9,20% | 4,80% (Δ **−4,40 [−6,44; −2,66]**) | +0,60 [−0,90; +2,42] |
+| BRSpeech-DF | 41,21% | 36,89% | 38,26% (Δ +1,36 [−0,98; +3,86]) | 36,89% | 39,39% (Δ **+2,50 [+0,23; +4,35]**) | −1,82 [−3,76; +1,18] |
+| Hidden track, completa | 7,60% | 6,70% | 6,90% (Δ +0,20) | 7,50% | 7,20% (Δ −0,30) | −0,40 [−1,43; +0,71] |
+| df21 teste | 3,25% | 0,85% | 2,97% (Δ **+2,12 [+0,48; +4,93]**) | 1,55% | 2,12% (Δ +0,57 [0,00; +3,03]) | −1,13 [−2,61; 0,00] |
+
+**Leituras (em relação ao pré-registro, seção 4.5):**
+
+1. **O aumento de dados não melhorou a regra fora do domínio. É um resultado nulo.** Com a escolha
+   honesta, nenhuma variante supera o probe limpo no In-the-Wild, no BRSpeech-DF ou na hidden track só
+   com os locutores de teste. A leitura prevista "I1 melhora o In-the-Wild e a hidden track, mas não o
+   BRSpeech-DF" não se confirma: nem o In-the-Wild melhora. A leitura "a perda em português não é
+   coberta por esses fatores" se confirma. Nos 3 locutores "ruins" do BRSpeech-DF, todas as variantes
+   ficam entre 55,7% e 61,7% (B2: 60,4%).
+2. **A reverberação sintética, o fator causal mais forte da Fase 2, piora quando entra no treino.** Ela
+   piora a hidden track e o BRSpeech-DF e custa 1,55 ponto no df21 teste. Interpretação, a verificar: a
+   resposta ao impulso sintética (ruído com decaimento exponencial) não representa as salas reais
+   desses dados, e a assinatura do deslocamento real só se parecia em parte com a da reverberação
+   (cossenos de 0,40–0,50; Exp. 02, seção 6.6). Não há sinal de que a regra tenha só "perdido
+   separação" em geral: na validação limpa, (a) é pior que o limpo nas camadas 5 e 12, mas melhor nas
+   camadas 24 e AASIST.
+3. **O (b) melhora a hidden track, como previsto por construção.** O aumento inclui o corte do
+   silêncio, que é o fator da hidden track. Pelo pré-registro, isso não conta como evidência de
+   generalização. Com a representação escolhida (camada 5), a variante (b) piora muito o
+   In-the-Wild (+5,9 pontos), mas na camada 12 fixa não muda nada: é o efeito da escolha.
+4. **O controle já move a EER em cerca de 1 ponto** (+0,9 na hidden track completa; +2,5, no limite, na
+   só teste). Duplicar o treino com o caminho de leitura do servidor tem um efeito do mesmo tamanho que
+   o das variantes. Diferenças da I1 abaixo de ~1–2 pontos não se distinguem desse efeito.
+5. **Ganhos pequenos só no embedding do AASIST** ((d) e (a) no In-the-Wild, cerca de −1,2 ponto). Com
+   dezenas de comparações, esperam-se alguns IC que excluem o zero por acaso. Fica registrado, sem peso
+   de evidência.
+6. **Normalizar e aumentar não se somam.** No In-the-Wild, a normalização faz todo o trabalho: o probe
+   (d) sobre os áudios normalizados (4,80%) não supera o próprio detector normalizado (B1, 4,20%). No
+   BRSpeech-DF, a normalização piora os probes (+2,5 pontos para o (d)). No df21 teste, B2 + B1 custa
+   2,1 pontos.
+7. **Custo no domínio de origem.** (a) custa +1,55 [+0,11; +2,49] e (b) +1,55 [0,00; +2,98] (limite). As
+   demais não têm custo significativo.
+
+**O que isso diz sobre "o gargalo são os dados da regra".** A conclusão do Exp. 02 não é refutada,
+mas fica mais estreita. Os dados que faltam à regra não são substituídos por perturbações sintéticas
+dos fatores identificados, pelo menos com um probe linear sobre médias no tempo e 1.594 áudios de
+origem. Os fatores explicam o deslocamento (Exp. 02), mas simulá-los no treino não reproduz o que falta.
+O retreino completo do detector com aumento (seção "Trabalho futuro") é o teste mais forte que fica em
+aberto.
+
+### 5.3 Etapa 3: I2, poucos exemplos em português com locutores e TTS fora
+
+(`i2_poucos_exemplos.py`; `resultados/etapa3/i2.json`, com os 20 sorteios um a um.) Nenhum sorteio
+foi pulado por falta de exemplos. Cada TTS ficou fora da adaptação em 8 dos 20 sorteios.
+
+EER mediana sobre os 20 sorteios [p10; p90]. A representação principal (escolhida na validação da
+origem) é a camada 12 para os três métodos. A camada 5 entra como secundária, porque era a melhor no
+BRSpeech-DF na Etapa 1 e no Exp. 02.
+
+| k por classe | B0 detector | A limpo (origem + alvo) | A (d) (origem aumentada + alvo) | B (só alvo) |
+|---|---|---|---|---|
+| 0 | 38,2% [22,8; 53,9] | 37,1% (B2) | 36,6% (I1 d) | — |
+| 10 | | 32,8% [18,0; 46,9] | 32,9% [20,1; 47,8] | 42,2% [34,4; 51,4] |
+| 50 | | 30,8% [20,9; 44,4] | 29,5% [22,0; 43,1] | 34,9% [26,7; 51,6] |
+| 200 | | 31,6% [18,4; 43,5] | 29,9% [18,9; 41,2] | 36,6% [20,0; 56,7] |
+| **Camada 5**, k = 0 | | 33,3% (B2) | 33,4% (I1 d) | — |
+| Camada 5, k = 10 | | 27,2% [11,4; 38,8] | 24,4% [11,6; 35,2] | 33,4% [17,9; 46,8] |
+| Camada 5, k = 50 | | 24,8% [8,3; 40,3] | **21,3%** [8,7; 36,7] | 22,1% [14,1; 41,2] |
+| Camada 5, k = 200 | | 18,8% [5,0; 37,6] | **18,4%** [4,1; 31,3] | 19,7% [7,0; 47,6] |
+
+Diferenças pareadas por sorteio (mediana em pontos percentuais [p10; p90]; fração dos sorteios em
+que o primeiro método é melhor):
+
+| Comparação | Camada 12, k = 10 | Camada 12, k = 50 | Camada 12, k = 200 | Camada 5, k = 50 | Camada 5, k = 200 |
+|---|---|---|---|---|---|
+| A limpo − B | −6,4 [−23,3; +0,3], 85% | −3,3 [−16,5; +2,1], 80% | −4,2 [−14,0; +2,0], 80% | +0,2 [−17,5; +10,3], 45% | +0,5 [−10,5; +11,0], 35% |
+| A (d) − A limpo | 0,0 [−2,6; +2,6], 45% | +0,1 [−2,5; +2,2], 40% | 0,0 [−2,9; +2,3], 40% | −2,8 [−5,5; +0,9], 80% | −2,5 [−6,3; +0,8], 75% |
+| A (d) − B0 | −3,0 [−7,4; +0,2], 80% | −6,2 [−11,4; +2,6], 80% | −7,0 [−13,3; +1,7], 85% | **−16,7 [−21,6; −9,2], 100%** | **−18,4 [−24,9; −10,8], 100%** |
+
+EER mediana por TTS de teste (camada 5, k = 200; 8 sorteios por TTS):
+
+| Método | YourTTS | XTTS | ToucanTTS | Fish-Speech | F5-TTS |
+|---|---|---|---|---|---|
+| A limpo | 4,9% | 18,0% | 17,5% | 24,4% | 32,5% |
+| B (só alvo) | 2,4% | 5,9% | 11,0% | 30,7% | 25,3% |
+
+**Leituras (em relação ao pré-registro, seção 4.5):**
+
+1. **Com TTS e locutores fora, a adaptação recupera muito menos que no Exp. 02.** O Exp. 02 dava 8,7%
+   com 50 exemplos e 2,1% com 200 (camada 5, os mesmos TTS dos dois lados). Aqui, na mesma camada, a
+   mediana fica em 22,1% e 19,7% (só alvo). Confirma-se a leitura prevista: **parte da separação "no
+   próprio domínio" vinha de ter visto o gerador** e o processo de geração do dataset. (A comparação
+   justa com o Exp. 02 é a forma B, que, como lá, só usa o alvo.)
+2. **Mesmo assim, poucos exemplos ajudam de verdade.** Com a origem aumentada e 50 exemplos por classe
+   na camada 5, a EER cai 16,7 pontos em relação ao detector, em todos os 20 sorteios (de 38,2% para
+   ~21%). É a maior melhora no BRSpeech-DF de todo o experimento.
+3. **A origem ajuda quando o alvo é pouco.** A forma A é melhor que a B na camada 12 em 80–85% dos
+   sorteios, em todos os k. Na camada 5, só com k = 10 (mediana de −6,2 pontos, em 60% dos sorteios);
+   com 50 ou mais exemplos, a origem não faz mais diferença. A leitura "a origem atrapalha" não se confirma em nenhum caso.
+4. **O aumento (d) e os poucos exemplos quase não se somam.** Na camada 12, A (d) e A limpo empatam.
+   Na camada 5, o (d) ajuda 2,2 a 2,8 pontos, em 75–95% dos sorteios, um efeito pequeno diante da
+   variação entre sorteios.
+5. **A escolha da camada pesa mais que o método.** A validação da origem escolhe a camada 12, mas a 5 é
+   melhor no português em todos os k e métodos, por 6 a 17 pontos. Escolher a camada com os próprios exemplos do alvo
+   (por validação cruzada nos k) é o passo natural, mas ele não foi pré-registrado e fica como trabalho
+   futuro.
+6. **O gerador é a fronteira.** F5-TTS e Fish-Speech continuam os mais difíceis quando ficam fora da
+   adaptação (25–33%), e YourTTS o mais fácil (2–5%), como no controle de TTS deixado de fora do
+   Exp. 02 (seção 6.3).
+7. **A variação entre sorteios é enorme** (p10–p90 de ~5% a ~40%) e vem sobretudo dos locutores: no
+   sorteio 17, todos os métodos ficam em ~58%. Com 10 locutores, a I2 dá a direção, mas não um número
+   preciso.
+
 ## 6. Validação
 
 - `e0_testar.py`: o minDCF coincide com uma varredura por força bruta em 200 casos sintéticos, com
@@ -255,6 +417,7 @@ scikit-learn 1.8.0; scripts compatíveis com Python 3.8):
 python -B e0_testar.py   # testes do minDCF e da diferença pareada
 python -B e0_dividir.py  # listas/divisao_df21_eval.tsv e .json (semente 0)
 python -B e1_linhas_de_base.py  # resultados/etapa1/ (~5 min; usa o features.npz da Fase 3 do Exp. 02)
+python -B i2_poucos_exemplos.py # resultados/etapa3/ (~25 min; precisa de resultados/etapa2/i1.json e i1_treino_reps.npz)
 ```
 
 Etapa 2 (servidor; o aumento e o probing rodam no ambiente isolado `~/matheus/venv_fase2`, com o
@@ -281,6 +444,22 @@ python -B i1_probing.py --features ../../02-diagnostico/resultados/fase3/feature
     --features-i1 ../resultados/etapa2/features_i1.npz \
     --features-b1 ../resultados/etapa2/features_volume_padronizar.npz \
     --features-controle ../resultados/etapa2/features_controle.npz
+```
+
+Etapa 4 (servidor; a extração dos parquet roda fora do container, com pyarrow, como no Exp. 01):
+
+```bash
+HF=https://huggingface.co/datasets/AKCIT-Deepfake/BRSpeech-DF/resolve/6a2c47eb228511f7a6b3d67c9c0797d5be8a58e8
+cd ~/matheus/dados/brspeech_df/hf
+wget -c "$HF/bonafide/validation-00000-of-00001.parquet" -O bonafide-validation-0.parquet
+for i in 0 1 2 3 4 5 6; do wget -c "$HF/spoof/validation-0000$i-of-00007.parquet" -O spoof-validation-$i.parquet; done
+cd ~/matheus/residencia/experimentos/01-linha-de-base/scripts
+python3 -B extrair_brspeech_hf.py --parquets ~/matheus/dados/brspeech_df/hf --divisao validation --saida ~/matheus/dados/brspeech_df/hf_val
+cd ~/matheus/residencia
+bash $S nenhuma python preparar_brspeech_hf.py --raiz /dados/brspeech_df/hf_val --subset dev --saida ../../03-intervencao/listas/brs_val
+bash $S 0 python $E --lista ../../03-intervencao/listas/brs_val/lista.tsv $CK --saida ../../03-intervencao/resultados/etapa4/features_brs_val.npz
+cd experimentos/03-intervencao/scripts && source ~/matheus/venv_fase2/bin/activate
+python -B e4_brs_val.py --features-val ../resultados/etapa4/features_brs_val.npz --lista-val ../listas/brs_val
 ```
 
 ## Referências

@@ -1,0 +1,208 @@
+EER do detector nas cópias do treino (descritivo): {'original': '3.39%', 'controle': '2.76%', 'a': '34.76%', 'b': '14.81%', 'c': '9.10%', 'd': '30.24%'}
+conferência das listas B1: {'pontuacao_npz_vs_fase2c_volume_padronizar': {'pearson': 0.99999999996061, 'dif_abs_max': 0.0029507875442504883}, 'pontuacao_npz_vs_fase2c_controle': {'pearson': 0.999999999992675, 'dif_abs_max': 0.0006663799285888672}}
+  camada_5   limpo     C=1      validação EER 1.72%
+  camada_5   controle  C=1      validação EER 2.01%
+  camada_5   a         C=0.001  validação EER 3.87%
+  camada_5   b         C=1      validação EER 0.86%
+  camada_5   c         C=1      validação EER 1.72%
+  camada_5   d         C=0.01   validação EER 2.43%
+  camada_12  limpo     C=0.1    validação EER 0.86%
+  camada_12  controle  C=1      validação EER 0.86%
+  camada_12  a         C=0.001  validação EER 1.43%
+  camada_12  b         C=0.1    validação EER 1.43%
+  camada_12  c         C=0.1    validação EER 0.29%
+  camada_12  d         C=0.01   validação EER 1.72%
+  camada_24  limpo     C=1      validação EER 2.43%
+  camada_24  controle  C=0.1    validação EER 2.43%
+  camada_24  a         C=0.1    validação EER 1.15%
+  camada_24  b         C=1      validação EER 2.29%
+  camada_24  c         C=1      validação EER 0.57%
+  camada_24  d         C=0.1    validação EER 2.01%
+  aasist     limpo     C=1      validação EER 3.29%
+  aasist     controle  C=1      validação EER 3.29%
+  aasist     a         C=1      validação EER 2.29%
+  aasist     b         C=0.1    validação EER 3.58%
+  aasist     c         C=1      validação EER 2.72%
+  aasist     d         C=0.1    validação EER 2.72%
+representação escolhida por método: {'limpo': 'camada_12', 'controle': 'camada_12', 'a': 'camada_24', 'b': 'camada_5', 'c': 'camada_12', 'd': 'camada_12'}
+probe limpo × B2 da Etapa 1 (diferença máxima): {'camada_5': 0.0069651541955622065, 'camada_12': 9.85083739806214e-05, 'camada_24': 2.7481020516972876e-06, 'aasist': 0.015386119672298193}
+
+== itw
+  B0           EER   9.80% [7.18%, 14.19%]  minDCF 0.278
+  B1           EER   4.20% [2.56%, 6.26%]  minDCF 0.115
+  B2           EER   7.60% [5.67%, 10.95%]  minDCF 0.206
+  I1_controle  EER   8.13% [5.84%, 11.08%]  minDCF 0.212
+  I1_a         EER   8.20% [6.23%, 10.50%]  minDCF 0.216
+  I1_b         EER  13.47% [9.60%, 18.51%]  minDCF 0.341
+  I1_c         EER   8.20% [6.27%, 10.99%]  minDCF 0.218
+  I1_d         EER   9.20% [6.86%, 12.12%]  minDCF 0.245
+  B2+B1        EER   4.60% [2.91%, 7.14%]  minDCF 0.130
+  B2+ctl       EER   7.67% [5.63%, 10.95%]  minDCF 0.205
+  I1_d+B1      EER   4.80% [3.39%, 6.61%]  minDCF 0.127
+  I1_d+ctl     EER   9.20% [6.86%, 12.10%]  minDCF 0.245
+  Δ I1_controle-B2       EER  +0.53 pp [-0.61, +1.15]
+  Δ I1_a-B2              EER  +0.60 pp [-1.65, +2.52]
+  Δ I1_b-B2              EER  +5.87 pp [+2.50, +9.26]
+  Δ I1_c-B2              EER  +0.60 pp [-0.44, +1.24]
+  Δ I1_d-B2              EER  +1.60 pp [-0.07, +2.68]
+  Δ I1_a-I1_controle     EER  +0.07 pp [-2.39, +2.49]
+  Δ I1_b-I1_controle     EER  +5.33 pp [+1.84, +9.08]
+  Δ I1_c-I1_controle     EER  +0.07 pp [-0.92, +1.16]
+  Δ I1_d-I1_controle     EER  +1.07 pp [-0.85, +2.71]
+  Δ I1_controle-B0       EER  -1.67 pp [-4.42, -0.30]
+  Δ I1_a-B0              EER  -1.60 pp [-5.07, +1.15]
+  Δ I1_b-B0              EER  +3.67 pp [-0.84, +7.21]
+  Δ I1_c-B0              EER  -1.60 pp [-4.58, +0.21]
+  Δ I1_d-B0              EER  -0.60 pp [-3.82, +1.34]
+  Δ B2+B1-B2+ctl         EER  -3.07 pp [-4.86, -1.78]
+  Δ I1_d+B1-I1_d+ctl     EER  -4.40 pp [-6.44, -2.66]
+  Δ I1_d+B1-B2+ctl       EER  -2.87 pp [-5.54, -0.74]
+  Δ I1_d+B1-B1           EER  +0.60 pp [-0.90, +2.42]
+  camada_5   limpo 14.47% | controle 13.60% (-0.9 [-1.7, -0.0]) a 15.07% (+0.6 [-2.0, +3.1]) b 13.47% (-1.0 [-3.6, +1.0]) c 15.27% (+0.8 [-1.9, +3.4]) d 16.40% (+1.9 [-3.2, +6.0])
+  camada_12  limpo 7.60% | controle 8.13% (+0.5 [-0.6, +1.1]) a 8.47% (+0.9 [-0.7, +2.2]) b 7.33% (-0.3 [-1.6, +1.7]) c 8.20% (+0.6 [-0.4, +1.2]) d 9.20% (+1.6 [-0.1, +2.7])
+  camada_24  limpo 7.93% | controle 7.60% (-0.3 [-0.7, +0.5]) a 8.20% (+0.3 [-2.5, +2.5]) b 7.67% (-0.3 [-1.9, +1.5]) c 8.20% (+0.3 [-2.3, +2.2]) d 7.87% (-0.1 [-3.4, +2.5])
+  aasist     limpo 8.27% | controle 8.53% (+0.3 [-0.1, +1.0]) a 7.20% (-1.1 [-2.1, -0.1]) b 7.53% (-0.7 [-1.8, +0.1]) c 8.00% (-0.3 [-1.2, +0.9]) d 7.00% (-1.3 [-2.2, -0.4])
+
+== brs
+  B0           EER  39.47% [19.06%, 52.57%]  minDCF 1.000  ruins 59.47% bons 17.85%
+  B1           EER  41.21% [18.25%, 58.67%]  minDCF 0.998  ruins 66.89% bons 16.96%
+  B2           EER  36.21% [16.71%, 52.29%]  minDCF 1.000  ruins 60.41% bons 15.57%
+  I1_controle  EER  34.62% [17.07%, 50.54%]  minDCF 0.995  ruins 56.10% bons 16.07%
+  I1_a         EER  37.80% [19.84%, 53.29%]  minDCF 1.000  ruins 60.79% bons 17.73%
+  I1_b         EER  33.71% [17.52%, 49.52%]  minDCF 0.958  ruins 55.72% bons 17.09%
+  I1_c         EER  36.36% [17.88%, 53.80%]  minDCF 1.000  ruins 61.73% bons 17.09%
+  I1_d         EER  36.36% [16.77%, 52.14%]  minDCF 1.000  ruins 61.35% bons 15.31%
+  B2+B1        EER  38.26% [17.26%, 55.51%]  minDCF 1.000  ruins 64.82% bons 16.20%
+  B2+ctl       EER  36.89% [16.99%, 53.21%]  minDCF 1.000  ruins 60.79% bons 16.33%
+  I1_d+B1      EER  39.39% [18.28%, 57.22%]  minDCF 1.000  ruins 64.63% bons 17.22%
+  I1_d+ctl     EER  36.89% [17.55%, 53.60%]  minDCF 1.000  ruins 61.73% bons 16.58%
+  Δ I1_controle-B2       EER  -1.59 pp [-3.60, +0.79]
+  Δ I1_a-B2              EER  +1.59 pp [-0.93, +4.07]
+  Δ I1_b-B2              EER  -2.50 pp [-4.77, +1.62]
+  Δ I1_c-B2              EER  +0.15 pp [-1.36, +2.35]
+  Δ I1_d-B2              EER  +0.15 pp [-1.93, +2.17]
+  Δ I1_a-I1_controle     EER  +3.18 pp [+0.26, +5.15]
+  Δ I1_b-I1_controle     EER  -0.91 pp [-4.52, +2.15]
+  Δ I1_c-I1_controle     EER  +1.74 pp [-0.17, +3.70]
+  Δ I1_d-I1_controle     EER  +1.74 pp [-0.85, +3.51]
+  Δ I1_controle-B0       EER  -4.85 pp [-6.20, +0.06]
+  Δ I1_a-B0              EER  -1.67 pp [-3.47, +2.31]
+  Δ I1_b-B0              EER  -5.76 pp [-8.97, -0.34]
+  Δ I1_c-B0              EER  -3.11 pp [-4.21, +2.57]
+  Δ I1_d-B0              EER  -3.11 pp [-4.48, +0.90]
+  Δ B2+B1-B2+ctl         EER  +1.36 pp [-0.98, +3.86]
+  Δ I1_d+B1-I1_d+ctl     EER  +2.50 pp [+0.23, +4.35]
+  Δ I1_d+B1-B2+ctl       EER  +2.50 pp [+0.25, +5.09]
+  Δ I1_d+B1-B1           EER  -1.82 pp [-3.76, +1.18]
+  camada_5   limpo 30.38% | controle 29.77% (-0.6 [-1.4, +0.6]) a 32.20% (+1.8 [-0.1, +3.5]) b 33.71% (+3.3 [+0.6, +6.0]) c 29.32% (-1.1 [-3.3, +1.7]) d 30.53% (+0.2 [-2.2, +3.1])
+  camada_12  limpo 36.21% | controle 34.62% (-1.6 [-3.6, +0.8]) a 38.18% (+2.0 [+0.9, +4.6]) b 36.44% (+0.2 [-1.5, +2.2]) c 36.36% (+0.2 [-1.4, +2.4]) d 36.36% (+0.2 [-1.9, +2.2])
+  camada_24  limpo 36.44% | controle 36.52% (+0.1 [-0.8, +0.6]) a 37.80% (+1.4 [-1.1, +4.0]) b 36.67% (+0.2 [-2.3, +1.9]) c 35.23% (-1.2 [-4.2, +2.4]) d 35.15% (-1.3 [-3.7, +0.5])
+  aasist     limpo 37.95% | controle 37.88% (-0.1 [-1.4, +0.4]) a 37.50% (-0.5 [-3.1, +1.5]) b 37.88% (-0.1 [-0.7, +1.6]) c 36.36% (-1.6 [-2.6, +0.1]) d 37.80% (-0.2 [-1.7, +1.1])
+
+== df21_hidden
+  B0           EER  12.30% [10.16%, 14.59%]  minDCF 0.315
+  B1           EER   7.60% [6.02%, 9.10%]  minDCF 0.143
+  B2           EER   6.60% [5.39%, 8.03%]  minDCF 0.152
+  I1_controle  EER   7.50% [5.96%, 9.09%]  minDCF 0.181
+  I1_a         EER   8.70% [6.85%, 10.12%]  minDCF 0.188
+  I1_b         EER   5.60% [4.31%, 7.20%]  minDCF 0.112
+  I1_c         EER   6.90% [5.62%, 8.58%]  minDCF 0.150
+  I1_d         EER   7.50% [6.10%, 9.32%]  minDCF 0.154
+  B2+B1        EER   6.90% [5.32%, 8.83%]  minDCF 0.124
+  B2+ctl       EER   6.70% [5.28%, 8.16%]  minDCF 0.144
+  I1_d+B1      EER   7.20% [5.43%, 8.86%]  minDCF 0.140
+  I1_d+ctl     EER   7.50% [5.71%, 9.18%]  minDCF 0.145
+  Δ I1_controle-B2       EER  +0.90 pp [+0.09, +1.72]
+  Δ I1_a-B2              EER  +2.10 pp [+0.37, +3.19]
+  Δ I1_b-B2              EER  -1.00 pp [-2.58, +0.65]
+  Δ I1_c-B2              EER  +0.30 pp [-0.32, +1.12]
+  Δ I1_d-B2              EER  +0.90 pp [-0.21, +2.09]
+  Δ I1_a-I1_controle     EER  +1.20 pp [-0.63, +2.46]
+  Δ I1_b-I1_controle     EER  -1.90 pp [-3.52, -0.21]
+  Δ I1_c-I1_controle     EER  -0.60 pp [-1.59, +0.55]
+  Δ I1_d-I1_controle     EER  +0.00 pp [-1.14, +1.51]
+  Δ I1_controle-B0       EER  -4.80 pp [-6.74, -2.96]
+  Δ I1_a-B0              EER  -3.60 pp [-5.84, -1.95]
+  Δ I1_b-B0              EER  -6.70 pp [-8.85, -4.58]
+  Δ I1_c-B0              EER  -5.40 pp [-6.98, -3.64]
+  Δ I1_d-B0              EER  -4.80 pp [-6.62, -2.95]
+  Δ B2+B1-B2+ctl         EER  +0.20 pp [-1.04, +1.82]
+  Δ I1_d+B1-I1_d+ctl     EER  -0.30 pp [-1.21, +0.72]
+  Δ I1_d+B1-B2+ctl       EER  +0.50 pp [-0.56, +1.62]
+  Δ I1_d+B1-B1           EER  -0.40 pp [-1.43, +0.71]
+  camada_5   limpo 7.10% | controle 7.20% (+0.1 [-0.4, +0.6]) a 9.40% (+2.3 [+1.2, +3.9]) b 5.60% (-1.5 [-2.4, -0.2]) c 8.50% (+1.4 [+0.5, +2.7]) d 8.80% (+1.7 [+0.4, +3.2])
+  camada_12  limpo 6.60% | controle 7.50% (+0.9 [+0.1, +1.7]) a 8.60% (+2.0 [+0.7, +3.0]) b 5.20% (-1.4 [-2.7, -0.3]) c 6.90% (+0.3 [-0.3, +1.1]) d 7.50% (+0.9 [-0.2, +2.1])
+  camada_24  limpo 7.00% | controle 6.60% (-0.4 [-1.0, +0.1]) a 8.70% (+1.7 [+0.3, +2.9]) b 5.20% (-1.8 [-2.9, -0.5]) c 9.90% (+2.9 [+1.7, +4.4]) d 5.90% (-1.1 [-2.5, +0.3])
+  aasist     limpo 7.80% | controle 7.90% (+0.1 [-0.5, +0.6]) a 8.30% (+0.5 [-0.7, +1.7]) b 7.70% (-0.1 [-0.9, +0.7]) c 8.00% (+0.2 [-0.7, +1.0]) d 7.20% (-0.6 [-1.4, +0.5])
+
+== df21_hidden_teste
+  B0           EER  13.09% [8.75%, 15.37%]  minDCF 0.318
+  B1           EER   8.40% [4.28%, 11.69%]  minDCF 0.150
+  B2           EER   6.91% [3.96%, 12.49%]  minDCF 0.174
+  I1_controle  EER   9.38% [6.10%, 14.21%]  minDCF 0.221
+  I1_a         EER   7.41% [3.33%, 13.23%]  minDCF 0.160
+  I1_b         EER   7.90% [4.79%, 11.92%]  minDCF 0.136
+  I1_c         EER   6.91% [3.21%, 11.88%]  minDCF 0.141
+  I1_d         EER   6.91% [3.58%, 12.28%]  minDCF 0.145
+  B2+B1        EER   8.40% [4.93%, 14.61%]  minDCF 0.136
+  B2+ctl       EER   8.40% [5.08%, 13.22%]  minDCF 0.150
+  I1_d+B1      EER   8.40% [3.81%, 13.41%]  minDCF 0.132
+  I1_d+ctl     EER   8.40% [3.57%, 12.22%]  minDCF 0.136
+  Δ I1_controle-B2       EER  +2.47 pp [+0.00, +4.43]
+  Δ I1_a-B2              EER  +0.49 pp [-4.57, +5.05]
+  Δ I1_b-B2              EER  +0.99 pp [-3.97, +4.89]
+  Δ I1_c-B2              EER  +0.00 pp [-2.18, +1.35]
+  Δ I1_d-B2              EER  +0.00 pp [-2.23, +1.40]
+  Δ I1_a-I1_controle     EER  -1.98 pp [-7.29, +3.53]
+  Δ I1_b-I1_controle     EER  -1.48 pp [-5.94, +2.62]
+  Δ I1_c-I1_controle     EER  -2.47 pp [-5.09, +0.00]
+  Δ I1_d-I1_controle     EER  -2.47 pp [-5.04, +0.00]
+  Δ I1_controle-B0       EER  -3.70 pp [-6.61, +0.74]
+  Δ I1_a-B0              EER  -5.68 pp [-9.12, +1.08]
+  Δ I1_b-B0              EER  -5.18 pp [-9.55, +1.42]
+  Δ I1_c-B0              EER  -6.17 pp [-8.85, -1.04]
+  Δ I1_d-B0              EER  -6.17 pp [-8.88, -0.95]
+  Δ B2+B1-B2+ctl         EER  +0.00 pp [-2.28, +3.62]
+  Δ I1_d+B1-I1_d+ctl     EER  +0.00 pp [-1.72, +2.57]
+  Δ I1_d+B1-B2+ctl       EER  +0.00 pp [-3.28, +2.05]
+  Δ I1_d+B1-B1           EER  +0.00 pp [-2.05, +2.56]
+  camada_5   limpo 8.40% | controle 8.89% (+0.5 [-1.5, +1.3]) a 9.38% (+1.0 [+0.0, +4.4]) b 7.90% (-0.5 [-2.0, +3.3]) c 9.88% (+1.5 [+0.0, +4.5]) d 11.11% (+2.7 [-1.2, +6.0])
+  camada_12  limpo 6.91% | controle 9.38% (+2.5 [+0.0, +4.4]) a 7.90% (+1.0 [-2.5, +3.2]) b 6.42% (-0.5 [-4.8, +2.2]) c 6.91% (+0.0 [-2.2, +1.4]) d 6.91% (+0.0 [-2.2, +1.4])
+  camada_24  limpo 7.90% | controle 7.41% (-0.5 [-1.3, +2.2]) a 7.41% (-0.5 [-3.9, +5.3]) b 5.43% (-2.5 [-4.6, +1.4]) c 11.11% (+3.2 [+1.0, +9.1]) d 4.45% (-3.5 [-6.0, +1.3])
+  aasist     limpo 8.40% | controle 6.91% (-1.5 [-1.7, +1.3]) a 7.41% (-1.0 [-3.0, +1.9]) b 7.90% (-0.5 [-2.6, +1.6]) c 7.90% (-0.5 [-2.0, +2.3]) d 5.93% (-2.5 [-3.7, -0.6])
+
+== df21_teste
+  B0           EER   4.10% [2.08%, 6.32%]  minDCF 0.104
+  B1           EER   3.25% [1.18%, 6.74%]  minDCF 0.050
+  B2           EER   0.57% [0.22%, 2.14%]  minDCF 0.016
+  I1_controle  EER   0.57% [0.00%, 2.02%]  minDCF 0.009
+  I1_a         EER   2.12% [0.86%, 3.54%]  minDCF 0.036
+  I1_b         EER   2.12% [0.62%, 4.01%]  minDCF 0.036
+  I1_c         EER   1.13% [0.23%, 2.12%]  minDCF 0.015
+  I1_d         EER   1.55% [0.41%, 3.22%]  minDCF 0.020
+  B2+B1        EER   2.97% [0.99%, 6.53%]  minDCF 0.039
+  B2+ctl       EER   0.85% [0.00%, 2.17%]  minDCF 0.014
+  I1_d+B1      EER   2.12% [0.60%, 5.04%]  minDCF 0.037
+  I1_d+ctl     EER   1.55% [0.42%, 3.17%]  minDCF 0.023
+  Δ I1_controle-B2       EER  +0.00 pp [-0.89, +0.29]
+  Δ I1_a-B2              EER  +1.55 pp [+0.11, +2.49]
+  Δ I1_b-B2              EER  +1.55 pp [+0.00, +2.98]
+  Δ I1_c-B2              EER  +0.57 pp [-0.51, +0.87]
+  Δ I1_d-B2              EER  +0.98 pp [-0.24, +1.93]
+  Δ I1_a-I1_controle     EER  +1.55 pp [+0.32, +2.56]
+  Δ I1_b-I1_controle     EER  +1.55 pp [+0.00, +3.18]
+  Δ I1_c-I1_controle     EER  +0.57 pp [-0.31, +1.11]
+  Δ I1_d-I1_controle     EER  +0.98 pp [+0.00, +2.06]
+  Δ I1_controle-B0       EER  -3.53 pp [-5.51, -1.27]
+  Δ I1_a-B0              EER  -1.98 pp [-3.39, -0.50]
+  Δ I1_b-B0              EER  -1.98 pp [-3.74, +0.51]
+  Δ I1_c-B0              EER  -2.97 pp [-4.90, -1.12]
+  Δ I1_d-B0              EER  -2.55 pp [-4.27, -0.36]
+  Δ B2+B1-B2+ctl         EER  +2.12 pp [+0.48, +4.93]
+  Δ I1_d+B1-I1_d+ctl     EER  +0.57 pp [+0.00, +3.03]
+  Δ I1_d+B1-B2+ctl       EER  +1.27 pp [+0.00, +3.74]
+  Δ I1_d+B1-B1           EER  -1.13 pp [-2.61, +0.00]
+  camada_5   limpo 1.55% | controle 1.55% (+0.0 [-0.5, +0.4]) a 3.53% (+2.0 [+0.6, +4.8]) b 2.12% (+0.6 [-0.2, +2.3]) c 1.13% (-0.4 [-0.9, +1.4]) d 3.25% (+1.7 [+0.1, +3.8])
+  camada_12  limpo 0.57% | controle 0.57% (+0.0 [-0.9, +0.3]) a 1.55% (+1.0 [+0.0, +1.9]) b 1.13% (+0.6 [-0.8, +2.2]) c 1.13% (+0.6 [-0.5, +0.9]) d 1.55% (+1.0 [-0.2, +1.9])
+  camada_24  limpo 1.83% | controle 1.83% (+0.0 [-0.6, +0.0]) a 2.12% (+0.3 [-1.0, +0.9]) b 1.42% (-0.4 [-1.4, +0.9]) c 1.55% (-0.3 [-1.4, +0.6]) d 1.55% (-0.3 [-1.4, +0.8])
+  aasist     limpo 2.12% | controle 2.12% (+0.0 [-0.4, +0.4]) a 3.25% (+1.1 [-0.5, +2.1]) b 2.12% (+0.0 [-0.6, +0.4]) c 2.12% (+0.0 [-0.7, +1.1]) d 2.12% (+0.0 [-0.5, +0.7])

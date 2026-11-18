@@ -1,4 +1,4 @@
-"""Gera lista, rótulos e mapas da divisão de teste do BRSpeech-DF (versão Hugging Face).
+"""Gera lista, rótulos e mapas de uma divisão do BRSpeech-DF (versão Hugging Face; por padrão, a de teste).
 
 Lê o indice.tsv gravado por extrair_brspeech_hf.py e os metadados do AKCIT no submódulo
 (somente leitura). Saídas em --saida:
@@ -27,21 +27,22 @@ from _comum import (BRSPEECH_REPO, checar_taxas, conferir_contagem, erro, escrev
 META = os.path.join(BRSPEECH_REPO, 'data', 'metadata', 'brspeech_df')
 
 
-def ler_meta(nome):
+def ler_meta(nome, subset='test'):
     with open(os.path.join(META, nome), newline='', encoding='utf-8') as f:
-        return [r for r in csv.DictReader(f, delimiter='|') if r['subset'] == 'test']
+        return [r for r in csv.DictReader(f, delimiter='|') if r['subset'] == subset]
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--raiz', required=True, help='pasta gravada por extrair_brspeech_hf.py')
     ap.add_argument('--saida', required=True)
+    ap.add_argument('--subset', default='test', help="divisão nos metadados do AKCIT (test, dev); padrão: test")
     args = ap.parse_args()
     garantir_fora_third_party(args.saida)
 
     indice = ler_tsv(os.path.join(args.raiz, 'indice.tsv'))
-    gen_akcit = ler_meta('brspeech_meta.csv')
-    fal_akcit = ler_meta('synthetic_meta.csv')
+    gen_akcit = ler_meta('brspeech_meta.csv', args.subset)
+    fal_akcit = ler_meta('synthetic_meta.csv', args.subset)
     por_nome = {os.path.splitext(os.path.basename(r['relative_path']))[0]: r['relative_path'] for r in gen_akcit}
     if len(por_nome) != len(gen_akcit):
         erro('nomes de arquivo repetidos entre os genuínos do AKCIT')
@@ -83,8 +84,8 @@ def main():
         escrever_tsv(os.path.join(args.saida, f'mapa_falsos_{hipotese}.tsv'), ['id', 'id_referencia'], mapa)
 
     n_gen = sum(r[1] == 'bonafide' for r in rotulos)
-    conferir_contagem('genuínos', n_gen, 1320)
-    conferir_contagem('falsos', len(rotulos) - n_gen, 6587)
+    conferir_contagem('genuínos', n_gen, len(gen_akcit))
+    conferir_contagem('falsos', len(rotulos) - n_gen, len(fal_akcit))
     itens = [
         ('genuínos / falsos', f'{n_gen} / {len(rotulos) - n_gen}'),
         ('falsos por modelo', {m: len(v) for m, v in sorted(falsos_hf.items())}),

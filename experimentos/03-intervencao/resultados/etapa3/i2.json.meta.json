@@ -1,0 +1,45 @@
+{
+  "script": "experimentos/03-intervencao/scripts/i2_poucos_exemplos.py",
+  "parametros": {
+    "k": [
+      10,
+      50,
+      200
+    ],
+    "sorteios": 20,
+    "semente": 0,
+    "representacoes": [
+      "camada_5",
+      "camada_12",
+      "camada_24",
+      "aasist"
+    ],
+    "metodos": [
+      "A_limpo",
+      "B_alvo",
+      "A_d"
+    ],
+    "C_forma_B": 0.1,
+    "min_dcf": {
+      "C_miss": 1.0,
+      "C_fa": 10.0,
+      "pi_spf": 0.05,
+      "fonte": "ASVspoof 5, Track 1: Wang et al. (2024), arXiv:2408.08739, seção 3.1, eqs. (1)-(2)",
+      "beta": 1.9
+    }
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d",
+    "experimentos/03-intervencao/listas/divisao_df21_eval.tsv": "53f0a9e5742ca3f7cbb8658604c4b131c5c9dab8db877b5fc8962ddf9f59bd50",
+    "experimentos/03-intervencao/resultados/etapa1/linhas_de_base.json": "e0f2dba999dc82b6c14c52a3069db8671fe898f0f413aac173d122aea159e5df",
+    "experimentos/03-intervencao/resultados/etapa2/i1.json": "a08871b9a80564dba73600bd0bf82476b74ba83b069db097360c39d630aff049",
+    "experimentos/03-intervencao/resultados/etapa2/i1_treino_reps.npz": "b32ebc875489790af9f563a924f89e0110bac6be66ae3bd234fc55a41e5085a9"
+  },
+  "saida_sha256": "8a057d1b7a05d703fd2c9d07c5dae23b620983b88eba799d5b3298d9d2bb591f",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

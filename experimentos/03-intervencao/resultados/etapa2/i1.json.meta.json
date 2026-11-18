@@ -1,0 +1,57 @@
+{
+  "script": "experimentos/03-intervencao/scripts/i1_probing.py",
+  "parametros": {
+    "B": 1000,
+    "semente": 0,
+    "representacoes": [
+      "camada_5",
+      "camada_12",
+      "camada_24",
+      "aasist"
+    ],
+    "grade_C": [
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "metodos": [
+      "limpo",
+      "controle",
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "criterio_escolha": "menor EER na validação limpa; desempate minDCF e menor C",
+    "com_b1": true,
+    "min_dcf": {
+      "C_miss": 1.0,
+      "C_fa": 10.0,
+      "pi_spf": 0.05,
+      "fonte": "ASVspoof 5, Track 1: Wang et al. (2024), arXiv:2408.08739, seção 3.1, eqs. (1)-(2)",
+      "beta": 1.9
+    }
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_controle_brs.txt": "e7120ba4365dbc893e3929151c2f4084cc5b008ebb93ff652a68db58fb5ab8f7",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_controle_df21.txt": "02fc45168da10b8b93963dcb63e02f4bef8bb5e86a86d2f954710b42a86e8b9c",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_controle_itw.txt": "16a7684ee6398b9dd9f1d0f5a31442e3a9ee744020e901189c98b4bf5f599e98",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_volume_padronizar_brs.txt": "9d54ba16ae91077b81a36edae48c9232fecdfbb1f7b8f7285eda30cbecb39aef",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_volume_padronizar_df21.txt": "773c5e93bd47f1fbc359340c0fc225c79cda22a2faa451f631985f59362b024b",
+    "experimentos/02-diagnostico/resultados/normalizar/pontuacoes_volume_padronizar_itw.txt": "40990a1df278f1c06fcfa3b18ae590062c9cfafccd5d33f60c6d14a8ebe07fe2",
+    "experimentos/03-intervencao/listas/divisao_df21_eval.tsv": "53f0a9e5742ca3f7cbb8658604c4b131c5c9dab8db877b5fc8962ddf9f59bd50",
+    "experimentos/03-intervencao/resultados/etapa1/pontuacoes_b2.tsv": "71ec6b282dd3f7edfed17a74691d2086dab081882161a48d2fc8f46b9479fb84",
+    "experimentos/03-intervencao/resultados/etapa2/features_controle.npz": "46cc5da95896454102dfdee19f27fd2e50282e9464cb11b18a43c4c5ee98016c",
+    "experimentos/03-intervencao/resultados/etapa2/features_i1.npz": "c823e7327f26136eb29c8ca5f281bce34739590e0d2c9a0089c9f4c47bc1ac3e",
+    "experimentos/03-intervencao/resultados/etapa2/features_volume_padronizar.npz": "37d0ba5ffed46908a43489ff243e82aa5d4cf44aa4bf8b1f1285d51369d77d40"
+  },
+  "saida_sha256": "a08871b9a80564dba73600bd0bf82476b74ba83b069db097360c39d630aff049",
+  "python": "3.10.12",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "plataforma": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35"
+}

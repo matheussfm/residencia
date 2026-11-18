@@ -1,0 +1,27 @@
+{
+  "variantes": [
+    "controle",
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "particao": "treino",
+  "n_trials": 1594,
+  "n_arquivos": 7970,
+  "semente": 0,
+  "divisao_sha256": "53f0a9e5742ca3f7cbb8658604c4b131c5c9dab8db877b5fc8962ddf9f59bd50",
+  "lista_fase3_sha256": "2822d5c113a047d5c05adcaebbe7e39e040a95cc16cc346bbb289f7ae77e518f",
+  "condicoes_sha256": "2d60be6c85fc37a1863904449e599fe5c52392b887c476ef8cf1a9b335625508",
+  "lidos_via_ffmpeg": 790,
+  "parametros": {
+    "a": "RT60 ~ U(0,2; 1,0) s",
+    "b": "cortar 40 dB ou +U(0,25; 2,0) s de silêncio (1/2 cada); ganho ~ U(-20; +6) dB",
+    "c": "telefone 300-3400 Hz ou MP3 16 kbps (1/2 cada)",
+    "d": "cada fator com p = 1/2, ao menos um; ordem sala, canal, silêncio/volume"
+  },
+  "ffmpeg": "ffmpeg version n9.0.2-17-g2a571b6068-20260930 Copyright (c) 2000-2026 the FFmpeg developers",
+  "numpy": "2.2.6",
+  "soundfile": "0.14.0",
+  "python": "3.10.12"
+}

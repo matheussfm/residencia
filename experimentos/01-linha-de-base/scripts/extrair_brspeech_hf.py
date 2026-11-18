@@ -1,4 +1,4 @@
-"""Extrai os áudios da divisão de teste do BRSpeech-DF a partir dos parquet do Hugging Face.
+"""Extrai os áudios de uma divisão do BRSpeech-DF (por padrão, a de teste) a partir dos parquet do Hugging Face.
 
 Fonte: https://huggingface.co/datasets/AKCIT-Deepfake/BRSpeech-DF (configurações
 "bonafide" e "spoof", revisão 6a2c47eb228511f7a6b3d67c9c0797d5be8a58e8). Nessa versão
@@ -42,13 +42,14 @@ def extensao(dados):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--parquets', required=True,
-                    help='pasta com bonafide-test-*.parquet e spoof-test-*.parquet')
+                    help='pasta com bonafide-<divisao>-*.parquet e spoof-<divisao>-*.parquet')
+    ap.add_argument('--divisao', default='test', help="divisão do Hugging Face (test, validation); padrão: test")
     ap.add_argument('--saida', required=True, help='pasta onde gravar os áudios e o indice.tsv')
     args = ap.parse_args()
     garantir_fora_third_party(args.saida)
 
-    arquivos = (sorted(glob.glob(os.path.join(args.parquets, 'bonafide-test-*.parquet')))
-                + sorted(glob.glob(os.path.join(args.parquets, 'spoof-test-*.parquet'))))
+    arquivos = (sorted(glob.glob(os.path.join(args.parquets, f'bonafide-{args.divisao}-*.parquet')))
+                + sorted(glob.glob(os.path.join(args.parquets, f'spoof-{args.divisao}-*.parquet'))))
     if not arquivos:
         erro(f'nenhum parquet encontrado em {args.parquets}')
 

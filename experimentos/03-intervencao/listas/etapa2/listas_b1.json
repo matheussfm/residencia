@@ -1,0 +1,23 @@
+{
+  "amostra_sha256": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+  "condicoes": {
+    "volume_padronizar": {
+      "n": 10640,
+      "listas_origem_sha256": {
+        "itw": "10fef6462c17f67b67eb35a790e569f57dba03de449802b9d7684753a07edb55",
+        "brs": "fcad000c73996bc17e4205f15883643212864791ae8d9ab5cf5c135adff81c7c",
+        "df21": "82f5468e306ff870465aa1c479b11857ce5494dda6ef294cfd61775161ff8173"
+      },
+      "lista_sha256": "d772bbf3ae548a2179595bd0883caac9c04376563b6e79204cd0cede84fa3ad8"
+    },
+    "controle": {
+      "n": 10640,
+      "listas_origem_sha256": {
+        "itw": "3e15cb1febb1785c5b7c2db7854d0f4874c0b550c1a3947169bcb906a68fd232",
+        "brs": "336ca298e95761e130eb89e7e638933a1b292384454638495f45d66eb40f01f7",
+        "df21": "81e0ac0253e09091c727e96cd425cb90b29030390d765a7139b5d20fad35370f"
+      },
+      "lista_sha256": "ac47043d7254013a4591f143b4de8a7dadf289b41619deee568085f42e2f1e8e"
+    }
+  }
+}

@@ -26,6 +26,9 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
 | `i1_aumentar.py` | Etapa 2: cópias da partição de treino nas variantes controle, (a), (b), (c) e (d), com semente por (áudio, variante) e os parâmetros sorteados gravados em `condicoes.tsv`. **Importa** as perturbações do `f2_perturbar.py` e o leitor do `f2_silencio_real.py`. Roda fora do container. Testado com áudio sintético a 16 e 24 kHz. |
 | `e2_listas_b1.py` | Etapa 2: filtra as listas da Fase 2c (volume_padronizar e controle) para os ids da amostra da Fase 3, com os ids da amostra. Testado com listas falsas. |
 | `i1_probing.py` | Etapa 2: probes limpo, controle e (a)–(d) em cada representação, escolha na validação limpa, métodos combinados com B1, diferenças pareadas (com a representação escolhida e em cada representação fixa) e conferências. Grava as representações das cópias do treino para a I2. Testado com features sintéticas de dimensão 8 e os ids reais. |
+| `i2_poucos_exemplos.py` | Etapa 3: 20 sorteios fixos (rodízio das 10 combinações de 3 TTS de adaptação, locutores 5/5), k exemplos por classe, formas A (origem limpa ou (d) + alvo, com pesos) e B (só alvo), referências sem alvo (B0, B2, I1_d) nos mesmos subconjuntos de teste e EER por TTS de teste. Testado com 2–3 sorteios (sem a origem (d) e com entradas falsas da Etapa 2). O teste rápido usou dados reais, mas nenhuma decisão foi tomada a partir dele. |
+| `e4_brs_val.py` | Etapa 4: a validação do BRSpeech-DF como segundo teste (B0, B2 e I1 (d), com IC por locutor) e como fonte de adaptação da I2, com o teste na amostra do teste oficial, completa nos locutores. Confere o pareamento dos falsos contra as pontuações do AKCIT. Testado com uma validação falsa (ids e metadata reais, features aleatórias). Roda no servidor. |
+| `extrair_brspeech_hf.py` e `preparar_brspeech_hf.py` (Exp. 01) | **Alterados de forma compatível:** ganharam `--divisao` e `--subset`, com padrão `test`, que reproduz o comportamento anterior. Na contagem esperada, os números fixos do teste (1.320 e 6.587) foram trocados pelo tamanho da divisão nos metadados do AKCIT (que, no teste, são os mesmos). |
 | `e1_linhas_de_base.py` | Etapa 1: B0, controle e B1 (pontuações dos Exp. 01 e 02) e B2 (probe limpo, escolhido na validação). EER e minDCF com IC e diferenças pareadas. Grava as pontuações do B2 para as etapas seguintes. Teste rápido com B = 20 numa pasta temporária antes da execução real. |
 
 ## 3. Decisões metodológicas
@@ -44,6 +47,11 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
 | I1 com a escolha na validação limpa da origem | É a mesma regra do B2. Uma validação aumentada favoreceria o aumento por construção. |
 | I1: (d) com cada fator a probabilidade 1/2, na ordem sala → canal → silêncio/volume | Imita a cadeia real: a sala antes do microfone, o canal na transmissão, o corte e o ganho na edição. Com 1/2 por fator, cerca de 1/8 das cópias teria todos os fatores e 1/8 nenhum; o "nenhum" é trocado por um fator sorteado. |
 | I1 + B1 comparado contra o mesmo probe nas features da condição controle | Mesmo motivo da linha de B1: a normalização e a controle passam pelo mesmo caminho de E/S. |
+| I2: rodízio sistemático das combinações de TTS (cada uma em 2 dos 20 sorteios) | Com sorteio livre, algumas combinações poderiam não aparecer. Assim, cada TTS fica fora da adaptação em 8 dos 20 sorteios. |
+| I2: incerteza pelos sorteios (mediana, p10 e p90), não por bootstrap | A variação entre sorteios de locutores e TTS já é a incerteza relevante. Com 5 locutores de teste por sorteio, um bootstrap por locutor dentro de cada sorteio seria muito instável. |
+| I2, forma A: pesos em que cada célula domínio × classe soma 1/4, com total igual a n | Mantém a escala do C igual à do probe com `class_weight='balanced'`, para que o C escolhido na validação da origem possa ser reaproveitado. |
+| Etapa 4 só com a validação do BRSpeech-DF | A divisão de treino tem 147,5 GB no Hugging Face (inviável no prazo). A de validação tem 3,5 GB (baixada em ~2 min; os oito tamanhos conferidos com a API do Hugging Face), 1.161 genuínos e 5.795 falsos, e 10 locutores disjuntos dos do teste e do treino (conferido na metadata do AKCIT). |
+| Etapa 4: alterar os scripts do Exp. 01 em vez de copiá-los | Os dois tinham "test" fixo. A opção nova, com padrão `test`, reaproveita a extração e o pareamento dos falsos já validados, sem duplicar código. |
 | I2 com TTS e locutores disjuntos entre adaptação e teste | O controle de TTS deixado de fora do Exp. 02 (seção 6.3) mostrou que a separação depende em parte de ter visto o gerador. |
 
 ## 4. Problemas e observações
@@ -67,6 +75,21 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
    é medido contra o B2, e não contra o B0 (README, seção 5.1, leitura 5).
 7. **O minDCF satura no BRSpeech-DF** (README, seção 5.1, leitura 6). A EER continua sendo a métrica
    principal; o minDCF é reportado em todos os casos.
+
+8. **ffmpeg fora do PATH no ambiente isolado.** O `i1_aumentar.py` parou antes de gerar qualquer
+   arquivo, porque as variantes (c) e (d) precisam do ffmpeg (MP3 a 16 kbps) e o `which ffmpeg` não o
+   achava. O binário do `imageio-ffmpeg` (v9.0.2, com `libmp3lame`) já estava instalado no venv e foi
+   ligado ao PATH com um link simbólico em `~/matheus/venv_fase2/bin/ffmpeg`. Nada foi instalado fora
+   do venv.
+9. **Leitura dos .flac pelo ffmpeg no aumento.** 790 dos 1.594 trials do treino (50%) foram lidos pelo
+   ffmpeg, porque a libsndfile do venv recusou o arquivo (o mesmo caso dos problemas 8 e 14 do Exp. 02).
+   As cópias aumentadas passam, portanto, por um caminho de leitura diferente do dos áudios originais
+   (librosa, no container). A variante controle existe para isso: a EER do detector nas cópias controle
+   (2,76%) fica perto da dos originais (3,39%).
+10. **Conferências da Etapa 2 no servidor.** As pontuações do detector gravadas na extração dos áudios
+    normalizados reproduzem as da Fase 2c (correlação de 0,99999999996; diferença máxima de 0,003). O
+    probe limpo, retreinado no servidor, reproduz o B2 da Etapa 1, treinado no PC (diferença máxima de
+    0,0001 na camada 12 e de até 0,015 nas outras, entre versões diferentes do scikit-learn).
 
 ## 5. Pendências
 

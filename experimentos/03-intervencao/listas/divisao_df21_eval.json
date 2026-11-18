@@ -1,0 +1,99 @@
+{
+  "descricao": "divisão por locutor da amostra df21_eval da Fase 3, dentro de cada origem, metas 60/20/20 dos áudios nas duas classes",
+  "metas": {
+    "treino": 0.6,
+    "validacao": 0.2,
+    "teste": 0.2
+  },
+  "particoes": {
+    "treino": {
+      "locutores": 48,
+      "por_origem": {
+        "asvspoof": {
+          "genuinos": 290,
+          "falsos": 279,
+          "locutores": 35
+        },
+        "vcc2018": {
+          "genuinos": 250,
+          "falsos": 265,
+          "locutores": 6
+        },
+        "vcc2020": {
+          "genuinos": 251,
+          "falsos": 259,
+          "locutores": 7
+        }
+      },
+      "genuinos": 791,
+      "falsos": 803
+    },
+    "validacao": {
+      "locutores": 20,
+      "por_origem": {
+        "asvspoof": {
+          "genuinos": 101,
+          "falsos": 108,
+          "locutores": 14
+        },
+        "vcc2018": {
+          "genuinos": 123,
+          "falsos": 118,
+          "locutores": 3
+        },
+        "vcc2020": {
+          "genuinos": 114,
+          "falsos": 134,
+          "locutores": 3
+        }
+      },
+      "genuinos": 338,
+      "falsos": 360
+    },
+    "teste": {
+      "locutores": 20,
+      "por_origem": {
+        "asvspoof": {
+          "genuinos": 109,
+          "falsos": 113,
+          "locutores": 13
+        },
+        "vcc2018": {
+          "genuinos": 127,
+          "falsos": 117,
+          "locutores": 3
+        },
+        "vcc2020": {
+          "genuinos": 135,
+          "falsos": 107,
+          "locutores": 4
+        }
+      },
+      "genuinos": 371,
+      "falsos": 337
+    }
+  },
+  "hidden_track": {
+    "locutores_hidden": 46,
+    "locutores_hidden_tambem_no_df21_eval": 46,
+    "por_particao": {
+      "treino": {
+        "locutores": 27,
+        "genuinos": 596,
+        "falsos": 559
+      },
+      "validacao": {
+        "locutores": 9,
+        "genuinos": 204,
+        "falsos": 236
+      },
+      "teste": {
+        "locutores": 10,
+        "genuinos": 200,
+        "falsos": 205
+      }
+    }
+  },
+  "tsv": "experimentos/03-intervencao/listas/divisao_df21_eval.tsv",
+  "tsv_sha256": "53f0a9e5742ca3f7cbb8658604c4b131c5c9dab8db877b5fc8962ddf9f59bd50"
+}

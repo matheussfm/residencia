@@ -1,0 +1,22 @@
+{
+  "script": "experimentos/03-intervencao/scripts/e0_dividir.py",
+  "parametros": {
+    "semente": 0,
+    "min_dcf": {
+      "C_miss": 1.0,
+      "C_fa": 10.0,
+      "pi_spf": 0.05,
+      "fonte": "ASVspoof 5, Track 1: Wang et al. (2024), arXiv:2408.08739, seção 3.1, eqs. (1)-(2)",
+      "beta": 1.9
+    }
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc"
+  },
+  "saida_sha256": "0b4dcd626865c1246442bd715e6a08acc0a062b89ad5f5ec62fa3c81d0afb365",
+  "python": "3.13.12",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "sklearn": "1.8.0",
+  "plataforma": "Windows-11-10.0.26200-SP0"
+}

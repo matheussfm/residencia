@@ -1,0 +1,2015 @@
+{
+  "selecao_b2": {
+    "grade": [
+      {
+        "representacao": "camada_5",
+        "C": 0.001,
+        "eer_validacao": 0.03293885601577909,
+        "mindcf_validacao": 0.07228796844181458
+      },
+      {
+        "representacao": "camada_5",
+        "C": 0.01,
+        "eer_validacao": 0.02294543063773833,
+        "mindcf_validacao": 0.04457593688362918
+      },
+      {
+        "representacao": "camada_5",
+        "C": 0.1,
+        "eer_validacao": 0.02294543063773833,
+        "mindcf_validacao": 0.036176857330703485
+      },
+      {
+        "representacao": "camada_5",
+        "C": 1.0,
+        "eer_validacao": 0.01720907297830375,
+        "mindcf_validacao": 0.033333333333333326
+      },
+      {
+        "representacao": "camada_12",
+        "C": 0.001,
+        "eer_validacao": 0.01720907297830375,
+        "mindcf_validacao": 0.04451019066403679
+      },
+      {
+        "representacao": "camada_12",
+        "C": 0.01,
+        "eer_validacao": 0.008604536489151875,
+        "mindcf_validacao": 0.022287968441814646
+      },
+      {
+        "representacao": "camada_12",
+        "C": 0.1,
+        "eer_validacao": 0.008604536489151875,
+        "mindcf_validacao": 0.011111111111111072
+      },
+      {
+        "representacao": "camada_12",
+        "C": 1.0,
+        "eer_validacao": 0.008604536489151875,
+        "mindcf_validacao": 0.011111111111111072
+      },
+      {
+        "representacao": "camada_24",
+        "C": 0.001,
+        "eer_validacao": 0.03580703484549638,
+        "mindcf_validacao": 0.06673241288625904
+      },
+      {
+        "representacao": "camada_24",
+        "C": 0.01,
+        "eer_validacao": 0.03293885601577909,
+        "mindcf_validacao": 0.06117685733070351
+      },
+      {
+        "representacao": "camada_24",
+        "C": 0.1,
+        "eer_validacao": 0.027202498356344508,
+        "mindcf_validacao": 0.05019723865877711
+      },
+      {
+        "representacao": "camada_24",
+        "C": 1.0,
+        "eer_validacao": 0.02433431952662722,
+        "mindcf_validacao": 0.04464168310322157
+      },
+      {
+        "representacao": "aasist",
+        "C": 0.001,
+        "eer_validacao": 0.04154339250493097,
+        "mindcf_validacao": 0.07526298487836952
+      },
+      {
+        "representacao": "aasist",
+        "C": 0.01,
+        "eer_validacao": 0.04154339250493097,
+        "mindcf_validacao": 0.07248520710059175
+      },
+      {
+        "representacao": "aasist",
+        "C": 0.1,
+        "eer_validacao": 0.03867521367521368,
+        "mindcf_validacao": 0.06666666666666665
+      },
+      {
+        "representacao": "aasist",
+        "C": 1.0,
+        "eer_validacao": 0.03293885601577909,
+        "mindcf_validacao": 0.050000000000000044
+      }
+    ],
+    "por_representacao": {
+      "camada_5": {
+        "representacao": "camada_5",
+        "C": 1.0,
+        "eer_validacao": 0.01720907297830375,
+        "mindcf_validacao": 0.033333333333333326
+      },
+      "camada_12": {
+        "representacao": "camada_12",
+        "C": 0.1,
+        "eer_validacao": 0.008604536489151875,
+        "mindcf_validacao": 0.011111111111111072
+      },
+      "camada_24": {
+        "representacao": "camada_24",
+        "C": 1.0,
+        "eer_validacao": 0.02433431952662722,
+        "mindcf_validacao": 0.04464168310322157
+      },
+      "aasist": {
+        "representacao": "aasist",
+        "C": 1.0,
+        "eer_validacao": 0.03293885601577909,
+        "mindcf_validacao": 0.050000000000000044
+      }
+    },
+    "selecionada": "camada_12"
+  },
+  "conjuntos": {
+    "itw": {
+      "n_genuinos": 1500,
+      "n_falsos": 1500,
+      "locutores": 53
+    },
+    "brs": {
+      "n_genuinos": 1320,
+      "n_falsos": 1320,
+      "locutores": 10
+    },
+    "df21_hidden": {
+      "n_genuinos": 1000,
+      "n_falsos": 1000,
+      "locutores": 46
+    },
+    "df21_hidden_teste": {
+      "n_genuinos": 200,
+      "n_falsos": 205,
+      "locutores": 10
+    },
+    "df21_teste": {
+      "n_genuinos": 371,
+      "n_falsos": 337,
+      "locutores": 20
+    }
+  },
+  "metricas": {
+    "itw": {
+      "B0": {
+        "eer": {
+          "valor": 0.098,
+          "ic95": [
+            0.07180368668689509,
+            0.14191566031924485
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.27826666666666666,
+          "ic95": [
+            0.19734454599711138,
+            0.3815947334891112
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "controle_2c": {
+        "eer": {
+          "valor": 0.09866666666666667,
+          "ic95": [
+            0.07253524269969744,
+            0.14295741414648752
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.2764666666666667,
+          "ic95": [
+            0.1976006977814611,
+            0.38145427563832607
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1": {
+        "eer": {
+          "valor": 0.042,
+          "ic95": [
+            0.025643222495087336,
+            0.06256632220082307
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.11453333333333329,
+          "ic95": [
+            0.06497370862582727,
+            0.16448204104588549
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5": {
+        "eer": {
+          "valor": 0.14466666666666667,
+          "ic95": [
+            0.11010761412961344,
+            0.19201082336257522
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.37153333333333327,
+          "ic95": [
+            0.28360272615738086,
+            0.4867617839439143
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12": {
+        "eer": {
+          "valor": 0.076,
+          "ic95": [
+            0.05668612091383215,
+            0.10950980732160963
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.20613333333333328,
+          "ic95": [
+            0.14765712955538213,
+            0.30365330206918417
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24": {
+        "eer": {
+          "valor": 0.07933333333333334,
+          "ic95": [
+            0.05600548954524428,
+            0.11506655468535668
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.21900000000000003,
+          "ic95": [
+            0.14989762779119775,
+            0.3235018131575052
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist": {
+        "eer": {
+          "valor": 0.08266666666666667,
+          "ic95": [
+            0.05722774197582485,
+            0.11408374327536767
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.21706666666666663,
+          "ic95": [
+            0.1497012743317819,
+            0.30453344262951954
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "brs": {
+      "B0": {
+        "eer": {
+          "valor": 0.3946969696969697,
+          "ic95": [
+            0.19060864321482582,
+            0.525747203181493
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 1.0,
+          "ic95": [
+            0.5368606106547844,
+            1.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.5947480507594558,
+        "eer_bons": 0.17852558668959337
+      },
+      "controle_2c": {
+        "eer": {
+          "valor": 0.3946969696969697,
+          "ic95": [
+            0.1832502555011694,
+            0.5336155069489105
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 1.0,
+          "ic95": [
+            0.5170225488926454,
+            1.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.6097576429589735,
+        "eer_bons": 0.17344296174307555
+      },
+      "B1": {
+        "eer": {
+          "valor": 0.4121212121212121,
+          "ic95": [
+            0.18253046893700173,
+            0.5867182588716189
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.9976515151515152,
+          "ic95": [
+            0.5027623910297327,
+            0.9992337164750957
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.6688543921713572,
+        "eer_bons": 0.1696309930331872
+      },
+      "B2_camada_5": {
+        "eer": {
+          "valor": 0.3037878787878788,
+          "ic95": [
+            0.14536729384448413,
+            0.45905480889168776
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.8588636363636363,
+          "ic95": [
+            0.3482861309751507,
+            0.9976045054228694
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.5103190946371685,
+        "eer_bons": 0.13024064969767424
+      },
+      "B2_camada_12": {
+        "eer": {
+          "valor": 0.3621212121212121,
+          "ic95": [
+            0.1671304133187687,
+            0.522927219752133
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 1.0,
+          "ic95": [
+            0.44983931563074053,
+            1.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.6041290458841544,
+        "eer_bons": 0.15565377443026324
+      },
+      "B2_camada_24": {
+        "eer": {
+          "valor": 0.3643939393939394,
+          "ic95": [
+            0.1620226319014198,
+            0.5246898635663477
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.9968939393939394,
+          "ic95": [
+            0.4469321430687789,
+            1.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.6153862400337927,
+        "eer_bons": 0.14675918077385708
+      },
+      "B2_aasist": {
+        "eer": {
+          "valor": 0.3795454545454545,
+          "ic95": [
+            0.16712743121590284,
+            0.5388948459323437
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.9992424242424243,
+          "ic95": [
+            0.4704243859824853,
+            1.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "eer_ruins": 0.6275780136226834,
+        "eer_bons": 0.1569244306668927
+      }
+    },
+    "df21_hidden": {
+      "B0": {
+        "eer": {
+          "valor": 0.123,
+          "ic95": [
+            0.10158831046514381,
+            0.14585057146668107
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.3145,
+          "ic95": [
+            0.25483749941218725,
+            0.3652709834576025
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "controle_2c": {
+        "eer": {
+          "valor": 0.111,
+          "ic95": [
+            0.09056988102844861,
+            0.13235635015639788
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.262,
+          "ic95": [
+            0.20968410908547916,
+            0.3112149994419664
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1": {
+        "eer": {
+          "valor": 0.076,
+          "ic95": [
+            0.06023386581741694,
+            0.09104046720108745
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.14329999999999998,
+          "ic95": [
+            0.11450340230684988,
+            0.171375938324918
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5": {
+        "eer": {
+          "valor": 0.071,
+          "ic95": [
+            0.05357434233629506,
+            0.08747187583373844
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.1436,
+          "ic95": [
+            0.11005726820562599,
+            0.17111539250913746
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12": {
+        "eer": {
+          "valor": 0.066,
+          "ic95": [
+            0.053933315014907286,
+            0.08027973165463638
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.15219999999999997,
+          "ic95": [
+            0.11576885916463285,
+            0.18272167085797142
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24": {
+        "eer": {
+          "valor": 0.07,
+          "ic95": [
+            0.055033792071861334,
+            0.08394237746881557
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.14659999999999998,
+          "ic95": [
+            0.11446096157355654,
+            0.17414481028917841
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist": {
+        "eer": {
+          "valor": 0.078,
+          "ic95": [
+            0.06520884049127347,
+            0.09399308286779935
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.18330000000000002,
+          "ic95": [
+            0.14103917950817793,
+            0.20775601861694046
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "df21_hidden_teste": {
+      "B0": {
+        "eer": {
+          "valor": 0.13085365853658537,
+          "ic95": [
+            0.08745767323965002,
+            0.1537402076717995
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.31759756097560976,
+          "ic95": [
+            0.19229394101414315,
+            0.358915178436895
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "controle_2c": {
+        "eer": {
+          "valor": 0.11603658536585366,
+          "ic95": [
+            0.07794626285101369,
+            0.14124596133135034
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.26675609756097557,
+          "ic95": [
+            0.1722467053689453,
+            0.3174362498830685
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1": {
+        "eer": {
+          "valor": 0.08396341463414635,
+          "ic95": [
+            0.04278400427096464,
+            0.11690320142211584
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.14993902439024387,
+          "ic95": [
+            0.06865436038019915,
+            0.19210242857894363
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5": {
+        "eer": {
+          "valor": 0.08396341463414635,
+          "ic95": [
+            0.05455506797607115,
+            0.10873145139424152
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.1360731707317073,
+          "ic95": [
+            0.08549435711070737,
+            0.19305157497781725
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12": {
+        "eer": {
+          "valor": 0.06914634146341464,
+          "ic95": [
+            0.03959881356974591,
+            0.12487963901450179
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.1740731707317073,
+          "ic95": [
+            0.07378780487804876,
+            0.2000137476654907
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24": {
+        "eer": {
+          "valor": 0.07902439024390244,
+          "ic95": [
+            0.048835150020537184,
+            0.10517754229410671
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.12657317073170732,
+          "ic95": [
+            0.08117079012015747,
+            0.18327854437229435
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist": {
+        "eer": {
+          "valor": 0.08396341463414635,
+          "ic95": [
+            0.0453583596391106,
+            0.1250208333333333
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.1404390243902439,
+          "ic95": [
+            0.06800182427678733,
+            0.21421537207835117
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "df21_teste": {
+      "B0": {
+        "eer": {
+          "valor": 0.04098714677629632,
+          "ic95": [
+            0.020846868078798052,
+            0.06316998172134339
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.10409831476401099,
+          "ic95": [
+            0.044302735912744966,
+            0.16530918946782436
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "controle_2c": {
+        "eer": {
+          "valor": 0.029661593095891288,
+          "ic95": [
+            0.014546598679564475,
+            0.05352254627948078
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.07523814855991104,
+          "ic95": [
+            0.027048202112836796,
+            0.12838085041593034
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1": {
+        "eer": {
+          "valor": 0.032492981515992544,
+          "ic95": [
+            0.01175011954926263,
+            0.06743173099279236
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.049631679557215626,
+          "ic95": [
+            0.013910274118387581,
+            0.10677189734422882
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5": {
+        "eer": {
+          "valor": 0.015504650995384998,
+          "ic95": [
+            0.0027417467090743593,
+            0.03187068074274259
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.022925448103209657,
+          "ic95": [
+            0.004470430672268906,
+            0.050070250781416824
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12": {
+        "eer": {
+          "valor": 0.0056627768402025165,
+          "ic95": [
+            0.0022088404250252547,
+            0.021396121147154792
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.016177305701968358,
+          "ic95": [
+            0.0023682969106546994,
+            0.032025531984213
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24": {
+        "eer": {
+          "valor": 0.018336039415486255,
+          "ic95": [
+            0.0074878695104175245,
+            0.03577727766138288
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.038289329504826906,
+          "ic95": [
+            0.013882382169221986,
+            0.06684139529039038
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist": {
+        "eer": {
+          "valor": 0.02116742783558751,
+          "ic95": [
+            0.009911194163421767,
+            0.048409769755632034
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.04288353715597433,
+          "ic95": [
+            0.014598540145985384,
+            0.07526932571988545
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    }
+  },
+  "diferencas": {
+    "itw": {
+      "B1-controle_2c": {
+        "eer": {
+          "valor": -0.056666666666666664,
+          "ic95": [
+            -0.09168110772663145,
+            -0.03823675813577701
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.1619333333333334,
+          "ic95": [
+            -0.25582965585689305,
+            -0.10624712991261483
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1-B0": {
+        "eer": {
+          "valor": -0.056,
+          "ic95": [
+            -0.0921913601938807,
+            -0.038134215901079675
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.16373333333333337,
+          "ic95": [
+            -0.25500998147387244,
+            -0.10635002042568681
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5-B0": {
+        "eer": {
+          "valor": 0.04666666666666666,
+          "ic95": [
+            0.012387425042343874,
+            0.0777048443047732
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.09326666666666661,
+          "ic95": [
+            0.013678081012279117,
+            0.1811590232082288
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12-B0": {
+        "eer": {
+          "valor": -0.022000000000000006,
+          "ic95": [
+            -0.049043306773653886,
+            -0.002691824523907362
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.07213333333333338,
+          "ic95": [
+            -0.13414678174797165,
+            -0.014866444668510882
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24-B0": {
+        "eer": {
+          "valor": -0.018666666666666665,
+          "ic95": [
+            -0.04431102963863033,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.059266666666666634,
+          "ic95": [
+            -0.11767335520068015,
+            0.002156154747314295
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist-B0": {
+        "eer": {
+          "valor": -0.015333333333333338,
+          "ic95": [
+            -0.03986428527772265,
+            0.000656932377119432
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.06120000000000003,
+          "ic95": [
+            -0.12292256012369555,
+            -0.002639885386270948
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "brs": {
+      "B1-controle_2c": {
+        "eer": {
+          "valor": 0.017424242424242398,
+          "ic95": [
+            -0.014565296337088345,
+            0.05941912219523208
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.002348484848484822,
+          "ic95": [
+            -0.04834782135235324,
+            0.04813818459689955
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1-B0": {
+        "eer": {
+          "valor": 0.017424242424242398,
+          "ic95": [
+            -0.017782582620329494,
+            0.06993718674369447
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.002348484848484822,
+          "ic95": [
+            -0.06280196336798884,
+            0.021716914899926543
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5-B0": {
+        "eer": {
+          "valor": -0.09090909090909094,
+          "ic95": [
+            -0.1325413724215975,
+            -0.03302620519154131
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.14113636363636373,
+          "ic95": [
+            -0.3626931250034389,
+            -0.002395494577130611
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12-B0": {
+        "eer": {
+          "valor": -0.03257575757575759,
+          "ic95": [
+            -0.053049905692812135,
+            0.00898814362073369
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": 0.0,
+          "ic95": [
+            -0.14889452365987033,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24-B0": {
+        "eer": {
+          "valor": -0.03030303030303033,
+          "ic95": [
+            -0.049100438444528355,
+            0.008763260669318424
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.0031060606060605567,
+          "ic95": [
+            -0.13564021206007493,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist-B0": {
+        "eer": {
+          "valor": -0.015151515151515194,
+          "ic95": [
+            -0.034269598511207026,
+            0.019648893740856415
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.0007575757575757347,
+          "ic95": [
+            -0.13643928106837636,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "df21_hidden": {
+      "B1-controle_2c": {
+        "eer": {
+          "valor": -0.035,
+          "ic95": [
+            -0.05396272183985775,
+            -0.020136817245606904
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.11870000000000003,
+          "ic95": [
+            -0.16519229968145321,
+            -0.07374115363430835
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1-B0": {
+        "eer": {
+          "valor": -0.047,
+          "ic95": [
+            -0.06663689361129001,
+            -0.028859865807991974
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.17120000000000002,
+          "ic95": [
+            -0.21632428887990615,
+            -0.12122725696300231
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5-B0": {
+        "eer": {
+          "valor": -0.052000000000000005,
+          "ic95": [
+            -0.07456816529264822,
+            -0.031018285563399355
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.1709,
+          "ic95": [
+            -0.21859836903565727,
+            -0.1208777933334001
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12-B0": {
+        "eer": {
+          "valor": -0.056999999999999995,
+          "ic95": [
+            -0.0752516714747793,
+            -0.04013164232796915
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.16230000000000003,
+          "ic95": [
+            -0.20779664938556064,
+            -0.11546584899434494
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24-B0": {
+        "eer": {
+          "valor": -0.05299999999999999,
+          "ic95": [
+            -0.07432504320946184,
+            -0.035299146562655453
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.16790000000000002,
+          "ic95": [
+            -0.21189970849030765,
+            -0.11728751088342373
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist-B0": {
+        "eer": {
+          "valor": -0.045,
+          "ic95": [
+            -0.061774125002195875,
+            -0.025797886017905388
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.13119999999999998,
+          "ic95": [
+            -0.1841208615052552,
+            -0.0840720134816009
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "df21_hidden_teste": {
+      "B1-controle_2c": {
+        "eer": {
+          "valor": -0.03207317073170732,
+          "ic95": [
+            -0.07006061716216509,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.1168170731707317,
+          "ic95": [
+            -0.15369515460949848,
+            -0.04986057551294785
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1-B0": {
+        "eer": {
+          "valor": -0.046890243902439024,
+          "ic95": [
+            -0.07899587638587874,
+            -0.014180710728477484
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.1676585365853659,
+          "ic95": [
+            -0.21135282171974057,
+            -0.0672319470551379
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5-B0": {
+        "eer": {
+          "valor": -0.046890243902439024,
+          "ic95": [
+            -0.08911384382079598,
+            0.00014583333333320058
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.18152439024390246,
+          "ic95": [
+            -0.23838997933308106,
+            -0.034096134668367424
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12-B0": {
+        "eer": {
+          "valor": -0.06170731707317073,
+          "ic95": [
+            -0.08248729289394657,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.14352439024390246,
+          "ic95": [
+            -0.23132023730957496,
+            -0.06479327235583623
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24-B0": {
+        "eer": {
+          "valor": -0.05182926829268293,
+          "ic95": [
+            -0.07872384405280727,
+            -0.017734108536432727
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.19102439024390244,
+          "ic95": [
+            -0.2355663011449921,
+            -0.06497583901771896
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist-B0": {
+        "eer": {
+          "valor": -0.046890243902439024,
+          "ic95": [
+            -0.06710123509346473,
+            -0.01249061355311356
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.17715853658536587,
+          "ic95": [
+            -0.22180007964954204,
+            -0.04538419913419913
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    },
+    "df21_teste": {
+      "B1-controle_2c": {
+        "eer": {
+          "valor": 0.0028313884201012565,
+          "ic95": [
+            -0.013827510056806951,
+            0.03183344251555846
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.025606469002695413,
+          "ic95": [
+            -0.05797263773597538,
+            0.025144079099085604
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B1-B0": {
+        "eer": {
+          "valor": -0.008494165260303776,
+          "ic95": [
+            -0.023888862805986653,
+            0.022941099580237895
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.054466635206795365,
+          "ic95": [
+            -0.0952035502920763,
+            0.009346985036816318
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_5-B0": {
+        "eer": {
+          "valor": -0.025482495780911323,
+          "ic95": [
+            -0.051303775451429404,
+            0.0
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.08117286666080134,
+          "ic95": [
+            -0.1374543657253527,
+            -0.022663138814512082
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_12-B0": {
+        "eer": {
+          "valor": -0.03532436993609381,
+          "ic95": [
+            -0.0517421994061333,
+            -0.012359647983465437
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.08792100906204263,
+          "ic95": [
+            -0.1401586318356348,
+            -0.03558604653787752
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_camada_24-B0": {
+        "eer": {
+          "valor": -0.022651107360810066,
+          "ic95": [
+            -0.03671538404696681,
+            -0.004952119120374442
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.06580898525918408,
+          "ic95": [
+            -0.11220174959585712,
+            -0.020727305614937058
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      },
+      "B2_aasist-B0": {
+        "eer": {
+          "valor": -0.01981971894070881,
+          "ic95": [
+            -0.03493267750363377,
+            0.004213851840807697
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        },
+        "mindcf": {
+          "valor": -0.06121477760803666,
+          "ic95": [
+            -0.10889082570207406,
+            -0.01695712681314029
+          ],
+          "bootstrap": {
+            "B": 1000,
+            "validas": 1000,
+            "grupos": "locutor",
+            "semente": 0
+          }
+        }
+      }
+    }
+  },
+  "pontuacoes_b2_tsv_sha256": "71ec6b282dd3f7edfed17a74691d2086dab081882161a48d2fc8f46b9479fb84"
+}

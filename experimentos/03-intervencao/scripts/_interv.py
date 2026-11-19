@@ -35,7 +35,8 @@ DIVISAO = os.path.join(EXP03, 'listas', 'divisao_df21_eval.tsv')
 #   beta   = (C_miss / C_fa) * (1 - pi_spf) / pi_spf
 #   P_miss = taxa de genuínos rejeitados; P_fa = taxa de falsos aceitos.
 #   minDCF = mínimo de DCF(t) sobre os limiares (limiar "oráculo").
-# O artigo remete os detalhes ao plano de avaliação (fase 2), não consultado diretamente.
+# Conferido também no plano de avaliação do ASVspoof 5 (versão 0.6, Apêndice 11.1, eq. 1 e Tabela 1):
+# a DCF bruta normalizada pelo custo padrão min{C_miss(1 - pi_spf); C_fa pi_spf} = 0,5 dá esta forma.
 DCF_PARAMS = {'C_miss': 1.0, 'C_fa': 10.0, 'pi_spf': 0.05,
               'fonte': 'ASVspoof 5, Track 1: Wang et al. (2024), arXiv:2408.08739, seção 3.1, eqs. (1)-(2)'}
 BETA = DCF_PARAMS['C_miss'] / DCF_PARAMS['C_fa'] * (1 - DCF_PARAMS['pi_spf']) / DCF_PARAMS['pi_spf']

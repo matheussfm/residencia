@@ -33,6 +33,10 @@ Entradas: features.npz da Fase 3 (Exp. 02), resultados/etapa1/linhas_de_base.jso
 resultados/etapa2/i1.json e resultados/etapa2/i1_treino_reps.npz. Sem os da Etapa 2, roda só
 A_limpo e B_alvo (--sem-d).
 
+Custo fora do português: cada probe adaptado também é avaliado no df21 teste (domínio de origem) e no
+In-the-Wild (mediana sobre os sorteios), para medir quanto a adaptação ao português custa nos outros
+cenários. As referências k = 0 (B2 e I1_d) estão nas Etapas 1 e 2.
+
 Saída: resultados/etapa3/i2.json (+ .meta.json).
 """
 import argparse
@@ -119,6 +123,9 @@ def main():
     treino = [i for i in div if div[i] == 'treino']  # mesma ordem das Etapas 1 e 2
     i_tr = np.array([pos[i] for i in treino])
     i_brs = np.flatnonzero(np.array([am[i]['cenario'] == 'brs' for i in ids]))
+    # custo fora do português: o mesmo probe adaptado, avaliado no df21 teste e no In-the-Wild
+    i_fora = {'df21_teste': np.array([pos[i] for i in div if div[i] == 'teste']),
+              'itw': np.flatnonzero(np.array([am[i]['cenario'] == 'itw' for i in ids]))}
     if set(grp[i_brs]) != set(TTS) | {'bonafide'}:
         D.erro(f'grupos inesperados no BRSpeech-DF: {sorted(set(grp[i_brs]))}')
     locs = np.unique(loc[i_brs])
@@ -161,6 +168,13 @@ def main():
         sorteios.append({'j': j, 'tts_adaptacao': sorted(adapt_tts), 'tts_teste': sorted(set(TTS) - adapt_tts),
                          'locutores_adaptacao': sorted(loc_a), 'pool_b': pool_b, 'pool_s': pool_s, 'teste': teste})
 
+    def fora(clf, r):
+        out = {}
+        for nome, idx in i_fora.items():
+            sc = clf.decision_function(X[r][idx])
+            out[f'eer_{nome}'] = D.eer(sc[y[idx] == 1], sc[y[idx] == 0])[0]
+        return out
+
     def medidas(s, idx):
         yy = y[idx]
         r = {'eer': D.eer(s[yy == 1], s[yy == 0])[0], 'mindcf': I.min_dcf(s[yy == 1], s[yy == 0])[0], 'por_tts': {}}
@@ -197,13 +211,16 @@ def main():
             res_k = {}
             for r in args.representacoes:
                 Xa, ya = X[r][alvo], y[alvo]
-                res_k[f'B_alvo@{r}'] = medidas(P.classificador(C_ALVO).fit(Xa, ya).decision_function(X[r][s['teste']]), s['teste'])
+                clf = P.classificador(C_ALVO).fit(Xa, ya)
+                res_k[f'B_alvo@{r}'] = medidas(clf.decision_function(X[r][s['teste']]), s['teste'])
+                res_k[f'B_alvo@{r}'].update(fora(clf, r))
                 for m in [x for x in metodos if x.startswith('A_')]:
                     Xo, yo = origem[(m, r)]
                     Xt, yt = np.concatenate([Xo, Xa]), np.concatenate([yo, ya])
                     w = pesos(np.concatenate([np.zeros(yo.size), np.ones(ya.size)]), yt)
                     clf = probe_ponderado(escolha[m][r]).fit(Xt, yt, logisticregression__sample_weight=w)
                     res_k[f'{m}@{r}'] = medidas(clf.decision_function(X[r][s['teste']]), s['teste'])
+                    res_k[f'{m}@{r}'].update(fora(clf, r))
             linha['k'][k] = res_k
         por_sorteio.append(linha)
         print(f"sorteio {s['j']:2d} teste TTS {s['tts_teste']}: " + '  '.join(
@@ -222,7 +239,8 @@ def main():
         rk = {'metodos': {}, 'diferencas': {}}
         for r in args.representacoes:
             for m in metodos:
-                rk['metodos'][f'{m}@{r}'] = {med: resumo(valores(f'{m}@{r}', k, med)) for med in ('eer', 'mindcf')}
+                rk['metodos'][f'{m}@{r}'] = {med: resumo(valores(f'{m}@{r}', k, med))
+                                             for med in ('eer', 'mindcf', 'eer_df21_teste', 'eer_itw')}
             pares = [('A_limpo', 'B_alvo')] + ([('A_d', 'A_limpo'), ('A_d', 'B_alvo')] if 'A_d' in metodos else [])
             for a, b in pares:
                 va, vb = valores(f'{a}@{r}', k), valores(f'{b}@{r}', k)

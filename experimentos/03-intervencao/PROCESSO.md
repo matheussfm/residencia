@@ -28,6 +28,8 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
 | `i1_probing.py` | Etapa 2: probes limpo, controle e (a)–(d) em cada representação, escolha na validação limpa, métodos combinados com B1, diferenças pareadas (com a representação escolhida e em cada representação fixa) e conferências. Grava as representações das cópias do treino para a I2. Testado com features sintéticas de dimensão 8 e os ids reais. |
 | `i2_poucos_exemplos.py` | Etapa 3: 20 sorteios fixos (rodízio das 10 combinações de 3 TTS de adaptação, locutores 5/5), k exemplos por classe, formas A (origem limpa ou (d) + alvo, com pesos) e B (só alvo), referências sem alvo (B0, B2, I1_d) nos mesmos subconjuntos de teste e EER por TTS de teste. Testado com 2–3 sorteios (sem a origem (d) e com entradas falsas da Etapa 2). O teste rápido usou dados reais, mas nenhuma decisão foi tomada a partir dele. |
 | `e4_brs_val.py` | Etapa 4: a validação do BRSpeech-DF como segundo teste (B0, B2 e I1 (d), com IC por locutor) e como fonte de adaptação da I2, com o teste na amostra do teste oficial, completa nos locutores. Confere o pareamento dos falsos contra as pontuações do AKCIT. Testado com uma validação falsa (ids e metadata reais, features aleatórias). Roda no servidor. |
+| `e4_pareado.py` | Etapa 4, complemento: diferença pareada I1 (d) − B2 na validação do BRSpeech-DF, em cada representação, com conferência contra o `brs_val.json`. Testado com uma validação falsa. Roda no servidor. |
+| `e5_figuras.py` | Fechamento: as duas figuras do README (`resultados/figuras/`), lidas dos JSON, no estilo do `_figuras.py` do Exp. 02 (paleta categórica validada). |
 | `extrair_brspeech_hf.py` e `preparar_brspeech_hf.py` (Exp. 01) | **Alterados de forma compatível:** ganharam `--divisao` e `--subset`, com padrão `test`, que reproduz o comportamento anterior. Na contagem esperada, os números fixos do teste (1.320 e 6.587) foram trocados pelo tamanho da divisão nos metadados do AKCIT (que, no teste, são os mesmos). |
 | `e1_linhas_de_base.py` | Etapa 1: B0, controle e B1 (pontuações dos Exp. 01 e 02) e B2 (probe limpo, escolhido na validação). EER e minDCF com IC e diferenças pareadas. Grava as pontuações do B2 para as etapas seguintes. Teste rápido com B = 20 numa pasta temporária antes da execução real. |
 
@@ -65,8 +67,11 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
 3. **Disco do PC.** O C: tem cerca de 0,3 GB livres. As features novas da I1 e da variante B1 não
    cabem no PC. O probing que as usa roda no servidor, no ambiente isolado `~/matheus/venv_fase2`
    (com scikit-learn), como no problema 13 do Exp. 02. Só os JSON vêm para o repositório.
-4. **Parâmetros do minDCF.** O artigo do ASVspoof 5 remete os detalhes a um plano de avaliação
-   (fase 2), que não foi aberto. Os valores usados são os que o artigo dá explicitamente.
+4. **Parâmetros do minDCF.** O artigo do ASVspoof 5 remete os detalhes ao plano de avaliação (fase 2).
+   No fechamento, o plano (versão 0.6) foi conferido: os valores (C_miss = 1, C_fa = 10, π_spf = 0,05),
+   a normalização pelo custo padrão (0,5, que dá β = 1,9) e a convenção dos limiares coincidem com a
+   implementação. O PDF não tinha texto extraível pelas ferramentas da web; o texto foi lido
+   descomprimindo os fluxos do próprio arquivo.
 5. **Partições pequenas no VCC 2018.** A validação e o teste têm 3 locutores do VCC 2018 cada. O
    df21 teste tem 20 locutores ao todo; os IC por locutor vão ser largos.
 
@@ -91,6 +96,23 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
     probe limpo, retreinado no servidor, reproduz o B2 da Etapa 1, treinado no PC (diferença máxima de
     0,0001 na camada 12 e de até 0,015 nas outras, entre versões diferentes do scikit-learn).
 
+11. **Taxas de amostragem diferentes entre as classes na validação do BRSpeech-DF.** Na versão do
+    Hugging Face, os genuínos da validação estão a **48 kHz** e os falsos a 24 kHz (amostra de 40 por
+    grupo, no `preparar_brspeech_hf.py`). No teste, as duas classes estão a 24 kHz (Exp. 01). O modelo
+    reamostra tudo para 16 kHz, mas a reamostragem a partir de taxas diferentes pode deixar rastros
+    diferentes por classe, que um probe treinado na validação poderia usar como atalho. O efeito
+    esperado é contra a adaptação (o atalho não existe no teste, onde as duas classes têm a mesma
+    taxa), não a favor. Verificação: a correlação entre as pontuações do detector nos genuínos da
+    validação e as do AKCIT, feitas nos arquivos originais (`e4_brs_val.py`, conferência).
+
+12. **Etapa 4 no servidor.** O download da validação levou ~2 min. A extração e a preparação deram as
+    contagens dos metadados do AKCIT (1.161 e 5.795), sem avisos. A parte (b) do `e4_brs_val.py` levou
+    ~30 min, mais que o previsto, porque o teste usa todos os locutores do teste oficial.
+
 ## 5. Pendências
 
-- Etapas 2 a 4 e fechamento (ver o plano).
+- Revisar a interpretação do README (seções 5.1 a 5.5).
+- A diferença entre I1 (d) e B2 na validação do BRSpeech-DF (20,66% contra 21,53%) não foi testada
+  com IC pareado.
+- O `experimentos/02-diagnostico/PLANO.md` continua fora do git desde a Semana 9 (decisão do
+  pesquisador).

@@ -1,0 +1,40 @@
+{
+  "script": "experimentos/03-intervencao/scripts/e4_brs_val.py",
+  "parametros": {
+    "k": [
+      10,
+      50,
+      200
+    ],
+    "sorteios": 20,
+    "B": 1000,
+    "semente": 0,
+    "min_dcf": {
+      "C_miss": 1.0,
+      "C_fa": 10.0,
+      "pi_spf": 0.05,
+      "fonte": "ASVspoof 5, Track 1: Wang et al. (2024), arXiv:2408.08739, seção 3.1, eqs. (1)-(2)",
+      "beta": 1.9
+    }
+  },
+  "entradas": {
+    "experimentos/02-diagnostico/listas/fase3/amostra.tsv": "e3d50bf21d386a9e090319476cc696de87ebf6cdeb9dcb81b9892f50eef72fdc",
+    "experimentos/02-diagnostico/resultados/fase3/features.npz": "e99f248e89b507545d81a5270324ebb8f4729084c833aedfab41313ba1afa37d",
+    "experimentos/03-intervencao/listas/brs_val/mapa_falsos_csv.tsv": "db197ad09aaa9a7cca80a793f45e2ff6347a2771f0b1c3bd63b9c7bd29d7226e",
+    "experimentos/03-intervencao/listas/brs_val/mapa_falsos_ordenado.tsv": "fad2a94035e78b9a1a311be1f5770e1e15dc0685f7b222c81ed2155e6c76cb42",
+    "experimentos/03-intervencao/listas/brs_val/rotulos.tsv": "e0921b07f7a602f3c39b93a3e9b60e61840f7ea6b4fe3d8ea923e18144e1c2a7",
+    "experimentos/03-intervencao/listas/divisao_df21_eval.tsv": "53f0a9e5742ca3f7cbb8658604c4b131c5c9dab8db877b5fc8962ddf9f59bd50",
+    "experimentos/03-intervencao/resultados/etapa1/linhas_de_base.json": "c700c66e95ef2f6f465498777922b0e79ec1bf856c8487764a8c630e9904647d",
+    "experimentos/03-intervencao/resultados/etapa2/i1.json": "a08871b9a80564dba73600bd0bf82476b74ba83b069db097360c39d630aff049",
+    "experimentos/03-intervencao/resultados/etapa2/i1_treino_reps.npz": "b32ebc875489790af9f563a924f89e0110bac6be66ae3bd234fc55a41e5085a9",
+    "experimentos/03-intervencao/resultados/etapa4/features_brs_val.npz": "6642d94a9749968ddd35d49f3219e750582468061f41c23a5fc7b690902b3f8f",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_brspeech_full_scores.pkl": "996d4f3d702b31761c59d3f7271a7d84b9abf6472af89cda083eca0bcf05e969",
+    "third_party/BRSpeech-DF-Dataset/data/scores/ssl/ssl_sintetico_full_scores.pkl": "94d047e3b262d5407f023e9c1583f7e2beac93983ad5d3cb20f1488f4a7f8ae4"
+  },
+  "saida_sha256": "88298df56f033876a73d833e1023afb2125248b5f19e3dda1f73b6e07c0de7ef",
+  "python": "3.10.12",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "sklearn": "1.7.2",
+  "plataforma": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35"
+}

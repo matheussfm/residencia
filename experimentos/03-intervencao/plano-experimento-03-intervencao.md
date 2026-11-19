@@ -1,6 +1,6 @@
 # Plano do Experimento 03 — Intervenção (Semana 10, última entrega)
 
-Registrado em 18/11/2026. **Gate final: 19/11/2026, entrega até 12h.** Decisão do Matheus (18/11, 18h49): rodar a **linha completa**, em etapas por prioridade; cada etapa termina com resultado e README atualizados. Regras de tempo: ~23h, se as Etapas 2 e 3 não fecharam, parar e documentar; Etapa 4 só com folga; manhã só para revisão e Termo.
+Registrado em 18/11/2026. **Gate final: 19/11/2026, entrega até 12h.** Decisão do Matheus: rodar a **linha completa**, em etapas por prioridade; cada etapa termina com resultado e README atualizados. Regras de tempo: ~23h, se as Etapas 2 e 3 não fecharam, parar e documentar; Etapa 4 só com folga; manhã só para revisão e Termo.
 
 ## Pergunta
 O Exp. 02 concluiu que a informação para separar real e falso existe nas camadas do XLS-R, mas a regra de decisão aprendida no ASVspoof não transfere ("o gargalo são os dados da regra"). O Exp. 03 testa essa conclusão intervindo nela:
@@ -14,7 +14,7 @@ O Exp. 02 concluiu que a informação para separar real e falso existe nas camad
 - **2 — I1, aumento nas duas classes:** conjuntos (a) +reverberação RT60 0,2–1,0 s; (b) +silêncio/volume; (c) +canal (telefone, MP3 16 kbps); (d) tudo. Extração com f3_extrair.py; probe limpo × limpo+(a..d); Δ pareado e custo no df21 teste. Variante: (d) sobre teste normalizado (volume_padronizar). Não usar perturbações da Fase 2 como teste (circular).
 - **3 — I2, poucos exemplos em português:** k = 10, 50, 200; locutores e TTS disjuntos (3 TTS adaptação, 2 teste, rodízio); 20 sorteios; partindo do probe limpo e do (d).
 - **4 — Divisões de treino/validação do BRSpeech-DF (opcional):** checar tamanho antes; fonte de adaptação com teste oficial intocado e segundo teste mais representativo.
-- **Fechamento:** tabela B0/B1/B2/I1/I1+B1/I2/I1+I2 (EER e minDCF); nulos registrados; PROCESSO; Uso de LLM; Trabalho futuro (retreino completo com aumento; ASVspoof 5, MLAAD, AASIST puro; emoção/velocidade com RAVDESS e VC).
+- **Fechamento:** tabela B0/B1/B2/I1/I1+B1/I2/I1+I2 (EER e minDCF); nulos registrados; PROCESSO; Trabalho futuro (retreino completo com aumento; ASVspoof 5, MLAAD, AASIST puro; emoção/velocidade com RAVDESS e VC).
 
 ## Princípios
 - Modelo do Tak congelado.

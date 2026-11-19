@@ -36,7 +36,7 @@
     "experimentos/03-intervencao/resultados/etapa2/i1.json": "a08871b9a80564dba73600bd0bf82476b74ba83b069db097360c39d630aff049",
     "experimentos/03-intervencao/resultados/etapa2/i1_treino_reps.npz": "b32ebc875489790af9f563a924f89e0110bac6be66ae3bd234fc55a41e5085a9"
   },
-  "saida_sha256": "8a057d1b7a05d703fd2c9d07c5dae23b620983b88eba799d5b3298d9d2bb591f",
+  "saida_sha256": "f73349040a4c87039551f95d749fab3538264fdba1ab60803c446b43a591ee57",
   "python": "3.13.12",
   "numpy": "2.4.4",
   "scipy": "1.17.1",

@@ -6,8 +6,8 @@ sintética existe nas camadas do XLS-R, mas a regra de decisão aprendida no ASV
 AASIST, com o checkpoint publicado e **congelado**: nada do modelo é treinado. Só se treinam
 classificadores lineares (probes) sobre as representações dele.
 
-> Status: Etapas 0 (pré-registro, métricas e divisão), 1 (linhas de base), 2 (I1) e 3 (I2)
-> concluídas. Etapa 4 (opcional) e fechamento pendentes. As seções 1 a 4 foram escritas **antes** de qualquer resultado do Exp. 03.
+> Status: concluído (Semana 10). Etapas 0 (pré-registro, métricas e divisão), 1 (linhas de base),
+> 2 (I1), 3 (I2) e 4 (validação do BRSpeech-DF, com a divisão de treino fora por tamanho). As seções 1 a 4 foram escritas **antes** de qualquer resultado do Exp. 03.
 
 ---
 
@@ -41,8 +41,11 @@ fecha a coluna "intervir no treino" da matriz de testes da Semana 9.
   β = (C_miss / C_fa)·(1 − π_spf)/π_spf, C_miss = 1, C_fa = 10 e π_spf = 0,05, o que dá β ≈ 1,90.
   P_miss é a taxa de genuínos rejeitados e P_fa, a de falsos aceitos. O minDCF é o mínimo sobre os
   limiares. Aceitar tudo dá DCF = 1, então minDCF ≤ 1. Os parâmetros foram conferidos no artigo do
-  ASVspoof 5. O artigo remete os detalhes a um plano de avaliação, que não foi consultado
-  diretamente. Os parâmetros ficam gravados em todo `.meta.json`.
+  ASVspoof 5 e no plano de avaliação [7] (versão 0.6, Apêndice 11.1, equação 1 e Tabela 1). O plano
+  define a DCF bruta, C_miss·(1 − π_spf)·P_miss + C_fa·π_spf·P_fa, e a normaliza pelo custo padrão
+  min{C_miss·(1 − π_spf); C_fa·π_spf} = 0,5, o que dá a mesma forma β·P_miss + P_fa. A convenção dos
+  limiares também é a mesma do plano: um miss é um genuíno com pontuação < τ, e um falso alarme é um
+  falso com pontuação ≥ τ. Os parâmetros ficam gravados em todo `.meta.json`.
 - **IC de 95% por bootstrap de locutores** (B = 1.000) e **diferença pareada**: os mesmos locutores
   sorteados nas duas condições comparadas (`_diag.py`, como na Fase 2b do Exp. 02).
 - **Aumento de dados** com as funções do `f2_perturbar.py` do Exp. 02 (reverberação sintética,
@@ -401,12 +404,209 @@ EER mediana por TTS de teste (camada 5, k = 200; 8 sorteios por TTS):
    sorteio 17, todos os métodos ficam em ~58%. Com 10 locutores, a I2 dá a direção, mas não um número
    preciso.
 
+**Custo fora do português.** Cada probe adaptado também foi avaliado no df21 teste (domínio de origem)
+e no In-the-Wild (EER mediana sobre os 20 sorteios [p10; p90]). Referências sem adaptação: B2 com
+0,57% e 7,60% (camada 12) e 1,55% e 14,47% (camada 5); I1 (d) com 1,55% e 9,20% (camada 12) e 3,25%
+e 16,40% (camada 5).
+
+| Probe adaptado | BRSpeech-DF | df21 teste | In-the-Wild |
+|---|---|---|---|
+| A limpo, camada 12, k = 50 | 30,8% | 1,5% [0,8; 1,9] | 13,9% [11,0; 16,9] |
+| A (d), camada 12, k = 50 | 29,5% | 1,8% [1,1; 2,1] | 12,4% [10,4; 14,8] |
+| B só alvo, camada 12, k = 50 | 34,9% | **41,9%** [12,6; 61,8] | **40,5%** [25,3; 51,1] |
+| A limpo, camada 5, k = 200 | 18,8% | 2,5% [2,1; 3,3] | 25,6% [19,4; 32,0] |
+| A (d), camada 5, k = 50 | 21,3% | 4,1% [3,2; 5,4] | 22,5% [18,6; 25,9] |
+| A (d), camada 5, k = 200 | 18,4% | 4,5% [3,5; 5,1] | 23,7% [20,7; 27,2] |
+| B só alvo, camada 5, k = 200 | 19,7% | **34,1%** [14,5; 46,4] | **44,3%** [26,8; 56,3] |
+
+8. **Um probe treinado só com o português não serve em mais nada.** A forma B fica perto do acaso no
+   df21 teste e no In-the-Wild (28–46% em todos os k e camadas). O ganho dela no BRSpeech-DF é
+   específico do domínio.
+9. **A forma A segura o domínio de origem, mas paga no In-the-Wild.** No df21 teste, o custo é de 0,2 a
+   1,3 ponto em relação ao probe de partida na mesma camada. No In-the-Wild, a adaptação ao português
+   piora 2,5 a 11 pontos. A melhor receita para o português (camada 5 + origem + alvo) é a pior
+   para o In-the-Wild (22–26%, contra 9,80% do detector). Isso reforça a leitura 2 da Etapa 1:
+   **não há, com estas representações e um classificador linear, uma regra única que vá bem nos três
+   cenários.**
+
+### 5.4 Etapa 4: a validação do BRSpeech-DF
+
+(`e4_brs_val.py`; `resultados/etapa4/brs_val.json`, `e4_log.txt`.) A divisão de validação do
+Hugging Face (3,5 GB; 1.161 genuínos e 5.795 falsos, ~1.160 por TTS) tem 10 locutores, disjuntos dos
+do teste e do treino. A de treino (147,5 GB) não foi usada.
+
+**Conferências.**
+- O locutor de cada falso vem do mapa "ordenado" do Exp. 01. Contra as pontuações do AKCIT, a
+  correlação é de 0,845 por esse mapa e de 0,034 pelo mapa alternativo; no teste, no Exp. 01, tinha
+  sido 0,82 contra 0,11.
+- Os genuínos da validação estão a 48 kHz e os falsos a 24 kHz, enquanto no teste as duas classes
+  estão a 24 kHz (PROCESSO, problema 11). A correlação entre as nossas pontuações dos genuínos e as do
+  AKCIT, feitas nos originais, é de 0,915 (no teste: 0,946). Nada indica que a reamostragem mude o que
+  o detector vê, mas a diferença fica registrada como confundidor possível.
+
+**(a) Segundo teste: outros 10 locutores em português.**
+
+| Método | EER [IC 95%] | minDCF | Δ contra B0 (pp) |
+|---|---|---|---|
+| B0 detector | **23,17%** [14,05; 32,66] | 0,669 | — |
+| B2 limpo, camada 12 | 21,53% [12,75; 30,74] | 0,616 | −1,64 [−3,34; −0,02] |
+| I1 (d), camada 12 | 20,66% [12,12; 30,20] | 0,595 | −2,52 [−4,50; −0,90] |
+| B2 limpo, camada 5 | 19,97% [13,44; 24,20] | 0,528 | −3,21 [−9,29; +0,58] |
+| I1 (d), camada 24 | 20,50% [12,73; 29,62] | 0,583 | −2,67 [−5,17; −0,29] |
+
+- **O detector erra 23% na validação, contra 39% no teste oficial.** Com dados e pré-processamento
+  nossos, isso confirma o que o Exp. 02 viu com as pontuações do AKCIT (seção 4.6: teste oficial no
+  percentil 94; todas as divisões juntas, 22%). **O número publicado do BRSpeech-DF superestima a
+  dificuldade média.**
+- **O padrão "poucos locutores ruins" se repete:** 2 dos 10 locutores (4067, com 52,6%, e 12710, com
+  38,0%) contra 6,9–14,5% na maioria.
+- Na validação, os probes melhoram de 1,6 a 2,7 pontos contra o detector, com IC que exclui o zero na
+  camada 12 e no I1 (d). É um ganho pequeno. A diferença entre I1 (d) e B2 não foi testada diretamente.
+
+**(b) I2 com adaptação nos locutores da validação e teste no teste oficial, completo nos locutores.**
+Mesmo rodízio de TTS da Etapa 3 (3 TTS na adaptação, 2 no teste, 20 sorteios). Os locutores são
+disjuntos por construção, e o teste tem sempre os mesmos 10 locutores: a variação entre sorteios vem
+só dos exemplos e dos TTS.
+
+| k por classe | B0 | A limpo, camada 12 | A (d), camada 12 | A limpo, camada 5 | A (d), camada 5 | B só alvo, camada 5 |
+|---|---|---|---|---|---|---|
+| 0 | 40,1% [33,0; 42,4] | 36,5% (B2) | 36,6% (I1 d) | 29,9% (B2) | 30,4% (I1 d) | — |
+| 10 | | 35,7% | 36,1% | 28,9% | **26,4%** [23,7; 31,4] | 30,5% |
+| 50 | | 31,7% | 34,0% | 25,4% | **23,2%** [15,9; 27,7] | 24,3% |
+| 200 | | 29,6% | 32,0% | 21,5% | **20,9%** [15,2; 25,4] | 18,3% |
+
+- **A Etapa 3 se reproduz com locutores totalmente separados.** Na camada 5, A (d) melhora o detector em
+  12,9, 17,6 e 19,0 pontos com k = 10, 50 e 200, em todos os 20 sorteios. Os valores (23,2% com k = 50)
+  ficam perto dos da Etapa 3 (21,3%), com faixa p10–p90 bem mais estreita.
+- **Os locutores "ruins" do teste se recuperam em parte:** de 57,5% (detector) para 36,8% com A (d) e
+  k = 50, e para 27,2% com 200 exemplos só do alvo, na camada 5. Nos "bons", 7–11% na maioria dos
+  métodos com k ≥ 50. Com poucos
+  exemplos reais, a regra aprende o canal desses locutores, o que o aumento sintético da I1 não fez.
+- **Na camada 5, o aumento (d) se soma aos poucos exemplos:** A (d) − A limpo dá −2,2 a −3,0 pontos, em
+  95–100% dos sorteios. É a confirmação mais clara de I1 + I2 no experimento, ainda que pequena. Na
+  camada 12, ao contrário, o (d) piora (+1,0 a +2,4).
+- **A origem ajuda na camada 12** (A melhor que B em 65–80% dos sorteios). Na camada 5, com 200
+  exemplos, o alvo sozinho já vai melhor (18,3% contra 21,5%).
+
+### 5.5 Síntese: tabela final
+
+![Linhas de base e I1 por cenário](resultados/figuras/metodos.png)
+
+![I2 por número de exemplos, Etapas 3 e 4](resultados/figuras/i2.png)
+
+(`e5_figuras.py`, a partir dos JSON, sem recalcular nada.) EER e minDCF de cada linha de base e intervenção. Representação principal: a escolhida na validação
+da origem (camada 12), salvo indicação.
+
+| Método | In-the-Wild | BRSpeech-DF teste | Hidden track, completa | Hidden track, só teste | df21 teste |
+|---|---|---|---|---|---|
+| B0 detector | 9,80% · 0,278 | 39,47% · 1,000 | 12,30% · 0,315 | 13,09% · 0,318 | 4,10% · 0,104 |
+| B1 detector + normalização | **4,20%** · 0,115 | 41,21% · 0,998 | 7,60% · 0,143 | 8,40% · 0,150 | 3,25% · 0,050 |
+| B2 probe limpo | 7,60% · 0,206 | 36,21% · 1,000 | **6,60%** · 0,152 | 6,91% · 0,174 | **0,57%** · 0,016 |
+| I1 (d) probe com aumento | 9,20% · 0,245 | 36,36% · 1,000 | 7,50% · 0,154 | 6,91% · 0,145 | 1,55% · 0,020 |
+| I1 (d) + B1 | 4,80% · 0,127 | 39,39% · 1,000 | 7,20% · 0,140 | 8,40% · 0,132 | 2,12% · 0,037 |
+| I2, A limpo, k = 50 * | 13,9% | 30,8% · 0,807 | — | — | 1,5% |
+| I1 + I2, A (d), k = 50 * | 12,4% | 29,5% · 0,795 | — | — | 1,8% |
+| I1 + I2, A (d), **camada 5**, k = 50 * | 22,5% | **21,3%** · 0,553 | — | — | 4,1% |
+
+\* Medianas sobre os 20 sorteios da Etapa 3. No BRSpeech-DF, os subconjuntos de teste têm só os
+locutores e os TTS fora da adaptação; neles, o detector (B0) tem mediana de 38,2% e minDCF de 0,999.
+No In-the-Wild e no df21 teste, é o mesmo probe adaptado, avaliado fora do português.
+
+BRSpeech-DF na Etapa 4, com outros locutores:
+
+| Método | Validação como segundo teste | I2 adaptada na validação, teste oficial (k = 50) ** |
+|---|---|---|
+| B0 detector | 23,17% · 0,669 | 40,1% · 1,000 |
+| B2 probe limpo | 21,53% · 0,616 | 36,5% (k = 0) |
+| I1 (d) | 20,66% · 0,595 | 36,6% (k = 0) |
+| I2, A limpo | — | 31,7% · 0,892 |
+| I1 + I2, A (d), camada 5 | — | **23,2%** · 0,619 |
+
+\*\* Medianas sobre 20 sorteios; teste com os 10 locutores do teste oficial e os 2 TTS fora da
+adaptação.
+
+**Resposta às perguntas (seção 2):**
+
+1. **Sem nenhum dado do alvo, aprender a regra com dados de origem aumentados nos fatores
+   identificados não generaliza melhor.** O probe com aumento (I1) não supera o probe limpo em nenhum
+   cenário fora do domínio, e a reverberação sintética chega a piorar. O que funciona sem dado do alvo
+   é mudar a **entrada**, não a regra: normalizar volume e silêncio leva o In-the-Wild de 9,80% para
+   4,20% com o próprio detector.
+2. **Com poucos exemplos do alvo, numa avaliação justa, recupera-se parte, mas bem menos que o Exp. 02
+   sugeria.** Com 50 exemplos por classe, de outros locutores e outros TTS, o BRSpeech-DF vai de ~38%
+   para ~30% (camada 12) ou ~21% (camada 5), contra 8,7% no Exp. 02, onde o gerador era visto. O
+   resultado se reproduz com adaptação em locutores totalmente separados (Etapa 4: 40,1% → 23,2%, em
+   todos os sorteios). F5-TTS e Fish-Speech são a fronteira.
+3. **Não há uma receita única.** A mais barata para o In-the-Wild é normalizar a entrada (B1), sem
+   treino e sem custo significativo no df21 teste. Para o português, é adaptar uma camada inicial do
+   XLS-R com dezenas de exemplos do alvo, mantendo a origem no treino, o que custa de 0,2 a 1,3 ponto
+   no df21 teste e de 2,5 a 11 pontos no In-the-Wild. Cada cenário pede uma regra diferente.
+
+**O que isso diz sobre o Exp. 02.** "A informação existe no front-end; o gargalo são os dados da
+regra" continua de pé, com duas correções. A informação que separa o português no próprio domínio é,
+em parte, informação sobre o gerador visto. E os dados que faltam à regra não se substituem por
+simulações dos fatores de canal e silêncio: é preciso **dado real do domínio**, e mesmo assim a regra
+adaptada a um domínio perde em outro.
+
 ## 6. Validação
 
 - `e0_testar.py`: o minDCF coincide com uma varredura por força bruta em 200 casos sintéticos, com
   empates; dá 0 com classes separadas e 1 com pontuações iguais ou invertidas; a diferença pareada
   de uma pontuação com ela mesma é 0, com IC [0, 0].
 - `e0_dividir.py`: nenhum locutor em mais de uma partição; as três origens em todas as partições.
+- **Etapa 1:** B0 nos ids da amostra reproduz o Exp. 02 (9,8%, 39,5% e 12,3%), e B1 na hidden track
+  reproduz a Fase 2c (7,60%).
+- **Etapa 2:**
+  - o probe limpo, retreinado no servidor (scikit-learn 1.7.2), reproduz o B2 do PC (1.8.0), com
+    diferença máxima de 0,0001 na camada 12;
+  - as pontuações do detector gravadas na extração dos áudios normalizados reproduzem as da Fase 2c
+    (correlação de 0,99999999996);
+  - o aumento muda o que o detector vê na ordem esperada (seção 5.2);
+  - a semente do aumento reproduz o mesmo sorteio no PC e no servidor (o mesmo RT60 no mesmo trial).
+- **Etapa 3:** nenhum sorteio pulado; os pesos da forma A conferidos por célula; os mesmos sorteios e
+  exemplos para todos os métodos.
+- Todos os scripts foram testados antes da execução real, com dados sintéticos ou falsos de mesmo
+  formato, e cada execução real começou por um teste rápido.
+- Todo JSON tem um `.meta.json` com o SHA-256 das entradas, as versões e os parâmetros (inclusive os
+  do minDCF). Os arquivos trazidos do servidor foram conferidos por SHA-256.
+
+## 7. Resultados nulos e o que fica em aberto
+
+Registrados como resultados, não como falhas:
+
+- **I1 não melhora a regra fora do domínio** em nenhuma variante, com a escolha honesta (seção 5.2).
+- **A reverberação sintética no treino piora** a hidden track e o BRSpeech-DF e custa no domínio de
+  origem, embora seja o fator causal mais forte da Fase 2.
+- **Normalizar a entrada e aumentar o treino não se somam**, e a normalização piora os probes no
+  BRSpeech-DF.
+- **O vazamento de locutores na hidden track pesa pouco** (6,60% contra 6,91%).
+- **A origem não atrapalha a adaptação** (a forma B nunca é melhor que a A de forma consistente).
+- A previsão de que **o (d) e os poucos exemplos se somam** só se confirma na camada 5, e de leve
+  (2 a 3 pontos, consistente nos sorteios da Etapa 4); na camada 12, o (d) piora.
+- **Os probes quase não melhoram a segunda divisão em português** (validação: 1,6 a 2,7 pontos), onde
+  o detector já erra 23%.
+
+## 8. Trabalho futuro
+
+- **Retreinar o detector inteiro com aumento de dados direcionado**, no ASVspoof 2019 LA, em vez de só
+  um probe linear sobre o modelo congelado. É o teste mais forte da conclusão "o gargalo são os dados
+  da regra", e o nulo da I1 não o substitui. De preferência, com **respostas ao impulso de salas reais**
+  no lugar da reverberação sintética, e com corte e acréscimo de silêncio nas duas classes.
+- **Escolher a representação com os próprios exemplos do alvo** (validação cruzada nos k exemplos). Na
+  I2, a camada 5 é 6 a 17 pontos melhor que a 12, escolhida pela origem.
+- **Mais dados e outros detectores:**
+  - a divisão de treino do BRSpeech-DF (42 locutores, 147,5 GB), como fonte de adaptação maior;
+  - o ASVspoof 5 [2], como origem mais recente e diversa;
+  - o MLAAD (Müller et al., 2024; arXiv:2401.09512), para isolar o fator idioma;
+  - um segundo detector rodado por nós (por exemplo, o AASIST puro, sem front-end
+    auto-supervisionado), para saber se o padrão é do modelo ou da abordagem.
+- **Outro corpus de fala real em português**, para separar "sinal de síntese" de artefato do processo de
+  geração do BRSpeech-DF. A I2 mostrou que esse artefato existe.
+- **Emoção e velocidade de fala**, fatores ainda não testados. A fala emocional real de um corpus como o
+  RAVDESS contra conversão de voz (VC) da mesma fala testaria se o detector confunde expressividade
+  com síntese.
+- **A hipótese semântica**, em pausa desde a Semana 9, para os casos em que o diagnóstico mostrou que a
+  acústica não basta: geradores recentes (F5-TTS, Fish-Speech) e locutores com canal degradado.
 
 ## Reprodutibilidade
 
@@ -460,7 +660,10 @@ bash $S nenhuma python preparar_brspeech_hf.py --raiz /dados/brspeech_df/hf_val 
 bash $S 0 python $E --lista ../../03-intervencao/listas/brs_val/lista.tsv $CK --saida ../../03-intervencao/resultados/etapa4/features_brs_val.npz
 cd experimentos/03-intervencao/scripts && source ~/matheus/venv_fase2/bin/activate
 python -B e4_brs_val.py --features-val ../resultados/etapa4/features_brs_val.npz --lista-val ../listas/brs_val
+python -B e4_pareado.py --features-val ../resultados/etapa4/features_brs_val.npz --lista-val ../listas/brs_val
 ```
+
+Figuras (PC): `python -B e5_figuras.py`.
 
 ## Referências
 
@@ -474,3 +677,6 @@ python -B e4_brs_val.py --features-val ../resultados/etapa4/features_brs_val.npz
 5. N. M. Müller et al. *Speech is Silver, Silence is Golden: What do ASVspoof-trained Models Really
    Learn?* ASVspoof 2021 Workshop. arXiv:2106.12914.
 6. Experimento 02 deste repositório: `experimentos/02-diagnostico/README.md`.
+7. H. Delgado et al. *ASVspoof 5 Evaluation Plan*. Versão 0.6, 28/06/2024.
+   https://www.asvspoof.org/file/ASVspoof5___Evaluation_Plan_Phase2.pdf (Apêndice 11.1: métrica da
+   Track 1).

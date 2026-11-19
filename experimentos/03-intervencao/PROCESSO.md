@@ -112,7 +112,5 @@ A linha foi organizada em etapas por prioridade. Cada etapa termina com resultad
 ## 5. Pendências
 
 - Revisar a interpretação do README (seções 5.1 a 5.5).
-- A diferença entre I1 (d) e B2 na validação do BRSpeech-DF (20,66% contra 21,53%) não foi testada
-  com IC pareado.
 - O `experimentos/02-diagnostico/PLANO.md` continua fora do git desde a Semana 9 (decisão do
   pesquisador).

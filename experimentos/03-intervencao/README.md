@@ -461,7 +461,11 @@ do teste e do treino. A de treino (147,5 GB) não foi usada.
 - **O padrão "poucos locutores ruins" se repete:** 2 dos 10 locutores (4067, com 52,6%, e 12710, com
   38,0%) contra 6,9–14,5% na maioria.
 - Na validação, os probes melhoram de 1,6 a 2,7 pontos contra o detector, com IC que exclui o zero na
-  camada 12 e no I1 (d). É um ganho pequeno. A diferença entre I1 (d) e B2 não foi testada diretamente.
+  camada 12 e no I1 (d). É um ganho pequeno.
+- **I1 (d) contra B2, pareado** (`e4_pareado.py`; `resultados/etapa4/pareado.json`): −0,88 pp
+  [−2,41; +0,41] na camada 12, −0,60 [−2,66; +0,97] na 24, −0,10 [−1,55; +0,91] no AASIST e +2,17
+  [−1,33; +4,81] na 5. Todos os IC incluem o zero. **O nulo da I1 se repete com outros 10 locutores em
+  português.** (Os probes retreinados reproduzem exatamente os do `brs_val.json`.)
 
 **(b) I2 com adaptação nos locutores da validação e teste no teste oficial, completo nos locutores.**
 Mesmo rodízio de TTS da Etapa 3 (3 TTS na adaptação, 2 no teste, 20 sorteios). Os locutores são
@@ -574,7 +578,8 @@ adaptada a um domínio perde em outro.
 
 Registrados como resultados, não como falhas:
 
-- **I1 não melhora a regra fora do domínio** em nenhuma variante, com a escolha honesta (seção 5.2).
+- **I1 não melhora a regra fora do domínio** em nenhuma variante, com a escolha honesta (seção 5.2), e
+  o nulo se repete na validação do BRSpeech-DF (seção 5.4).
 - **A reverberação sintética no treino piora** a hidden track e o BRSpeech-DF e custa no domínio de
   origem, embora seja o fator causal mais forte da Fase 2.
 - **Normalizar a entrada e aumentar o treino não se somam**, e a normalização piora os probes no
